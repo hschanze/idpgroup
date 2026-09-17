@@ -23,7 +23,4 @@ https://www.iaa.tu-bs.de/henschan
 
 ## License
 
-TODO: Provide information on the license of your package. A license is
-important as it determines who has a right to distribute your package. The
-"default" license to consider is GNU General Public License v2 or later, as
-that is the license of GAP itself.
+The idpgroup package is licensed under the GNU General Public License v2.0 or later. A copy of this license is included.
