@@ -1,0 +1,71 @@
+  
+  
+                                   [1X IdPGroup [101X
+  
+  
+               [1X Identification functions for different p-groups [101X
+  
+  
+                                      1.0
+  
+  
+                                 11 August 2026
+  
+  
+                                 Henrik Schanze
+  
+  
+  
+  Henrik Schanze
+      Email:    [7Xmailto:henrik.schanze@tu-braunschweig.de[107X
+      Homepage: [7Xhttps://www.iaa.tu-bs.de/henschan[107X
+      Address:  [33X[0;14YUniversitaetsplatz 2[133X
+  
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (IdPGroup)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+  2 [33X[0;0YFunctionality[133X
+    2.1 [33X[0;0YIdentifying groups via a search tree[133X
+      2.1-1 IdGroup512
+      2.1-2 ID_GROUP_512_TREE
+      2.1-3 LoadTotalTree
+      2.1-4 IdGroup512Exceptions
+    2.2 [33X[0;0YLoading (strong) siblings[133X
+      2.2-1 SiblingsIds
+      2.2-2 Siblings
+      2.2-3 StrongSiblingsIds
+      2.2-4 StrongSiblings
+    2.3 [33X[0;0YFunctions for calculating (strong) siblings[133X
+      2.3-1 SplitBinsViaTest
+      2.3-2 CalculateSiblings
+      2.3-3 DetermineBrauerPairs
+      2.3-4 CalculateStrongSiblings
+    2.4 [33X[0;0YTable of bins of groups[133X
+      2.4-1 TableOfGroupInvariants
+      2.4-2 DetermineMIPInTable
+      2.4-3 DetermineIsoclinicInTable
+      2.4-4 MergeTablesOfInvariants
+      2.4-5 PrintTableToFile
+    2.5 [33X[0;0YFunctions for building a search tree[133X
+      2.5-1 IdPGroup_Pack
+      2.5-2 ClusterConjClasses
+      2.5-3 PowerMapCocCycSt
+      2.5-4 ClusterList
+      2.5-5 TestOnGroup
+      2.5-6 TestOnClusterList
+      2.5-7 AddClusterTestResults
+      2.5-8 BuildSearchTree
+      2.5-9 FindParametersForCocTest
+      2.5-10 DeEncodeDesc
+      2.5-11 AlterCocAccordingToFp
+      2.5-12 CocSplitRoutine
+      2.5-13 CocTestOnClusterList
+      2.5-14 ParametersRandPresentTest
+  
+  
+  [32X

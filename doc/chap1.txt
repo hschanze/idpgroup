@@ -1,0 +1,27 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YThe purpose of the [5XIdPGroup[105X package is to implement identification functions
+  for  different [23Xp[123X-groups, which are implemented in the [5XSmallGrps[105X library, but
+  lack   an  effective  identification  routine  in  it.  The  first  function
+  identifies  the groups of order 512. This is done by calculating a number of
+  invariants  of  a  given  group  and  comparing  them with the values of all
+  possible  candidates  via  a  precalculated search tree. More details can be
+  found in section [14X2.1[114X.[133X
+  
+  [33X[0;0YSection  [14X2.2[114X  introduces  the  definitions of (strong) siblings and includes
+  functions to load all such sets of groups of certain order.[133X
+  
+  [33X[0;0YFunctions that were used to calculate these lists of groups and which can be
+  used to calculate them for different orders can be found in section [14X2.3[114X.[133X
+  
+  [33X[0;0YOnce  such  sets  of  groups  are  determined one might want to examine them
+  further   by   checking   certain  properties  and  calculating  additionaly
+  invariants. In Section [14X2.4[114X one can find functions to calculate some selected
+  invarants  and  properties for such sets and export them into LaTeX-readable
+  lines of code.[133X
+  
+  [33X[0;0YFinally  section  [14X2.5[114X  describes  all  funcions  that were used to build the
+  search tree in the descirbed identification routine and which can be used to
+  build other such trees.[133X
+  

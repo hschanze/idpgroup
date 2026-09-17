@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_Introduction">
+<Heading>Introduction</Heading>
+
+<P/>
+ The purpose of the &IdPGroup; package is to implement identification functions for
+ different <Math>p</Math>-groups, which are implemented in the &SmallGrps; library, but lack
+ an effective identification routine in it.
+ The first function identifies the groups of order 512. This is done by calculating
+ a number of invariants of a given group and comparing them with the values of all
+ possible candidates via a precalculated search tree. More details can be found in
+ section <Ref Sect='Section_Identification'/>.
+<P/>
+ Section <Ref Sect='Section_Load'/> introduces the definitions of (strong) siblings
+ and includes functions to load all such sets of groups of certain order.
+<P/>
+ Functions that were used to calculate these lists of groups and which can be used to
+ calculate them for different orders can be found in section
+ <Ref Sect='Section_Calculate'/>.
+<P/>
+ Once such sets of groups are determined one might want to examine them further by
+ checking certain properties and calculating additionaly invariants. In
+ Section <Ref Sect='Section_Table'/> one can find functions to calculate some
+ selected invarants and properties for such sets and export them into LaTeX-readable
+ lines of code.
+<P/>
+ Finally section <Ref Sect='Section_Build'/> describes all funcions that were used
+ to build the search tree in the descirbed identification routine and which
+ can be used to build other such trees.
+</Chapter>
+
