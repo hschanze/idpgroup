@@ -427,7 +427,7 @@ DeclareGlobalFunction("PrintTableToFile");
 #! gap> IdPGroup_Pack([[1,2,3], [606, 1405]]);
 #! 19765
 #! @EndExampleSession
-DeclareGlobalFunction("IdPGroup_Pack");
+#DeclareGlobalFunction("IdPGroup_Pack");
 
 #! @Arguments G
 #! @Returns A list of lists containing the conjugacy classes of <A>G</A>.
@@ -435,7 +435,7 @@ DeclareGlobalFunction("IdPGroup_Pack");
 #! Computes the conjugacy classes of the group <A>G</A> and clusters them
 #! such that each clusters contains all classes of a certain length and
 #! certain representative order (meaning the order of any representative).
-DeclareGlobalFunction("ClusterConjClasses");
+#DeclareGlobalFunction("ClusterConjClasses");
 
 #! @Arguments coc, n
 #! @Returns A lists of lists of lists of integers
@@ -446,7 +446,7 @@ DeclareGlobalFunction("ClusterConjClasses");
 #! Finally the cycle structure of each permutation associated to a cluster
 #! is examined via `CycleStructurePerm` and saved as a list of integers
 #! (undound entries are replaced by 0).
-DeclareGlobalFunction("PowerMapCocCycSt");
+#DeclareGlobalFunction("PowerMapCocCycSt");
 
 #! @Arguments tree
 #! @Returns A list of all clusters of groups in <A>tree</A>
@@ -697,7 +697,7 @@ DeclareGlobalFunction("FindParametersForCocTest");
 #! gap> DeEncodeDesc(302004);
 #! [3, 2, 4]
 #! @EndExampleSession
-DeclareGlobalFunction("DeEncodeDesc");
+#DeclareGlobalFunction("DeEncodeDesc");
 
 #! @Arguments coc, desc, fp
 #! @Returns A list of lists containing the conjugacy classes of a group.
@@ -715,7 +715,7 @@ DeclareGlobalFunction("DeEncodeDesc");
 #! gap> List(cocnew, Size);
 #! [ 1, 12, 3, 4, 24, 12, 48 ]
 #! @EndExampleSession
-DeclareGlobalFunction("AlterCocAccordingToFp");
+#DeclareGlobalFunction("AlterCocAccordingToFp");
 
 #! @Arguments Ids, order, desclist, iterate
 #! @Returns A search tree (implemented as a record).
