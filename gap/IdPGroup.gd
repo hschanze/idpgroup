@@ -245,7 +245,7 @@ DeclareGlobalName("BINS_OF_IDS");
 #! gap> SplitBinsViaTest([[1..10]], 512, "MaxSubId");
 #! [ [ 1 ], [ 2 ], [ 3, 8 ], [ 4 ], [ 5 ], [ 6, 7 ], [ 9 ], [ 10 ] ]
 #! @EndExampleSession
-DeclareGlobalFunction("SplitBinsViaTest");
+#DeclareGlobalFunction("SplitBinsViaTest");
 
 #! @Arguments order [,verbose]
 #! @Returns A list of lists of ids of groups of size <A>order</A> that are
@@ -277,7 +277,7 @@ DeclareGlobalFunction("CalculateSiblings");
 #! @Description
 #! Determines the Brauer pairs among the bins of ids of groups of size
 #! <A>order</A> listed in <A>Bins</A>.
-DeclareGlobalFunction("DetermineBrauerPairs");
+#DeclareGlobalFunction("DetermineBrauerPairs");
 
 #! @Arguments order [,verbose]
 #! @Returns A list of lists of ids of groups of size <A>order</A> that are
@@ -300,13 +300,13 @@ DeclareGlobalFunction("CalculateStrongSiblings");
 #Splits list of ids of groups of size <A>order</A> in <A>Bin</A>, if their
 #outer automorphism groups are isomorphic, via `IsPqIsomorphicPGroup`
 #from the &Anupq; package.
-DeclareGlobalFunction("SplitExactOutEqv");
+#DeclareGlobalFunction("SplitExactOutEqv");
 
 #Takes a list of bins with ids of groups of size <A>order</A> and evaluates
 #which are outer-automorphism equivalent. If <A>exact</A> = <K>true</K>, sets
 #of groups which could not be ruled out to be equivalent are testet via
 #`SplitExactOutEqv`. Otherwise these sets are simply included.
-DeclareGlobalFunction("BinsOfOutEqGroups");
+#DeclareGlobalFunction("BinsOfOutEqGroups");
 
 #! @Section Table of bins of groups
 #! @SectionLabel Table
@@ -683,7 +683,7 @@ DeclareGlobalFunction("BuildSearchTree");
 #! gap> FindParametersForCocTest(Coc, [], 1, 2);
 #! [ [ 8, 18 ], [ [ 1, 9, 3 ], [ 2, 14, 9 ] ] ]
 #! @EndExampleSession
-DeclareGlobalFunction("FindParametersForCocTest");
+#DeclareGlobalFunction("FindParametersForCocTest");
 
 #! @Arguments desc
 #! @Returns An interger or a list of integers
@@ -737,7 +737,7 @@ DeclareGlobalFunction("FindParametersForCocTest");
 #!    [ rec( desc := [ 107003, 212007 ], fp := [ 14, 618 ],
 #!     next := [ [ 1529 ], [ 1530 ] ] ), [ 1531 ] ] )
 #! @EndExampleSession
-DeclareGlobalFunction("CocSplitRoutine");
+#DeclareGlobalFunction("CocSplitRoutine");
 
 #! @Arguments CL [,opt]
 #! @Returns A list of pairs each containing the path of the respective cluster
