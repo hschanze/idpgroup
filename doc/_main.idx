@@ -1,3 +1,4 @@
+\indexentry{InfoId512@\texttt  {InfoId512}|hyperpage}{5}
 \indexentry{IdGroup512@\texttt  {IdGroup512}|hyperpage}{5}
 \indexentry{ID{\textunderscore }GROUP{\textunderscore }512{\textunderscore }TREE@\texttt  {ID{\textunderscore }}\-\texttt  {G}\-\texttt  {R}\-\texttt  {O}\-\texttt  {U}\-\texttt  {P{\textunderscore }512{\textunderscore }}\-\texttt  {TREE}|hyperpage}{6}
 \indexentry{LoadTotalTree@\texttt  {LoadTotalTree}|hyperpage}{6}
@@ -6,26 +7,12 @@
 \indexentry{Siblings@\texttt  {Siblings}|hyperpage}{7}
 \indexentry{StrongSiblingsIds@\texttt  {StrongSiblingsIds}|hyperpage}{7}
 \indexentry{StrongSiblings@\texttt  {StrongSiblings}|hyperpage}{8}
-\indexentry{SplitBinsViaTest@\texttt  {SplitBinsViaTest}|hyperpage}{8}
 \indexentry{CalculateSiblings@\texttt  {CalculateSiblings}|hyperpage}{8}
-\indexentry{DetermineBrauerPairs@\texttt  {DetermineBrauerPairs}|hyperpage}{9}
-\indexentry{CalculateStrongSiblings@\texttt  {CalculateStrongSiblings}|hyperpage}{9}
-\indexentry{TableOfGroupInvariants@\texttt  {TableOfGroupInvariants}|hyperpage}{9}
-\indexentry{DetermineMIPInTable@\texttt  {DetermineMIPInTable}|hyperpage}{10}
-\indexentry{DetermineIsoclinicInTable@\texttt  {DetermineIsoclinicInTable}|hyperpage}{10}
-\indexentry{MergeTablesOfInvariants@\texttt  {MergeTablesOfInvariants}|hyperpage}{10}
-\indexentry{PrintTableToFile@\texttt  {PrintTableToFile}|hyperpage}{10}
-\indexentry{IdPGroup{\textunderscore }Pack@\texttt  {IdPGroup{\textunderscore }Pack}|hyperpage}{11}
-\indexentry{ClusterConjClasses@\texttt  {ClusterConjClasses}|hyperpage}{11}
-\indexentry{PowerMapCocCycSt@\texttt  {PowerMapCocCycSt}|hyperpage}{11}
-\indexentry{ClusterList@\texttt  {ClusterList}|hyperpage}{12}
-\indexentry{TestOnGroup@\texttt  {TestOnGroup}|hyperpage}{12}
-\indexentry{TestOnClusterList@\texttt  {TestOnClusterList}|hyperpage}{13}
-\indexentry{AddClusterTestResults@\texttt  {AddClusterTestResults}|hyperpage}{14}
-\indexentry{BuildSearchTree@\texttt  {BuildSearchTree}|hyperpage}{15}
-\indexentry{FindParametersForCocTest@\texttt  {FindParametersForCocTest}|hyperpage}{15}
-\indexentry{DeEncodeDesc@\texttt  {DeEncodeDesc}|hyperpage}{16}
-\indexentry{AlterCocAccordingToFp@\texttt  {AlterCocAccordingToFp}|hyperpage}{16}
-\indexentry{CocSplitRoutine@\texttt  {CocSplitRoutine}|hyperpage}{16}
-\indexentry{CocTestOnClusterList@\texttt  {CocTestOnClusterList}|hyperpage}{17}
-\indexentry{ParametersRandPresentTest@\texttt  {ParametersRandPresentTest}|hyperpage}{18}
+\indexentry{CalculateStrongSiblings@\texttt  {CalculateStrongSiblings}|hyperpage}{8}
+\indexentry{ClusterList@\texttt  {ClusterList}|hyperpage}{9}
+\indexentry{TestOnGroup@\texttt  {TestOnGroup}|hyperpage}{10}
+\indexentry{TestOnClusterList@\texttt  {TestOnClusterList}|hyperpage}{11}
+\indexentry{AddClusterTestResults@\texttt  {AddClusterTestResults}|hyperpage}{12}
+\indexentry{BuildSearchTree@\texttt  {BuildSearchTree}|hyperpage}{12}
+\indexentry{CocTestOnClusterList@\texttt  {CocTestOnClusterList}|hyperpage}{12}
+\indexentry{ParametersRandPresentTest@\texttt  {ParametersRandPresentTest}|hyperpage}{13}

@@ -7,86 +7,85 @@
   [1X2.1 [33X[0;0YIdentifying groups via a search tree[133X[101X
   
   [33X[0;0YThis  section  briefly describes the functions and variables of this package
-  associated  to the identification of an arbitrary group of order 512 via the
-  search  tree  [2XID_GROUP_512_TREE[102X ([14X2.1-2[114X). When saying 'identify a group [22XG[122X' we
-  want to find an [13Xid[113X such that [10XSmallGroup(512, id)[110X is isomorphic to [22XG[122X.[133X
+  associated  to  the  identification of an arbitrary group of order 512 via a
+  search  tree.  By  'identify' a group [22XG[122X we mean that we want to find [13Xid[113X such
+  that  [10XSmallGroup(512,  id)[110X  is  isomorphic to [22XG[122X. This is done by calculating
+  invariants  and  comparing  them  with the ones of the remaining candidates.
+  This process is organized in the tree [2XID_GROUP_512_TREE[102X ([14X2.1-3[114X).[133X
   
-  [33X[0;0YThe used tree is implement as a nested record with the following components:[133X
+  [33X[0;0YThe   used  tree  is  implemented  as  nested  records  with  the  following
+  components:[133X
   
-  [30X    [33X[0;6Y"fp":  a  list  of integers, each being the encoded fingerprint of the
-        group  resulting from the specific test performed at the current level
-        of  the  identification  routine. Each integer is gained from appyling
-        [2XIdPGroup_Pack[102X ([14X2.5-1[114X) to the fingerprint.[133X
+  [30X    [33X[0;6Y"fp": a list of integers, each being the encoded fingerprint of groups
+        resulting from the specific test performed at the current level of the
+        identification routine.[133X
   
   [30X    [33X[0;6Y"next":  a list comprised of the resprective subbranches corresponding
         to  the fingerprints in "fp". This is either a list of ids or a branch
         implemented as a record itself.[133X
   
-  [33X[0;0YDepending  on  the  level  each  record  also  has  one of the following two
-  components:[133X
+  [33X[0;0YDepending on the depth in the tree each record also has one of the following
+  two components:[133X
   
   [30X    [33X[0;6Y"test":  a  string  that indicates which test was used via [2XTestOnGroup[102X
-        ([14X2.5-5[114X) to create the listed fingerprints.[133X
+        ([14X2.4-2[114X) to create the listed fingerprints.[133X
   
   [30X    [33X[0;6Y"desc":  a list of integers that encode a description of the performed
-        test using [10XEvalFpCoc[110X.[133X
+        powermap-test[133X
   
-  [33X[0;0YThe  first  levels of [2XID_GROUP_512_TREE[102X ([14X2.1-2[114X) try to distinguish groups by
+  [33X[0;0YThe  first  levels of [2XID_GROUP_512_TREE[102X ([14X2.1-3[114X) try to distinguish groups by
   the following invariants:[133X
   
-  [30X    [33X[0;6YThe rank of the group.[133X
+  [30X    [33X[0;6Ythe rank of the group,[133X
   
-  [30X    [33X[0;6YThe collected orders of all elements of the group.[133X
+  [30X    [33X[0;6Ythe collected orders of all elements of the group,[133X
   
-  [30X    [33X[0;6YThe  numbers  of  conjugacy  classes of each length and representative
-        order (the order of the elements in the class) of the group.[133X
+  [30X    [33X[0;6Ythe  numbers  of  conjugacy  classes of each length and representative
+        order (the order of the elements in the class) of the group,[133X
   
-  [30X    [33X[0;6YThe  isomorphism type of the parent of the group, i.e. the quotient of
+  [30X    [33X[0;6Ythe  isomorphism type of the parent of the group, i.e. the quotient of
         the  group and the smallest non-trivial element of the lower-[23Xp[123X-central
-        series.[133X
+        series,[133X
   
-  [30X    [33X[0;6YThe  abelian invarants, i.e. the isomorphism types of the quotients of
-        the derived series.[133X
+  [30X    [33X[0;6Ythe  abelian invarants, i.e. the isomorphism types of the quotients of
+        the derived series and[133X
   
-  [30X    [33X[0;6YThe  cycle  structure  of  the permutations induced on all clusters of
+  [30X    [33X[0;6Ythe  cycle  structure  of  the permutations induced on all clusters of
         conjugacy classes of same length and representative order by the power
         map [23Xx\mapsto x^3[123X.[133X
   
   [33X[0;0YIf  necessary  these  invariants  are  followed by invaraints resulting from
-  tests evaluated on partitions of [22XG[122X.[133X
-  
-  [33X[0;0YThe  initial  partition  is  made of the conjugacy classes of [22XG[122X grouped such
-  that  conjugacy  classes  of  the  same length and same representative order
-  belong  to the same partitioning subset. The results of [10XEvalFpCoc[110X applied to
-  a  partition  give the invaraints used to distinguish groups in these levels
-  of  the search tree. The exact behaviour is determined by the content of the
-  component  "desc".  After  the  evaluation  of  each  test, the partition is
-  refined according to the result of [10XEvalFpCoc[110X.[133X
+  tests  evaluated  on  partitions  of [22XG[122X. The initial partition is made of the
+  conjugacy  classes  of  [22XG[122X  grouped  such  that conjugacy classes of the same
+  length and same representative order belong to the same partitioning subset.
+  The  results  of a power map applied to a partition give the invaraints used
+  to  distinguish  groups  in  these  levels  of  the  search  tree. The exact
+  behaviour  is  determined  by the content of the component "desc". After the
+  evaluation of each test, the partition is refined according to the result.[133X
   
   [33X[0;0YIf  the  preceding  invaraints  do not lead to a single group, the following
   (more time consuming) invaraints are calculated.[133X
   
   [30X    [33X[0;6YThe  isomorphism  types of the non-trivial factors formed by the group
         and   elements   of   the   smallest   non-trivial   element   of  the
-        lower-p-central series.[133X
+        lower-p-central series,[133X
   
-  [30X    [33X[0;6YThe  isomorphism  types of the non-trivial factors formed by the group
-        and elements of the center.[133X
+  [30X    [33X[0;6Ythe  isomorphism  types of the non-trivial factors formed by the group
+        and elements of the center and[133X
   
-  [30X    [33X[0;6YThe isomorphism types of all maximal subgroups.[133X
+  [30X    [33X[0;6Ythe isomorphism types of all maximal subgroups.[133X
   
   [33X[0;0YRemaining  are 139 pairs and 1 triplet of groups of unidentified groups. All
-  these groups are distinguished by a random isomorphism test. That is done by
-  selecting  random  elements  from  predefined clusters of conjugacy classes,
-  that were used and potentially refined before, until these elements generate
-  the  group.  This  list  of  generators  is  then turned into a [10Xpcgs[110X and the
-  presentation  encoded  into  an  integer  by the funtion [10XCodeGenerators[110X. The
-  resulting   integer   modulo  99661  is  then  compared  with  precalculated
-  fingerprints  of the candidate groups. If none of the fingerprints coincides
-  the  process  is  repeated. Thus the runtime of the identification for these
-  groups is not constant.[133X
+  these  groups are distinguished by a random isomorphism test the same way as
+  groups of order 256 are finally distinguished in the [5XSmallGrps[105X library.[133X
   
-  [1X2.1-1 IdGroup512[101X
+  [1X2.1-1 InfoId512[101X
+  
+  [33X[1;0Y[29X[2XInfoId512[102X [32X info class[133X
+  
+  [33X[0;0YInfo class for the identification routine of groups of order 512.[133X
+  
+  [1X2.1-2 IdGroup512[101X
   
   [33X[1;0Y[29X[2XIdGroup512[102X( [3XG[103X[, [3Xopt[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YThe id of the group of order 512 that is isomorphic to [3XG[103X.[133X
@@ -121,7 +120,7 @@
     [4X[28X449[128X[104X
   [4X[32X[104X
   
-  [1X2.1-2 ID_GROUP_512_TREE[101X
+  [1X2.1-3 ID_GROUP_512_TREE[101X
   
   [33X[1;0Y[29X[2XID_GROUP_512_TREE[102X [32X global variable[133X
   
@@ -129,16 +128,16 @@
   of  groups. At the beginning only a small part is loaded. Other branches are
   loaded if necessary.[133X
   
-  [1X2.1-3 LoadTotalTree[101X
+  [1X2.1-4 LoadTotalTree[101X
   
-  [33X[1;0Y[29X[2XLoadTotalTree[102X( [3Xarg[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XLoadTotalTree[102X(  ) [32X function[133X
   
-  [33X[0;0YLoads the entire search tree [2XID_GROUP_512_TREE[102X ([14X2.1-2[114X).[133X
+  [33X[0;0YLoads the entire search tree [2XID_GROUP_512_TREE[102X ([14X2.1-3[114X).[133X
   
-  [1X2.1-4 IdGroup512Exceptions[101X
+  [1X2.1-5 IdGroup512Exceptions[101X
   
-  [33X[1;0Y[29X[2XIdGroup512Exceptions[102X( [3Xarg[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA  list  of  bins of group-ids, that [2XID_GROUP_512_TREE[102X ([14X2.1-2[114X) can
+  [33X[1;0Y[29X[2XIdGroup512Exceptions[102X(  ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA  list  of  bins of group-ids, that [2XID_GROUP_512_TREE[102X ([14X2.1-3[114X) can
             not distinguish without random isomorphism tests.[133X
   
   [4X[32X  Example  [32X[104X
@@ -182,15 +181,13 @@
   
   [30X    [33X[0;6Yall orders of the form [23Xp\,q[123X for [23Xp[123X and [23Xq[123X primes,[133X
   
-  [30X    [33X[0;6Yall powers of two smaller than [23X2^9[123X[133X
+  [30X    [33X[0;6Yall powers of 2 smaller than [23X2^9[123X[133X
   
-  [30X    [33X[0;6Yall powers of three smaller than [23X3^5[123X[133X
+  [30X    [33X[0;6Yall powers of 3 smaller than [23X3^5[123X[133X
   
-  [30X    [33X[0;6Yall powers of a prime smaller than [23Xp^4 [123X[133X
+  [30X    [33X[0;6Yall powers of a prime smaller than [23Xp^4[123X and[133X
   
-  [30X    [33X[0;6Yall products of two powers and[133X
-  
-  [30X    [33X[0;6Yall  orders  smaller  than 255 except 60, 120, 160, 168, 180, 189, 192
+  [30X    [33X[0;6Yall  orders  smaller  than 256 except 60, 120, 160, 168, 180, 189, 192
         and 240.[133X
   
   [33X[0;0YIf  no  list is available for the provided order [10Xfail[110X is returned. If a list
@@ -224,15 +221,13 @@
   
   [30X    [33X[0;6Yall orders of the form [23Xp\,q[123X for [23Xp[123X and [23Xq[123X primes,[133X
   
-  [30X    [33X[0;6Yall powers of two smaller than [23X2^9[123X[133X
+  [30X    [33X[0;6Yall powers of 2 smaller than [23X2^9[123X[133X
   
-  [30X    [33X[0;6Yall powers of three smaller than [23X3^5[123X[133X
+  [30X    [33X[0;6Yall powers of 3 smaller than [23X3^5[123X[133X
   
-  [30X    [33X[0;6Yall powers of a prime smaller than [23Xp^4 [123X[133X
+  [30X    [33X[0;6Yall powers of a prime smaller than [23Xp^4[123X and[133X
   
-  [30X    [33X[0;6Yall products of two powers and[133X
-  
-  [30X    [33X[0;6Yall  orders  smaller  than 255 except 60, 120, 160, 168, 180, 189, 192
+  [30X    [33X[0;6Yall  orders  smaller  than 256 except 60, 120, 160, 168, 180, 189, 192
         and 240.[133X
   
   [33X[0;0YIf  no  list is available for the provided order [10Xfail[110X is returned. If a list
@@ -261,30 +256,15 @@
   [33X[0;0YThis  section describes all functions for calculating (strong) siblings of a
   given order.[133X
   
-  [1X2.3-1 SplitBinsViaTest[101X
+  [1X2.3-1 CalculateSiblings[101X
   
-  [33X[1;0Y[29X[2XSplitBinsViaTest[102X( [3XBins[103X, [3Xorder[103X, [3Xtest[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of sublists of the provided lists in [3XBins[103X.[133X
-  
-  [33X[0;0YTakes  a  list  of bins with ids of groups of size [3Xorder[103X and splits them via
-  the outcome of [3Xtest[103X implemented in [10XTestOnGroup[110X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XSplitBinsViaTest([[1..10]], 512, "MaxSubId");[127X[104X
-    [4X[28X[ [ 1 ], [ 2 ], [ 3, 8 ], [ 4 ], [ 5 ], [ 6, 7 ], [ 9 ], [ 10 ] ][128X[104X
-  [4X[32X[104X
-  
-  [1X2.3-2 CalculateSiblings[101X
-  
-  [33X[1;0Y[29X[2XCalculateSiblings[102X( [3Xorder[103X[, [3Xverbose[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XCalculateSiblings[102X( [3Xorder[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA list of lists of ids of groups of size [3Xorder[103X that are siblings.[133X
   
-  [33X[0;0YDetermines  all  siblings  among  the  groups  of  size  [3Xorder[103X  by  applying
-  [2XSplitBinsViaTest[102X  ([14X2.3-1[114X)  with  the  tests  [10X"MaxSubId"[110X, [10X"SpSubId"[110X, [10X"SubId"[110X,
-  [10X"MaxFactId"[110X  and  [10X"FactId"[110X  iterativly. The tests [10X"MaxSubId"[110X and [10X"MaxFactId"[110X
-  are not necessary, but are efficient and eliminate some sets before applying
-  the  more  costly tests. The boolean [3Xverbose[103X controls if a collection of bin
-  sizes is printed after each test ([9Xtrue[109X as default).[133X
+  [33X[0;0YDetermines all siblings among the groups of size [3Xorder[103X by applying the tests
+  [10X"MaxSubId"[110X,  [10X"SpSubId"[110X,  [10X"SubId"[110X,  [10X"MaxFactId"[110X  and [10X"FactId"[110X iterativly. The
+  tests  [10X"MaxSubId"[110X  and  [10X"MaxFactId"[110X are not necessary, but are efficient and
+  eliminate some sets before applying the more costly tests.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XCalculateSiblings(128);[127X[104X
@@ -298,24 +278,14 @@
     [4X[28X[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ][128X[104X
   [4X[32X[104X
   
-  [1X2.3-3 DetermineBrauerPairs[101X
-  
-  [33X[1;0Y[29X[2XDetermineBrauerPairs[102X( [3XBins[103X, [3Xorder[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of sublists of the provided lists in [3XBins[103X.[133X
-  
-  [33X[0;0YDetermines  the  Brauer  pairs among the bins of ids of groups of size [3Xorder[103X
-  listed in [3XBins[103X.[133X
-  
-  [1X2.3-4 CalculateStrongSiblings[101X
+  [1X2.3-2 CalculateStrongSiblings[101X
   
   [33X[1;0Y[29X[2XCalculateStrongSiblings[102X( [3Xorder[103X[, [3Xverbose[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA  list  of  lists  of ids of groups of size [3Xorder[103X that are strong
             siblings.[133X
   
-  [33X[0;0YFirst calculats all siblings of size [3Xorder[103X via [2XCalculateSiblings[102X ([14X2.3-2[114X) and
-  then  determines  all  strong  siblings  among these by [2XDetermineBrauerPairs[102X
-  ([14X2.3-3[114X).  The  boolean  [3Xverbose[103X  controls  if  a  collection of bin sizes is
-  printed after each test while siblings are calculated ([9Xtrue[109X as default).[133X
+  [33X[0;0YFirst calculats all siblings of size [3Xorder[103X via [2XCalculateSiblings[102X ([14X2.3-1[114X) and
+  then determines all strong siblings among them.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XCalculateStrongSiblings(256, false);[127X[104X
@@ -324,165 +294,40 @@
   [4X[32X[104X
   
   
-  [1X2.4 [33X[0;0YTable of bins of groups[133X[101X
-  
-  [33X[0;0YThis  section  includes  the functions of the package that create and fill a
-  table  for  bins  of  groups,  listing certain invaraints and properties and
-  exporting this table as rows of a latex-tables.[133X
-  
-  [1X2.4-1 TableOfGroupInvariants[101X
-  
-  [33X[1;0Y[29X[2XTableOfGroupInvariants[102X( [3XBins[103X, [3Xorder[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of records.[133X
-  
-  [33X[0;0YCalculates some invariants and properties for the groups of order [3Xorder[103X with
-  ids in lists of [3Xbins[103X. If the invariants are equal for all groups of a bin, a
-  record listing all information is added to the returned list. The calculated
-  invariants are:[133X
-  
-  [30X    [33X[0;6Ythe rank of the groups,[133X
-  
-  [30X    [33X[0;6Ythe [23Xp[123X-class of the groups,[133X
-  
-  [30X    [33X[0;6Ythe size of the groups of automorphisms.[133X
-  
-  [33X[0;0YFurthermore the following properties are examined for the groups of a bin:[133X
-  
-  [30X    [33X[0;6YAre  the groups outer-automorphism-equivaleant, i.e. are the groups of
-        outer-automorphism isomorphic?[133X
-  
-  [30X    [33X[0;6YAre the groups isoclinic?[133X
-  
-  [30X    [33X[0;6YAre  the  groups a modular isomorphic pair (MIP), i.e. are their group
-        rings over a field of characteristic p isomorphic?[133X
-  
-  [33X[0;0YThe last two properties are not examined and left as an empty string in this
-  function,   but   can   be   filled   via  [2XDetermineMIPInTable[102X  ([14X2.4-2[114X)  and
-  [2XDetermineIsoclinicInTable[102X ([14X2.4-3[114X).[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XBins := StrongSiblingsIds(512, [1, 5, 14]);[127X[104X
-    [4X[28X[ [ 1364, 1368 ], [ 1680, 1681 ], [ 15826, 15827 ] ][128X[104X
-    [4X[25Xgap>[125X [27XTableOfGroupInvariants(Bins, 512);[127X[104X
-    [4X[28X[ rec( OutEqv := "yes", SizeAut := 8192, ids := [ 1364, 1368 ],[128X[104X
-    [4X[28X       isoclinic := "",  mip := "", pclass := 5, rank := 2 ),[128X[104X
-    [4X[28X rec( OutEqv := "yes", SizeAut := 16384, ids := [ 1680, 1681 ],[128X[104X
-    [4X[28X      isoclinic := "", mip := "", pclass := 5, rank := 2 ),[128X[104X
-    [4X[28X rec( OutEqv := "no", SizeAut := 65536, ids := [ 15826, 15827 ],[128X[104X
-    [4X[28X      isoclinic := "", mip := "", pclass := 3, rank := 3 ) ][128X[104X
-  [4X[32X[104X
-  
-  [1X2.4-2 DetermineMIPInTable[101X
-  
-  [33X[1;0Y[29X[2XDetermineMIPInTable[102X( [3Xtab[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of records.[133X
-  
-  [33X[0;0YDetermines  if  the  sets  of  groups  represented by the records in [3Xtab[103X are
-  modular  isomorphic  pairs  using  the  [5XModIsom[105X package. This information is
-  added  to each record of [3Xtab[103X and the updated list is returned. This function
-  is  included  in  an  extension  of  the  package  and only available if the
-  respective package is loaded.[133X
-  
-  [1X2.4-3 DetermineIsoclinicInTable[101X
-  
-  [33X[1;0Y[29X[2XDetermineIsoclinicInTable[102X( [3Xtab[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of records.[133X
-  
-  [33X[0;0YDetermines  if  the  sets  of  groups  represented by the records in [3Xtab[103X are
-  isoclinic  using  the [5XXMod[105X package. This information is added to each record
-  and  the  of  [3Xtab[103X  updated list is returned. This function is included in an
-  extension  of  the  package  and only available if the respective package is
-  loaded.[133X
-  
-  [1X2.4-4 MergeTablesOfInvariants[101X
-  
-  [33X[1;0Y[29X[2XMergeTablesOfInvariants[102X( [3Xtab1[103X, [3Xtab2[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of records.[133X
-  
-  [33X[0;0YMerges  the  tables  [3Xtab1[103X and [3Xtab2[103X into one table. If a record entry of only
-  one  is  the  empty  string  the  non-empty string is used. This enables the
-  parallel    computation    of    e.g.    [2XDetermineMIPInTable[102X   ([14X2.4-2[114X)   and
-  [2XDetermineIsoclinicInTable[102X ([14X2.4-3[114X).[133X
-  
-  [1X2.4-5 PrintTableToFile[101X
-  
-  [33X[1;0Y[29X[2XPrintTableToFile[102X( [3Xtab[103X, [3Xfilename[103X ) [32X function[133X
-  
-  [33X[0;0YExports  the content of the table [3Xtab[103X into "[3Xfilename[103X_table.txt" as rows of a
-  latex table.[133X
-  
-  
-  [1X2.5 [33X[0;0YFunctions for building a search tree[133X[101X
+  [1X2.4 [33X[0;0YFunctions for building a search tree[133X[101X
   
   [33X[0;0YThis  section  describes all functions and variables connected to building a
-  search  tree that can be used with [2XIdGroup512[102X ([14X2.1-1[114X) to identify groups via
+  search  tree that can be used with [2XIdGroup512[102X ([14X2.1-2[114X) to identify groups via
   implemented invariants.[133X
   
   [33X[0;0YIn  short  this is done be initializing a tree via calling [2XTestOnClusterList[102X
-  ([14X2.5-6[114X)  with a selected test on a list of (lists of) ids of groups of given
+  ([14X2.4-3[114X)  with a selected test on a list of (lists of) ids of groups of given
   order and then iteratnig the following three steps[133X
   
-  [30X    [33X[0;6YCollecting the clusters of the curent tree via [2XClusterList[102X ([14X2.5-4[114X),[133X
+  [30X    [33X[0;6YCollecting the clusters of the curent tree via [2XClusterList[102X ([14X2.4-1[114X),[133X
   
   [30X    [33X[0;6YPerforming  a  choosen  test  on  these clusters via [2XTestOnClusterList[102X
-        ([14X2.5-6[114X),[133X
+        ([14X2.4-3[114X),[133X
   
   [30X    [33X[0;6YExtending  the  tree with these test results via [2XAddClusterTestResults[102X
-        ([14X2.5-7[114X).[133X
+        ([14X2.4-4[114X).[133X
   
   [33X[0;0YA   very   effective   set   of   invaraints  can  be  obtained  by  calling
-  [2XCocTestOnClusterList[102X  ([14X2.5-13[114X)  in the second step. This should only be done
+  [2XCocTestOnClusterList[102X  ([14X2.4-6[114X)  in  the second step. This should only be done
   when the groups of each provided cluster yields the same value when the test
   [10XCocList[110X  is  applied. Furthermore these invaraints should be used for as few
-  as  possible  clusters since [2XCocTestOnClusterList[102X ([14X2.5-13[114X) includes a search
+  as  possible  clusters  since [2XCocTestOnClusterList[102X ([14X2.4-6[114X) includes a search
   for suitable parameters than can take quite some time.[133X
   
-  [1X2.5-1 IdPGroup_Pack[101X
-  
-  [33X[1;0Y[29X[2XIdPGroup_Pack[102X( [3Xlist[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YAn interger encoding the content of [3Xlist[103X.[133X
-  
-  [33X[0;0YEncodes the content of the provided [3Xlist[103X into an integer.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XIdPGroup_Pack([1,2,3]);[127X[104X
-    [4X[28X123[128X[104X
-    [4X[25Xgap>[125X [27XIdPGroup_Pack([606, 109, 1405]);[127X[104X
-    [4X[28X63095[128X[104X
-    [4X[25Xgap>[125X [27XIdPGroup_Pack([[1,2,3], [606, 1405]]);[127X[104X
-    [4X[28X19765[128X[104X
-  [4X[32X[104X
-  
-  [1X2.5-2 ClusterConjClasses[101X
-  
-  [33X[1;0Y[29X[2XClusterConjClasses[102X( [3XG[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of lists containing the conjugacy classes of [3XG[103X.[133X
-  
-  [33X[0;0YComputes  the  conjugacy  classes of the group [3XG[103X and clusters them such that
-  each  clusters  contains  all  classes  of  a  certain  length  and  certain
-  representative order (meaning the order of any representative).[133X
-  
-  [1X2.5-3 PowerMapCocCycSt[101X
-  
-  [33X[1;0Y[29X[2XPowerMapCocCycSt[102X( [3Xcoc[103X, [3Xn[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA lists of lists of lists of integers[133X
-  
-  [33X[0;0YExamines  the  permutation  induced  by  the  power map [23Xx\mapsto x^n[123X on each
-  cluster of [3Xcoc[103X. If a class of a cluster is fixed, the permutation within the
-  class  is  determined and added to the lists of permutations of the cluster.
-  Finally  the  cycle structure of each permutation associated to a cluster is
-  examined  via  [10XCycleStructurePerm[110X  and  saved as a list of integers (undound
-  entries are replaced by 0).[133X
-  
-  [1X2.5-4 ClusterList[101X
+  [1X2.4-1 ClusterList[101X
   
   [33X[1;0Y[29X[2XClusterList[102X( [3Xtree[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA list of all clusters of groups in [3Xtree[103X (i.e. the leafs of [3Xtree[103X).[133X
   
   [33X[0;0YIterates  through [3Xtree[103X and collects information about each leaf as a record.
   This  includes  the  size  of the leaf, the path through [3Xtree[103X leading to the
-  leaf,    the   tests   performed   including   descriptions   of   performed
-  [10XEvalFpCoc[110X-tests and the ids of the groups contained in the leaf.[133X
+  leaf, the tests performed including descriptions of performed powermap-tests
+  and the ids of the groups contained in the leaf.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27Xtree := rec( fp := [ 63049, 75721, 4310 ],  next := [ [ 3, 8 ], [ 4 ],[127X[104X
@@ -499,7 +344,7 @@
     [4X[28X       tests := [ "ElmOrds", "MaxSubId" ] ) ][128X[104X
   [4X[32X[104X
   
-  [1X2.5-5 TestOnGroup[101X
+  [1X2.4-2 TestOnGroup[101X
   
   [33X[1;0Y[29X[2XTestOnGroup[102X( [3XG[103X, [3Xtest[103X[, [3Xopt[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YThe result of [3Xtest[103X applied to [3XG[103X, if desried encoded as an integer.[133X
@@ -564,8 +409,8 @@
         maximal subgroups and minimal supergroups.[133X
   
   [33X[0;0YThis  function  accepts  a  record  [3Xopt[103X  of  options with the single content
-  [3Xopt.pack[103X,  a  boolean  that determines if [10XIdPGroup_Pack[110X should be applied to
-  the result of a test. The default value of [3Xopt[103X is [22Xrec(pack:=[122X[9Xtrue[109X[22X)[122X.[133X
+  [3Xopt.pack[103X,  a  boolean  that  determines  if  the  result of a test should be
+  encoded as an integer. The default value of [3Xopt[103X is [22Xrec(pack:=[122X[9Xtrue[109X[22X)[122X.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XG := SmallGroup(512, 1405);;[127X[104X
@@ -575,7 +420,7 @@
     [4X[28X[ [ 1, 1 ], [ 2, 7 ], [ 4, 24 ], [ 8, 288 ], [ 16, 64 ], [ 32, 128 ] ][128X[104X
   [4X[32X[104X
   
-  [1X2.5-6 TestOnClusterList[101X
+  [1X2.4-3 TestOnClusterList[101X
   
   [33X[1;0Y[29X[2XTestOnClusterList[102X( [3XCL[103X, [3Xtest[103X[, [3Xopt[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YEither  a  list  of pairs each containg the path to the respective
@@ -586,8 +431,8 @@
             returned on its own.[133X
   
   [33X[0;0YPerforms  the choosen test on the groups of each record in the [3XCL[103X. The tests
-  are  performed  by [2XTestOnGroup[102X ([14X2.5-5[114X). [3XCL[103X could either be a list of records
-  produced by [2XClusterList[102X ([14X2.5-4[114X) or be a list of lists containing ids. In the
+  are  performed  by [2XTestOnGroup[102X ([14X2.4-2[114X). [3XCL[103X could either be a list of records
+  produced by [2XClusterList[102X ([14X2.4-1[114X) or be a list of lists containing ids. In the
   former case the output is a list of pairs containg the path of a cluster and
   the  subbranch  resulting  from  the test. In the latter case only a list of
   subbranches  is  returned.  If in the latter case the returned list only one
@@ -595,7 +440,7 @@
   when  building  the  first  level  of a search tree. This function accepts a
   record [3Xopt[103X of options with the following content:[133X
   
-  [30X    [33X[0;6Y[3Xpack[103X: A boolean that is handed to [2XTestOnGroup[102X ([14X2.5-5[114X).[133X
+  [30X    [33X[0;6Y[3Xpack[103X: A boolean that is handed to [2XTestOnGroup[102X ([14X2.4-2[114X).[133X
   
   [30X    [33X[0;6Y[3Xign1cl[103X:  A  boolean  that  determines  if clusters of size 1 should be
         ignored.[133X
@@ -634,7 +479,7 @@
     [4X[28X  [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ] ) ] ][128X[104X
   [4X[32X[104X
   
-  [1X2.5-7 AddClusterTestResults[101X
+  [1X2.4-4 AddClusterTestResults[101X
   
   [33X[1;0Y[29X[2XAddClusterTestResults[102X( [3Xtree[103X, [3XTR[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YThe extended [3Xtree[103X with the subbranches in [3XTR[103X.[133X
@@ -657,13 +502,13 @@
     [4X[28X     test := "MaxSubId") ], test := "ElmOrds" )[128X[104X
   [4X[32X[104X
   
-  [1X2.5-8 BuildSearchTree[101X
+  [1X2.4-5 BuildSearchTree[101X
   
   [33X[1;0Y[29X[2XBuildSearchTree[102X( [3XN[103X, [3Xorder[103X, [3Xtests[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA search tree (implemented as a record).[133X
   
   [33X[0;0YBuilds  a  search  tree for the groups with ids in [3XN[103X or, if [3XN[103X is an integer,
-  the  first  [3XN[103X groups of size [3Xorder[103X, using [2XTestOnClusterList[102X ([14X2.5-6[114X) with the
+  the  first  [3XN[103X groups of size [3Xorder[103X, using [2XTestOnClusterList[102X ([14X2.4-3[114X) with the
   tests from the list [3Xtests[103X.[133X
   
   [4X[32X  Example  [32X[104X
@@ -677,137 +522,18 @@
     [4X[28X     test := "CocList" ), [ 3 ] ], test := "ElmOrds" )[128X[104X
   [4X[32X[104X
   
-  [1X2.5-9 FindParametersForCocTest[101X
-  
-  [33X[1;0Y[29X[2XFindParametersForCocTest[102X( [3XCoc[103X, [3Xparalist[103X, [3Xit[103X, [3Xmaxit[103X[, [3Xopt[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA  pair  made of a list of return values from [10XEvalFpCoc[110X and a list
-            describing the test performed by [10XEvalFpCoc[110X.[133X
-  
-  [33X[0;0YDoes  a  parameter  search such that evaluating [10XEvalFpCoc[110X on the clusters of
-  conjugacy  classes  in  [3Xcoc[103X  results in at least two different values. If no
-  suitable  parameters  are  found,  the  function  calls itself iterativly on
-  parameters  that  alter  [3XCoc[103X  until  either a suitable list of parameters is
-  found  or  [3Xit[103X is equal to [3Xmaxit[103X. The parameters of the current iteration are
-  provided  in the list [3Xparalist[103X. If the function is initialized with [3Xit[103X=0, it
-  only  returns a list of parameters that alter the clusters in [3XCoc[103X. Depending
-  on  the  size  of [3Xcoc[103X their can be a lot of parameters to check. To decrease
-  the needed time the following configurations are skipped:[133X
-  
-  [30X    [33X[0;6Y[23X[1,i,j][123X,  where  the  representative  order  of  [3Xcoc[i][103X  and j are not
-        coprime.[133X
-  
-  [30X    [33X[0;6Y[23X[2,i,j][123X,  where  the  representative  order of [3Xcoc[i][103X is less or equal
-        then  the  order  of  [3Xcoc[j][103X or the length of the classes in [3Xcoc[i][103X is
-        less then the ones of [3Xcoc[j][103X.[133X
-  
-  [30X    [33X[0;6Y[23X[3,i,j][123X,  where  the representative order of [3Xcoc[i][103X is larger or equal
-        then  the  order  of  [3Xcoc[j][103X or the length of the classes in [3Xcoc[i][103X is
-        larger then the ones of [3Xcoc[j][103X.[133X
-  
-  [30X    [33X[0;6Y[23X[4,i,j,k][123X,  where either the classes in [3Xcoc[i][103X or [3Xcoc[j][103X are of length
-        one.[133X
-  
-  [30X    [33X[0;6Y[23X[5,i,j,k][123X,  where either the classes in [3Xcoc[i][103X or [3Xcoc[j][103X are of length
-        one.[133X
-  
-  [33X[0;0YThis function accepts a record [3Xopt[103X of options with the following content:[133X
-  
-  [30X    [33X[0;6Y[3Xtarget[103X:  A list of integers that determines the desired second entries
-        of the parameters.[133X
-  
-  [30X    [33X[0;6Y[3Xmaxlevel[103X:  An  integer  that  determines  the  maximal first parameter
-        entry.  That  might  be  useful, since the parameters for test 4 and 5
-        often need more time then the rest.[133X
-  
-  [33X[0;0YThe default value of [3Xopt[103X is [22Xrec(target:=[1..Size(Coc[1])], maxlevel:=5[122X.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XCoc:=List([3, 8],id->ClusterConjClasses(SmallGroup(512, id)));;[127X[104X
-    [4X[25Xgap>[125X [27XFindParametersForCocTest(Coc, [], 1, 1);[127X[104X
-    [4X[28X[ [ 1363, 46760 ], [ 3, 2, 4 ] ][128X[104X
-    [4X[25Xgap>[125X [27XFindParametersForCocTest(Coc, [], 1, 1, rec(target:=[4]));[127X[104X
-    [4X[28X[ [ 63010, 76026 ], [ [ 4, 4, 6, 5 ] ] ][128X[104X
-    [4X[25Xgap>[125X [27XFindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4]));[127X[104X
-    [4X[28X[ [ 3, 4, 6 ], [ 4, 4, 6, 3 ], [ 4, 4, 6, 4 ], [ 4, 4, 6, 5 ] ][128X[104X
-    [4X[25Xgap>[125X [27XFindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4], maxlevel := 3));[127X[104X
-    [4X[28X[ [ 3, 4, 6 ] ][128X[104X
-    [4X[25Xgap>[125X [27XCoc:=List([1883, 1885],id->ClusterConjClasses(SmallGroup(512, id)));;[127X[104X
-    [4X[25Xgap>[125X [27XFindParametersForCocTest(Coc, [], 1, 2);[127X[104X
-    [4X[28X[ [ 8, 18 ], [ [ 1, 9, 3 ], [ 2, 14, 9 ] ] ][128X[104X
-  [4X[32X[104X
-  
-  [1X2.5-10 DeEncodeDesc[101X
-  
-  [33X[1;0Y[29X[2XDeEncodeDesc[102X( [3Xdesc[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YAn interger or a list of integers[133X
-  
-  [33X[0;0YDe-  or  encodes  a  description  for  [10XEvalFPCoc[110X, depending on if an integer
-  (decodes  to  a  list)  or  a  list  of  integers (encodes to an integer) is
-  provided.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XDeEncodeDesc([3,2,4]);[127X[104X
-    [4X[28X302004[128X[104X
-    [4X[25Xgap>[125X [27XDeEncodeDesc(302004);[127X[104X
-    [4X[28X[3, 2, 4][128X[104X
-  [4X[32X[104X
-  
-  [1X2.5-11 AlterCocAccordingToFp[101X
-  
-  [33X[1;0Y[29X[2XAlterCocAccordingToFp[102X( [3Xcoc[103X, [3Xdesc[103X, [3Xfp[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of lists containing the conjugacy classes of a group.[133X
-  
-  [33X[0;0YAlters  the  clusters  of conjugacy classes [3Xcoc[103X according the result [3Xfp[103X from
-  [10XEvalFPCoc[110X evaluated with [3Xdesc[103X by spliting the cluster at position [3Xdesc[2][103X of
-  [3Xcoc[103X into smaller ones.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27Xcoc := ClusterConjClasses(SmallGroup(512, 3));;[127X[104X
-    [4X[25Xgap>[125X [27XList(coc, Size);[127X[104X
-    [4X[28X[ 1, 15, 4, 24, 12, 48 ][128X[104X
-    [4X[25Xgap>[125X [27Xfp := EvalFpCoc(coc, [3,2,4]);[127X[104X
-    [4X[28X[ 0, 0, 16, 16, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0 ][128X[104X
-    [4X[25Xgap>[125X [27Xcocnew := AlterCocAccordingToFp(coc,[3,2,4],fp);;[127X[104X
-    [4X[25Xgap>[125X [27XList(cocnew, Size);[127X[104X
-    [4X[28X[ 1, 12, 3, 4, 24, 12, 48 ][128X[104X
-  [4X[32X[104X
-  
-  [1X2.5-12 CocSplitRoutine[101X
-  
-  [33X[1;0Y[29X[2XCocSplitRoutine[102X( [3XIds[103X, [3Xorder[103X, [3Xdesclist[103X, [3Xiterate[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA search tree (implemented as a record).[133X
-  
-  [33X[0;0YTries  to  split  the  list  [3XIds[103X  of  group  ids of [3Xorder[103X with ids as far as
-  possible  on  the  returned  values  of  [10XEvalFpCoc[110X and returns the resulting
-  subbranch  for a search tree with the relevant details. The parameter search
-  is done with at most [3Xiterate[103X iterations. Past perfomances of [10XEvalFpCoc[110X which
-  altered  the clusters of conjugacy classes of the groups can be recreated in
-  advance  via  the  list  [3Xdesclist[103X.  If no such splitis possible a warning is
-  printed and [3XIds[103X is returned.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XCocSplitRoutine([5,6,7], 512, [], 1);[127X[104X
-    [4X[28Xrec( desc := [104003], fp := [ 1214, 16 ], next := [ [ 5 ],[128X[104X
-    [4X[28X     rec( desc := [40204005], fp := [ 20792, 46881 ],[128X[104X
-    [4X[28X          next := [ [ 6 ], [ 7 ] ] ) ] )[128X[104X
-    [4X[25Xgap>[125X [27XCocSplitRoutine([1529,1530,1531], 512, [], 2);[127X[104X
-    [4X[28Xrec( desc := [ 209003 ], fp := [ 4, 14 ], next :=[128X[104X
-    [4X[28X   [ rec( desc := [ 107003, 212007 ], fp := [ 14, 618 ],[128X[104X
-    [4X[28X    next := [ [ 1529 ], [ 1530 ] ] ), [ 1531 ] ] )[128X[104X
-  [4X[32X[104X
-  
-  [1X2.5-13 CocTestOnClusterList[101X
+  [1X2.4-6 CocTestOnClusterList[101X
   
   [33X[1;0Y[29X[2XCocTestOnClusterList[102X( [3XCL[103X[, [3Xopt[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA list of pairs each containing the path of the respective cluster
             and the subbranch resulting from [10XCocSplitRoutine[110X.[133X
   
-  [33X[0;0YTries to split each cluster in [3XCL[103X via [2XCocSplitRoutine[102X ([14X2.5-12[114X). [3XCL[103X must be a
-  cluster list produced by [2XClusterList[102X ([14X2.5-4[114X). This function accepts a record
-  [3Xopt[103X of options with the following content:[133X
+  [33X[0;0YTries  to  split  each  cluster  in  [3XCL[103X  via tests on the lists of conjugacy
+  classes.  [3XCL[103X  must  be  a cluster list produced by [2XClusterList[102X ([14X2.4-1[114X). This
+  function accepts a record [3Xopt[103X of options with the following content:[133X
   
-  [30X    [33X[0;6Y[3Xpack[103X:  A  boolean  that  determines if [2XIdPGroup_Pack[102X ([14X2.5-1[114X) should be
-        applied to the result.[133X
+  [30X    [33X[0;6Y[3Xpack[103X:  A boolean that determines if the result should be encoded as an
+        intger.[133X
   
   [30X    [33X[0;6Y[3Xorder[103X: An integer giving the order of the groups with ids in [3XCL[103X.[133X
   
@@ -841,7 +567,7 @@
     [4X[28X       path := [ 32173, 16, 46881 ], size := 1, tests := [ "CocList", ""  ] ) ][128X[104X
   [4X[32X[104X
   
-  [1X2.5-14 ParametersRandPresentTest[101X
+  [1X2.4-7 ParametersRandPresentTest[101X
   
   [33X[1;0Y[29X[2XParametersRandPresentTest[102X( [3XCL[103X, [3Xorder[103X, [3Xmaxl[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA  list  consisting  of  pairs  of  a  list  of  ids  and a record

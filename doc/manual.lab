@@ -6,37 +6,23 @@
 \makelabel{idpgroup:Identifying groups via a search tree}{2.1}{X82BA59FA865D19E5}
 \makelabel{idpgroup:Loading (strong) siblings}{2.2}{X7EDB790F85B7753E}
 \makelabel{idpgroup:Functions for calculating (strong) siblings}{2.3}{X7AA188507AFCEC21}
-\makelabel{idpgroup:Table of bins of groups}{2.4}{X792030A679DAAED6}
-\makelabel{idpgroup:Functions for building a search tree}{2.5}{X7E8276BF79FDD898}
+\makelabel{idpgroup:Functions for building a search tree}{2.4}{X7E8276BF79FDD898}
 \makelabel{idpgroup:Index}{Ind}{X83A0356F839C696F}
-\makelabel{idpgroup:IdGroup512}{2.1.1}{X81731B9A798C5985}
-\makelabel{idpgroup:IDGROUP512TREE}{2.1.2}{X7E6424F37C14208E}
-\makelabel{idpgroup:LoadTotalTree}{2.1.3}{X7BA3357E86269C3B}
-\makelabel{idpgroup:IdGroup512Exceptions}{2.1.4}{X78FA5E5D78E8E44A}
+\makelabel{idpgroup:InfoId512}{2.1.1}{X7E229FC579EB31F7}
+\makelabel{idpgroup:IdGroup512}{2.1.2}{X81731B9A798C5985}
+\makelabel{idpgroup:IDGROUP512TREE}{2.1.3}{X7E6424F37C14208E}
+\makelabel{idpgroup:LoadTotalTree}{2.1.4}{X7BA3357E86269C3B}
+\makelabel{idpgroup:IdGroup512Exceptions}{2.1.5}{X78FA5E5D78E8E44A}
 \makelabel{idpgroup:SiblingsIds}{2.2.1}{X7F39858187F267DA}
 \makelabel{idpgroup:Siblings}{2.2.2}{X878A3FFE837F9EF6}
 \makelabel{idpgroup:StrongSiblingsIds}{2.2.3}{X8766ECFD817FB4A7}
 \makelabel{idpgroup:StrongSiblings}{2.2.4}{X843063807B06E65B}
-\makelabel{idpgroup:SplitBinsViaTest}{2.3.1}{X7F0D9E5B7D1947EF}
-\makelabel{idpgroup:CalculateSiblings}{2.3.2}{X7A81D24885DD46A1}
-\makelabel{idpgroup:DetermineBrauerPairs}{2.3.3}{X7F8D187184411526}
-\makelabel{idpgroup:CalculateStrongSiblings}{2.3.4}{X7E2FC2447FF1E8FE}
-\makelabel{idpgroup:TableOfGroupInvariants}{2.4.1}{X7E79E6347A6F8533}
-\makelabel{idpgroup:DetermineMIPInTable}{2.4.2}{X78D18CBC7C0D8F8C}
-\makelabel{idpgroup:DetermineIsoclinicInTable}{2.4.3}{X7A5F26D17E268E4B}
-\makelabel{idpgroup:MergeTablesOfInvariants}{2.4.4}{X83C7850B7F8202AA}
-\makelabel{idpgroup:PrintTableToFile}{2.4.5}{X79CD27767C5C091C}
-\makelabel{idpgroup:IdPGroupPack}{2.5.1}{X7894781585B18100}
-\makelabel{idpgroup:ClusterConjClasses}{2.5.2}{X828C60087DC9E1BD}
-\makelabel{idpgroup:PowerMapCocCycSt}{2.5.3}{X7D29A07883DABFD7}
-\makelabel{idpgroup:ClusterList}{2.5.4}{X7812E18678076D7B}
-\makelabel{idpgroup:TestOnGroup}{2.5.5}{X7C14B8DF7A4C0115}
-\makelabel{idpgroup:TestOnClusterList}{2.5.6}{X7BC4B6397C17B535}
-\makelabel{idpgroup:AddClusterTestResults}{2.5.7}{X85F0BFE88445D1B7}
-\makelabel{idpgroup:BuildSearchTree}{2.5.8}{X82CDC04E8588770B}
-\makelabel{idpgroup:FindParametersForCocTest}{2.5.9}{X7D2DA3AB79231078}
-\makelabel{idpgroup:DeEncodeDesc}{2.5.10}{X833070DB8585CF82}
-\makelabel{idpgroup:AlterCocAccordingToFp}{2.5.11}{X85397672793CECF9}
-\makelabel{idpgroup:CocSplitRoutine}{2.5.12}{X863A18A386DF3E70}
-\makelabel{idpgroup:CocTestOnClusterList}{2.5.13}{X7EB7CB0B84963812}
-\makelabel{idpgroup:ParametersRandPresentTest}{2.5.14}{X7FBD2B9C83B1496A}
+\makelabel{idpgroup:CalculateSiblings}{2.3.1}{X7A81D24885DD46A1}
+\makelabel{idpgroup:CalculateStrongSiblings}{2.3.2}{X7E2FC2447FF1E8FE}
+\makelabel{idpgroup:ClusterList}{2.4.1}{X7812E18678076D7B}
+\makelabel{idpgroup:TestOnGroup}{2.4.2}{X7C14B8DF7A4C0115}
+\makelabel{idpgroup:TestOnClusterList}{2.4.3}{X7BC4B6397C17B535}
+\makelabel{idpgroup:AddClusterTestResults}{2.4.4}{X85F0BFE88445D1B7}
+\makelabel{idpgroup:BuildSearchTree}{2.4.5}{X82CDC04E8588770B}
+\makelabel{idpgroup:CocTestOnClusterList}{2.4.6}{X7EB7CB0B84963812}
+\makelabel{idpgroup:ParametersRandPresentTest}{2.4.7}{X7FBD2B9C83B1496A}

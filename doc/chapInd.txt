@@ -2,37 +2,24 @@
   
   [1XIndex[101X
   
-  [2XAddClusterTestResults[102X 2.5-7 
-  [2XAlterCocAccordingToFp[102X 2.5-11 
-  [2XBuildSearchTree[102X 2.5-8 
-  [2XCalculateSiblings[102X 2.3-2 
-  [2XCalculateStrongSiblings[102X 2.3-4 
-  [2XClusterConjClasses[102X 2.5-2 
-  [2XClusterList[102X 2.5-4 
-  [2XCocSplitRoutine[102X 2.5-12 
-  [2XCocTestOnClusterList[102X 2.5-13 
-  [2XDeEncodeDesc[102X 2.5-10 
-  [2XDetermineBrauerPairs[102X 2.3-3 
-  [2XDetermineIsoclinicInTable[102X 2.4-3 
-  [2XDetermineMIPInTable[102X 2.4-2 
-  [2XFindParametersForCocTest[102X 2.5-9 
-  [2XID_GROUP_512_TREE[102X 2.1-2 
-  [2XIdGroup512[102X 2.1-1 
-  [2XIdGroup512Exceptions[102X 2.1-4 
-  [2XIdPGroup_Pack[102X 2.5-1 
-  [2XLoadTotalTree[102X 2.1-3 
-  [2XMergeTablesOfInvariants[102X 2.4-4 
-  [2XParametersRandPresentTest[102X 2.5-14 
-  [2XPowerMapCocCycSt[102X 2.5-3 
-  [2XPrintTableToFile[102X 2.4-5 
+  [2XAddClusterTestResults[102X 2.4-4 
+  [2XBuildSearchTree[102X 2.4-5 
+  [2XCalculateSiblings[102X 2.3-1 
+  [2XCalculateStrongSiblings[102X 2.3-2 
+  [2XClusterList[102X 2.4-1 
+  [2XCocTestOnClusterList[102X 2.4-6 
+  [2XID_GROUP_512_TREE[102X 2.1-3 
+  [2XIdGroup512[102X 2.1-2 
+  [2XIdGroup512Exceptions[102X 2.1-5 
+  [2XInfoId512[102X 2.1-1 
+  [2XLoadTotalTree[102X 2.1-4 
+  [2XParametersRandPresentTest[102X 2.4-7 
   [2XSiblings[102X 2.2-2 
   [2XSiblingsIds[102X 2.2-1 
-  [2XSplitBinsViaTest[102X 2.3-1 
   [2XStrongSiblings[102X 2.2-4 
   [2XStrongSiblingsIds[102X 2.2-3 
-  [2XTableOfGroupInvariants[102X 2.4-1 
-  [2XTestOnClusterList[102X 2.5-6 
-  [2XTestOnGroup[102X 2.5-5 
+  [2XTestOnClusterList[102X 2.4-3 
+  [2XTestOnGroup[102X 2.4-2 
   
   
   -------------------------------------------------------

@@ -135,23 +135,17 @@
 {
   
 
- The purpose of the \textsf{IdPGroup} package is to implement identification functions for different $p$\texttt{\symbol{45}}groups, which are implemented in the \textsf{SmallGrps} library, but lack an effective identification routine in it. The first
-function identifies the groups of order 512. This is done by calculating a
-number of invariants of a given group and comparing them with the values of
-all possible candidates via a precalculated search tree. More details can be
-found in section \ref{Section_Identification}. 
+ The purpose of the \textsf{IdPGroup} package is to implement identification functions for different $p$\texttt{\symbol{45}}groups and thereby extend the functionality of the \textsf{SmallGrps} library. Currently this includes an identification function for groups of
+order 512. 
+
+ Details of the implementation and functionality of the identification
+functions are dicussed in section \ref{Section_Identification}. 
 
  Section \ref{Section_Load} introduces the definitions of (strong) siblings and includes functions to load
 all such sets of groups of certain order. 
 
  Functions that were used to calculate these lists of groups and which can be
 used to calculate them for different orders can be found in section \ref{Section_Calculate}. 
-
- Once such sets of groups are determined one might want to examine them further
-by checking certain properties and calculating additionaly invariants. In
-Section \ref{Section_Table} one can find functions to calculate some selected invarants and properties for
-such sets and export them into LaTeX\texttt{\symbol{45}}readable lines of
-code. 
 
  Finally section \ref{Section_Build} describes all funcions that were used to build the search tree in the
 descirbed identification routine and which can be used to build other such
@@ -172,75 +166,82 @@ trees. }
   
 
  This section briefly describes the functions and variables of this package
-associated to the identification of an arbitrary group of order 512 via the
-search tree \texttt{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE} (\ref{IDuScoreGROUPuScore512uScoreTREE}). When saying 'identify a group $G$' we want to find an \emph{id} such that \texttt{SmallGroup(512, id)} is isomorphic to $G$. 
+associated to the identification of an arbitrary group of order 512 via a
+search tree. By 'identify' a group $G$ we mean that we want to find \emph{id} such that \texttt{SmallGroup(512, id)} is isomorphic to $G$. This is done by calculating invariants and comparing them with the ones of
+the remaining candidates. This process is organized in the tree \texttt{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE} (\ref{IDuScoreGROUPuScore512uScoreTREE}). 
 
- The used tree is implement as a nested record with the following components: 
+ The used tree is implemented as nested records with the following components: 
 \begin{itemize}
-\item  "fp": a list of integers, each being the encoded fingerprint of the group
+\item  "fp": a list of integers, each being the encoded fingerprint of groups
 resulting from the specific test performed at the current level of the
-identification routine. Each integer is gained from appyling \texttt{IdPGroup{\textunderscore}Pack} (\ref{IdPGroupuScorePack}) to the fingerprint. 
+identification routine. 
 \item  "next": a list comprised of the resprective subbranches corresponding to the
 fingerprints in "fp". This is either a list of ids or a branch implemented as
 a record itself. 
 \end{itemize}
- Depending on the level each record also has one of the following two
-components: 
+ Depending on the depth in the tree each record also has one of the following
+two components: 
 \begin{itemize}
 \item  "test": a string that indicates which test was used via \texttt{TestOnGroup} (\ref{TestOnGroup}) to create the listed fingerprints. 
-\item  "desc": a list of integers that encode a description of the performed test
-using \texttt{EvalFpCoc}. 
+\item  "desc": a list of integers that encode a description of the performed
+powermap\texttt{\symbol{45}}test 
 \end{itemize}
  
 
  The first levels of \texttt{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE} (\ref{IDuScoreGROUPuScore512uScoreTREE}) try to distinguish groups by the following invariants: 
 \begin{itemize}
-\item  The rank of the group. 
-\item  The collected orders of all elements of the group. 
-\item  The numbers of conjugacy classes of each length and representative order (the
-order of the elements in the class) of the group. 
-\item  The isomorphism type of the parent of the group, i.e. the quotient of the
+\item  the rank of the group, 
+\item  the collected orders of all elements of the group, 
+\item  the numbers of conjugacy classes of each length and representative order (the
+order of the elements in the class) of the group, 
+\item  the isomorphism type of the parent of the group, i.e. the quotient of the
 group and the smallest non\texttt{\symbol{45}}trivial element of the
-lower\texttt{\symbol{45}}$p$\texttt{\symbol{45}}central series. 
-\item  The abelian invarants, i.e. the isomorphism types of the quotients of the
-derived series. 
-\item  The cycle structure of the permutations induced on all clusters of conjugacy
+lower\texttt{\symbol{45}}$p$\texttt{\symbol{45}}central series, 
+\item  the abelian invarants, i.e. the isomorphism types of the quotients of the
+derived series and 
+\item  the cycle structure of the permutations induced on all clusters of conjugacy
 classes of same length and representative order by the power map $x\mapsto x^3$. 
 \end{itemize}
  
 
  If necessary these invariants are followed by invaraints resulting from tests
-evaluated on partitions of $G$. 
-
- The initial partition is made of the conjugacy classes of $G$ grouped such that conjugacy classes of the same length and same representative
-order belong to the same partitioning subset. The results of \texttt{EvalFpCoc} applied to a partition give the invaraints used to distinguish groups in these
+evaluated on partitions of $G$. The initial partition is made of the conjugacy classes of $G$ grouped such that conjugacy classes of the same length and same representative
+order belong to the same partitioning subset. The results of a power map
+applied to a partition give the invaraints used to distinguish groups in these
 levels of the search tree. The exact behaviour is determined by the content of
 the component "desc". After the evaluation of each test, the partition is
-refined according to the result of \texttt{EvalFpCoc}. 
+refined according to the result. 
 
  If the preceding invaraints do not lead to a single group, the following (more
 time consuming) invaraints are calculated. 
 \begin{itemize}
 \item  The isomorphism types of the non\texttt{\symbol{45}}trivial factors formed by
 the group and elements of the smallest non\texttt{\symbol{45}}trivial element
-of the lower\texttt{\symbol{45}}p\texttt{\symbol{45}}central series. 
-\item  The isomorphism types of the non\texttt{\symbol{45}}trivial factors formed by
-the group and elements of the center. 
-\item  The isomorphism types of all maximal subgroups. 
+of the lower\texttt{\symbol{45}}p\texttt{\symbol{45}}central series, 
+\item  the isomorphism types of the non\texttt{\symbol{45}}trivial factors formed by
+the group and elements of the center and 
+\item  the isomorphism types of all maximal subgroups. 
 \end{itemize}
  
 
  Remaining are 139 pairs and 1 triplet of groups of unidentified groups. All
-these groups are distinguished by a random isomorphism test. That is done by
-selecting random elements from predefined clusters of conjugacy classes, that
-were used and potentially refined before, until these elements generate the
-group. This list of generators is then turned into a \texttt{pcgs} and the presentation encoded into an integer by the funtion \texttt{CodeGenerators}. The resulting integer modulo 99661 is then compared with precalculated
-fingerprints of the candidate groups. If none of the fingerprints coincides
-the process is repeated. Thus the runtime of the identification for these
-groups is not constant. 
+these groups are distinguished by a random isomorphism test the same way as
+groups of order 256 are finally distinguished in the \textsf{SmallGrps} library. 
+
+\subsection{\textcolor{Chapter }{InfoId512}}
+\logpage{[ 2, 1, 1 ]}\nobreak
+\hyperdef{L}{X7E229FC579EB31F7}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{InfoId512\index{InfoId512@\texttt{InfoId512}}
+\label{InfoId512}
+}\hfill{\scriptsize (info class)}}\\
+
+
+ Info class for the identification routine of groups of order 512. }
+
+ 
 
 \subsection{\textcolor{Chapter }{IdGroup512}}
-\logpage{[ 2, 1, 1 ]}\nobreak
+\logpage{[ 2, 1, 2 ]}\nobreak
 \hyperdef{L}{X81731B9A798C5985}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IdGroup512({\mdseries\slshape G[, opt]})\index{IdGroup512@\texttt{IdGroup512}}
 \label{IdGroup512}
@@ -277,7 +278,7 @@ path:=} \texttt{false} \texttt{)}.
  
 
 \subsection{\textcolor{Chapter }{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE}}
-\logpage{[ 2, 1, 2 ]}\nobreak
+\logpage{[ 2, 1, 3 ]}\nobreak
 \hyperdef{L}{X7E6424F37C14208E}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE\index{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE@\texttt{ID{\textunderscore}}\-\texttt{G}\-\texttt{R}\-\texttt{O}\-\texttt{U}\-\texttt{P{\textunderscore}512{\textunderscore}}\-\texttt{TREE}}
 \label{IDuScoreGROUPuScore512uScoreTREE}
@@ -291,9 +292,9 @@ loaded if necessary. }
  
 
 \subsection{\textcolor{Chapter }{LoadTotalTree}}
-\logpage{[ 2, 1, 3 ]}\nobreak
+\logpage{[ 2, 1, 4 ]}\nobreak
 \hyperdef{L}{X7BA3357E86269C3B}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{LoadTotalTree({\mdseries\slshape arg})\index{LoadTotalTree@\texttt{LoadTotalTree}}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{LoadTotalTree({\mdseries\slshape })\index{LoadTotalTree@\texttt{LoadTotalTree}}
 \label{LoadTotalTree}
 }\hfill{\scriptsize (function)}}\\
 
@@ -303,9 +304,9 @@ loaded if necessary. }
  
 
 \subsection{\textcolor{Chapter }{IdGroup512Exceptions}}
-\logpage{[ 2, 1, 4 ]}\nobreak
+\logpage{[ 2, 1, 5 ]}\nobreak
 \hyperdef{L}{X78FA5E5D78E8E44A}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IdGroup512Exceptions({\mdseries\slshape arg})\index{IdGroup512Exceptions@\texttt{IdGroup512Exceptions}}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IdGroup512Exceptions({\mdseries\slshape })\index{IdGroup512Exceptions@\texttt{IdGroup512Exceptions}}
 \label{IdGroup512Exceptions}
 }\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
@@ -362,11 +363,10 @@ A list of lists of ids of siblings of size \mbox{\texttt{\mdseries\slshape order
  Loads and returns a list of ids of siblings of size \mbox{\texttt{\mdseries\slshape order}} if available. Currently available sizes are: 
 \begin{itemize}
 \item  all orders of the form $p\,q$ for $p$ and $q$ primes, 
-\item  all powers of two smaller than $2^9$ 
-\item  all powers of three smaller than $3^5$ 
-\item  all powers of a prime smaller than $p^4 $ 
-\item  all products of two powers and 
-\item  all orders smaller than 255 except 60, 120, 160, 168, 180, 189, 192 and 240. 
+\item  all powers of 2 smaller than $2^9$ 
+\item  all powers of 3 smaller than $3^5$ 
+\item  all powers of a prime smaller than $p^4$ and 
+\item  all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240. 
 \end{itemize}
  If no list is available for the provided order \texttt{fail} is returned. If a list \mbox{\texttt{\mdseries\slshape indices}} is given, only the respective entries are returned. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
@@ -410,11 +410,10 @@ A list of lists of ids of strong siblings of \mbox{\texttt{\mdseries\slshape ord
  Loads and returns a list of ids of strong siblings of \mbox{\texttt{\mdseries\slshape order}} if available. Currently available sizes are: 
 \begin{itemize}
 \item  all orders of the form $p\,q$ for $p$ and $q$ primes, 
-\item  all powers of two smaller than $2^9$ 
-\item  all powers of three smaller than $3^5$ 
-\item  all powers of a prime smaller than $p^4 $ 
-\item  all products of two powers and 
-\item  all orders smaller than 255 except 60, 120, 160, 168, 180, 189, 192 and 240. 
+\item  all powers of 2 smaller than $2^9$ 
+\item  all powers of 3 smaller than $3^5$ 
+\item  all powers of a prime smaller than $p^4$ and 
+\item  all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240. 
 \end{itemize}
  If no list is available for the provided order \texttt{fail} is returned. If a list \mbox{\texttt{\mdseries\slshape indices}} is given, only the respective entries are returned. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
@@ -453,30 +452,10 @@ A list of strong siblings of \mbox{\texttt{\mdseries\slshape order}}.
  This section describes all functions for calculating (strong) siblings of a
 given order. 
 
-\subsection{\textcolor{Chapter }{SplitBinsViaTest}}
-\logpage{[ 2, 3, 1 ]}\nobreak
-\hyperdef{L}{X7F0D9E5B7D1947EF}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SplitBinsViaTest({\mdseries\slshape Bins, order, test})\index{SplitBinsViaTest@\texttt{SplitBinsViaTest}}
-\label{SplitBinsViaTest}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of sublists of the provided lists in \mbox{\texttt{\mdseries\slshape Bins}}. 
-
-
-
- Takes a list of bins with ids of groups of size \mbox{\texttt{\mdseries\slshape order}} and splits them via the outcome of \mbox{\texttt{\mdseries\slshape test}} implemented in \texttt{TestOnGroup}. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@SplitBinsViaTest([[1..10]], 512, "MaxSubId");|
-  [ [ 1 ], [ 2 ], [ 3, 8 ], [ 4 ], [ 5 ], [ 6, 7 ], [ 9 ], [ 10 ] ]
-\end{Verbatim}
- }
-
- 
-
 \subsection{\textcolor{Chapter }{CalculateSiblings}}
-\logpage{[ 2, 3, 2 ]}\nobreak
+\logpage{[ 2, 3, 1 ]}\nobreak
 \hyperdef{L}{X7A81D24885DD46A1}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CalculateSiblings({\mdseries\slshape order[, verbose]})\index{CalculateSiblings@\texttt{CalculateSiblings}}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CalculateSiblings({\mdseries\slshape order})\index{CalculateSiblings@\texttt{CalculateSiblings}}
 \label{CalculateSiblings}
 }\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
@@ -484,8 +463,8 @@ A list of lists of ids of groups of size \mbox{\texttt{\mdseries\slshape order}}
 
 
 
- Determines all siblings among the groups of size \mbox{\texttt{\mdseries\slshape order}} by applying \texttt{SplitBinsViaTest} (\ref{SplitBinsViaTest}) with the tests \texttt{"MaxSubId"}, \texttt{"SpSubId"}, \texttt{"SubId"}, \texttt{"MaxFactId"} and \texttt{"FactId"} iterativly. The tests \texttt{"MaxSubId"} and \texttt{"MaxFactId"} are not necessary, but are efficient and eliminate some sets before applying
-the more costly tests. The boolean \mbox{\texttt{\mdseries\slshape verbose}} controls if a collection of bin sizes is printed after each test (\texttt{true} as default). 
+ Determines all siblings among the groups of size \mbox{\texttt{\mdseries\slshape order}} by applying the tests \texttt{"MaxSubId"}, \texttt{"SpSubId"}, \texttt{"SubId"}, \texttt{"MaxFactId"} and \texttt{"FactId"} iterativly. The tests \texttt{"MaxSubId"} and \texttt{"MaxFactId"} are not necessary, but are efficient and eliminate some sets before applying
+the more costly tests. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@CalculateSiblings(128);|
   Test 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ]
@@ -501,23 +480,8 @@ the more costly tests. The boolean \mbox{\texttt{\mdseries\slshape verbose}} con
 
  
 
-\subsection{\textcolor{Chapter }{DetermineBrauerPairs}}
-\logpage{[ 2, 3, 3 ]}\nobreak
-\hyperdef{L}{X7F8D187184411526}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{DetermineBrauerPairs({\mdseries\slshape Bins, order})\index{DetermineBrauerPairs@\texttt{DetermineBrauerPairs}}
-\label{DetermineBrauerPairs}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of sublists of the provided lists in \mbox{\texttt{\mdseries\slshape Bins}}. 
-
-
-
- Determines the Brauer pairs among the bins of ids of groups of size \mbox{\texttt{\mdseries\slshape order}} listed in \mbox{\texttt{\mdseries\slshape Bins}}. }
-
- 
-
 \subsection{\textcolor{Chapter }{CalculateStrongSiblings}}
-\logpage{[ 2, 3, 4 ]}\nobreak
+\logpage{[ 2, 3, 2 ]}\nobreak
 \hyperdef{L}{X7E2FC2447FF1E8FE}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CalculateStrongSiblings({\mdseries\slshape order[, verbose]})\index{CalculateStrongSiblings@\texttt{CalculateStrongSiblings}}
 \label{CalculateStrongSiblings}
@@ -527,8 +491,7 @@ A list of lists of ids of groups of size \mbox{\texttt{\mdseries\slshape order}}
 
 
 
- First calculats all siblings of size \mbox{\texttt{\mdseries\slshape order}} via \texttt{CalculateSiblings} (\ref{CalculateSiblings}) and then determines all strong siblings among these by \texttt{DetermineBrauerPairs} (\ref{DetermineBrauerPairs}). The boolean \mbox{\texttt{\mdseries\slshape verbose}} controls if a collection of bin sizes is printed after each test while
-siblings are calculated (\texttt{true} as default). 
+ First calculats all siblings of size \mbox{\texttt{\mdseries\slshape order}} via \texttt{CalculateSiblings} (\ref{CalculateSiblings}) and then determines all strong siblings among them. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@CalculateStrongSiblings(256, false);|
   [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
@@ -539,124 +502,8 @@ siblings are calculated (\texttt{true} as default).
  }
 
  
-\section{\textcolor{Chapter }{Table of bins of groups}}\label{Section_Table}
-\logpage{[ 2, 4, 0 ]}
-\hyperdef{L}{X792030A679DAAED6}{}
-{
-  
-
- This section includes the functions of the package that create and fill a
-table for bins of groups, listing certain invaraints and properties and
-exporting this table as rows of a latex\texttt{\symbol{45}}tables. 
-
-\subsection{\textcolor{Chapter }{TableOfGroupInvariants}}
-\logpage{[ 2, 4, 1 ]}\nobreak
-\hyperdef{L}{X7E79E6347A6F8533}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{TableOfGroupInvariants({\mdseries\slshape Bins, order})\index{TableOfGroupInvariants@\texttt{TableOfGroupInvariants}}
-\label{TableOfGroupInvariants}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of records. 
-
-
-
- Calculates some invariants and properties for the groups of order \mbox{\texttt{\mdseries\slshape order}} with ids in lists of \mbox{\texttt{\mdseries\slshape bins}}. If the invariants are equal for all groups of a bin, a record listing all
-information is added to the returned list. The calculated invariants are: 
-\begin{itemize}
-\item  the rank of the groups, 
-\item  the $p$\texttt{\symbol{45}}class of the groups, 
-\item  the size of the groups of automorphisms. 
-\end{itemize}
- Furthermore the following properties are examined for the groups of a bin: 
-\begin{itemize}
-\item  Are the groups
-outer\texttt{\symbol{45}}automorphism\texttt{\symbol{45}}equivaleant, i.e. are
-the groups of outer\texttt{\symbol{45}}automorphism isomorphic? 
-\item  Are the groups isoclinic? 
-\item  Are the groups a modular isomorphic pair (MIP), i.e. are their group rings
-over a field of characteristic p isomorphic? 
-\end{itemize}
- The last two properties are not examined and left as an empty string in this
-function, but can be filled via \texttt{DetermineMIPInTable} (\ref{DetermineMIPInTable}) and \texttt{DetermineIsoclinicInTable} (\ref{DetermineIsoclinicInTable}). 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@Bins := StrongSiblingsIds(512, [1, 5, 14]);|
-  [ [ 1364, 1368 ], [ 1680, 1681 ], [ 15826, 15827 ] ]
-  !gapprompt@gap>| !gapinput@TableOfGroupInvariants(Bins, 512);|
-  [ rec( OutEqv := "yes", SizeAut := 8192, ids := [ 1364, 1368 ],
-         isoclinic := "",  mip := "", pclass := 5, rank := 2 ),
-   rec( OutEqv := "yes", SizeAut := 16384, ids := [ 1680, 1681 ],
-        isoclinic := "", mip := "", pclass := 5, rank := 2 ),
-   rec( OutEqv := "no", SizeAut := 65536, ids := [ 15826, 15827 ],
-        isoclinic := "", mip := "", pclass := 3, rank := 3 ) ]
-\end{Verbatim}
- }
-
- 
-
-\subsection{\textcolor{Chapter }{DetermineMIPInTable}}
-\logpage{[ 2, 4, 2 ]}\nobreak
-\hyperdef{L}{X78D18CBC7C0D8F8C}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{DetermineMIPInTable({\mdseries\slshape tab})\index{DetermineMIPInTable@\texttt{DetermineMIPInTable}}
-\label{DetermineMIPInTable}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of records. 
-
-
-
- Determines if the sets of groups represented by the records in \mbox{\texttt{\mdseries\slshape tab}} are modular isomorphic pairs using the \textsf{ModIsom} package. This information is added to each record of \mbox{\texttt{\mdseries\slshape tab}} and the updated list is returned. This function is included in an extension of
-the package and only available if the respective package is loaded. }
-
- 
-
-\subsection{\textcolor{Chapter }{DetermineIsoclinicInTable}}
-\logpage{[ 2, 4, 3 ]}\nobreak
-\hyperdef{L}{X7A5F26D17E268E4B}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{DetermineIsoclinicInTable({\mdseries\slshape tab})\index{DetermineIsoclinicInTable@\texttt{DetermineIsoclinicInTable}}
-\label{DetermineIsoclinicInTable}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of records. 
-
-
-
- Determines if the sets of groups represented by the records in \mbox{\texttt{\mdseries\slshape tab}} are isoclinic using the \textsf{XMod} package. This information is added to each record and the of \mbox{\texttt{\mdseries\slshape tab}} updated list is returned. This function is included in an extension of the
-package and only available if the respective package is loaded. }
-
- 
-
-\subsection{\textcolor{Chapter }{MergeTablesOfInvariants}}
-\logpage{[ 2, 4, 4 ]}\nobreak
-\hyperdef{L}{X83C7850B7F8202AA}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{MergeTablesOfInvariants({\mdseries\slshape tab1, tab2})\index{MergeTablesOfInvariants@\texttt{MergeTablesOfInvariants}}
-\label{MergeTablesOfInvariants}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of records. 
-
-
-
- Merges the tables \mbox{\texttt{\mdseries\slshape tab1}} and \mbox{\texttt{\mdseries\slshape tab2}} into one table. If a record entry of only one is the empty string the
-non\texttt{\symbol{45}}empty string is used. This enables the parallel
-computation of e.g. \texttt{DetermineMIPInTable} (\ref{DetermineMIPInTable}) and \texttt{DetermineIsoclinicInTable} (\ref{DetermineIsoclinicInTable}). }
-
- 
-
-\subsection{\textcolor{Chapter }{PrintTableToFile}}
-\logpage{[ 2, 4, 5 ]}\nobreak
-\hyperdef{L}{X79CD27767C5C091C}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{PrintTableToFile({\mdseries\slshape tab, filename})\index{PrintTableToFile@\texttt{PrintTableToFile}}
-\label{PrintTableToFile}
-}\hfill{\scriptsize (function)}}\\
-
-
- Exports the content of the table \mbox{\texttt{\mdseries\slshape tab}} into "\mbox{\texttt{\mdseries\slshape filename}}{\textunderscore}table.txt" as rows of a latex table. }
-
- }
-
- 
 \section{\textcolor{Chapter }{Functions for building a search tree}}\label{Section_Build}
-\logpage{[ 2, 5, 0 ]}
+\logpage{[ 2, 4, 0 ]}
 \hyperdef{L}{X7E8276BF79FDD898}{}
 {
   
@@ -675,66 +522,8 @@ then iteratnig the following three steps
 cluster yields the same value when the test \texttt{CocList} is applied. Furthermore these invaraints should be used for as few as possible
 clusters since \texttt{CocTestOnClusterList} (\ref{CocTestOnClusterList}) includes a search for suitable parameters than can take quite some time. 
 
-\subsection{\textcolor{Chapter }{IdPGroup{\textunderscore}Pack}}
-\logpage{[ 2, 5, 1 ]}\nobreak
-\hyperdef{L}{X7894781585B18100}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IdPGroup{\textunderscore}Pack({\mdseries\slshape list})\index{IdPGroup{\textunderscore}Pack@\texttt{IdPGroup{\textunderscore}Pack}}
-\label{IdPGroupuScorePack}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-An interger encoding the content of \mbox{\texttt{\mdseries\slshape list}}. 
-
-
-
- Encodes the content of the provided \mbox{\texttt{\mdseries\slshape list}} into an integer. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@IdPGroup_Pack([1,2,3]);|
-  123
-  !gapprompt@gap>| !gapinput@IdPGroup_Pack([606, 109, 1405]);|
-  63095
-  !gapprompt@gap>| !gapinput@IdPGroup_Pack([[1,2,3], [606, 1405]]);|
-  19765
-\end{Verbatim}
- }
-
- 
-
-\subsection{\textcolor{Chapter }{ClusterConjClasses}}
-\logpage{[ 2, 5, 2 ]}\nobreak
-\hyperdef{L}{X828C60087DC9E1BD}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ClusterConjClasses({\mdseries\slshape G})\index{ClusterConjClasses@\texttt{ClusterConjClasses}}
-\label{ClusterConjClasses}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of lists containing the conjugacy classes of \mbox{\texttt{\mdseries\slshape G}}. 
-
-
-
- Computes the conjugacy classes of the group \mbox{\texttt{\mdseries\slshape G}} and clusters them such that each clusters contains all classes of a certain
-length and certain representative order (meaning the order of any
-representative). }
-
- 
-
-\subsection{\textcolor{Chapter }{PowerMapCocCycSt}}
-\logpage{[ 2, 5, 3 ]}\nobreak
-\hyperdef{L}{X7D29A07883DABFD7}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{PowerMapCocCycSt({\mdseries\slshape coc, n})\index{PowerMapCocCycSt@\texttt{PowerMapCocCycSt}}
-\label{PowerMapCocCycSt}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A lists of lists of lists of integers 
-
-
-
- Examines the permutation induced by the power map $x\mapsto x^n$ on each cluster of \mbox{\texttt{\mdseries\slshape coc}}. If a class of a cluster is fixed, the permutation within the class is
-determined and added to the lists of permutations of the cluster. Finally the
-cycle structure of each permutation associated to a cluster is examined via \texttt{CycleStructurePerm} and saved as a list of integers (undound entries are replaced by 0). }
-
- 
-
 \subsection{\textcolor{Chapter }{ClusterList}}
-\logpage{[ 2, 5, 4 ]}\nobreak
+\logpage{[ 2, 4, 1 ]}\nobreak
 \hyperdef{L}{X7812E18678076D7B}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ClusterList({\mdseries\slshape tree})\index{ClusterList@\texttt{ClusterList}}
 \label{ClusterList}
@@ -745,7 +534,9 @@ A list of all clusters of groups in \mbox{\texttt{\mdseries\slshape tree}} (i.e.
 
 
  Iterates through \mbox{\texttt{\mdseries\slshape tree}} and collects information about each leaf as a record. This includes the size
-of the leaf, the path through \mbox{\texttt{\mdseries\slshape tree}} leading to the leaf, the tests performed including descriptions of performed \texttt{EvalFpCoc}\texttt{\symbol{45}}tests and the ids of the groups contained in the leaf. 
+of the leaf, the path through \mbox{\texttt{\mdseries\slshape tree}} leading to the leaf, the tests performed including descriptions of performed
+powermap\texttt{\symbol{45}}tests and the ids of the groups contained in the
+leaf. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@tree := rec( fp := [ 63049, 75721, 4310 ],  next := [ [ 3, 8 ], [ 4 ],|
   !gapprompt@gap>| !gapinput@           rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ],|
@@ -765,7 +556,7 @@ of the leaf, the path through \mbox{\texttt{\mdseries\slshape tree}} leading to 
  
 
 \subsection{\textcolor{Chapter }{TestOnGroup}}
-\logpage{[ 2, 5, 5 ]}\nobreak
+\logpage{[ 2, 4, 2 ]}\nobreak
 \hyperdef{L}{X7C14B8DF7A4C0115}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{TestOnGroup({\mdseries\slshape G, test[, opt]})\index{TestOnGroup@\texttt{TestOnGroup}}
 \label{TestOnGroup}
@@ -803,7 +594,8 @@ map $x\mapsto x^3$ on the clusters of conjugacy classes via \texttt{PowerMapCocC
 \item  \mbox{\texttt{\mdseries\slshape "LattEqv"}}: Calculates all conjugacy classes of proper subgoups of \mbox{\texttt{\mdseries\slshape G}}, stores their size, identifies the the isomorphism types of each class and
 determines the isomorphism types and conjugacy classes in \mbox{\texttt{\mdseries\slshape G}} of its maximal subgroups and minimal supergroups. 
 \end{itemize}
- This function accepts a record \mbox{\texttt{\mdseries\slshape opt}} of options with the single content \mbox{\texttt{\mdseries\slshape opt.pack}}, a boolean that determines if \texttt{IdPGroup{\textunderscore}Pack} should be applied to the result of a test. The default value of \mbox{\texttt{\mdseries\slshape opt}} is $rec(pack:=$\texttt{true}$)$. 
+ This function accepts a record \mbox{\texttt{\mdseries\slshape opt}} of options with the single content \mbox{\texttt{\mdseries\slshape opt.pack}}, a boolean that determines if the result of a test should be encoded as an
+integer. The default value of \mbox{\texttt{\mdseries\slshape opt}} is $rec(pack:=$\texttt{true}$)$. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@G := SmallGroup(512, 1405);;|
   !gapprompt@gap>| !gapinput@TestOnGroup(G, "ElmOrds");|
@@ -816,7 +608,7 @@ determines the isomorphism types and conjugacy classes in \mbox{\texttt{\mdserie
  
 
 \subsection{\textcolor{Chapter }{TestOnClusterList}}
-\logpage{[ 2, 5, 6 ]}\nobreak
+\logpage{[ 2, 4, 3 ]}\nobreak
 \hyperdef{L}{X7BC4B6397C17B535}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{TestOnClusterList({\mdseries\slshape CL, test[, opt]})\index{TestOnClusterList@\texttt{TestOnClusterList}}
 \label{TestOnClusterList}
@@ -870,7 +662,7 @@ subbranches. If so subbranches, that do not split a cluster are omited.
  
 
 \subsection{\textcolor{Chapter }{AddClusterTestResults}}
-\logpage{[ 2, 5, 7 ]}\nobreak
+\logpage{[ 2, 4, 4 ]}\nobreak
 \hyperdef{L}{X85F0BFE88445D1B7}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AddClusterTestResults({\mdseries\slshape tree, TR})\index{AddClusterTestResults@\texttt{AddClusterTestResults}}
 \label{AddClusterTestResults}
@@ -900,7 +692,7 @@ inital \mbox{\texttt{\mdseries\slshape tree}}.
  
 
 \subsection{\textcolor{Chapter }{BuildSearchTree}}
-\logpage{[ 2, 5, 8 ]}\nobreak
+\logpage{[ 2, 4, 5 ]}\nobreak
 \hyperdef{L}{X82CDC04E8588770B}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{BuildSearchTree({\mdseries\slshape N, order, tests})\index{BuildSearchTree@\texttt{BuildSearchTree}}
 \label{BuildSearchTree}
@@ -925,133 +717,8 @@ A search tree (implemented as a record).
 
  
 
-\subsection{\textcolor{Chapter }{FindParametersForCocTest}}
-\logpage{[ 2, 5, 9 ]}\nobreak
-\hyperdef{L}{X7D2DA3AB79231078}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{FindParametersForCocTest({\mdseries\slshape Coc, paralist, it, maxit[, opt]})\index{FindParametersForCocTest@\texttt{FindParametersForCocTest}}
-\label{FindParametersForCocTest}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A pair made of a list of return values from \texttt{EvalFpCoc} and a list describing the test performed by \texttt{EvalFpCoc}. 
-
-
-
- Does a parameter search such that evaluating \texttt{EvalFpCoc} on the clusters of conjugacy classes in \mbox{\texttt{\mdseries\slshape coc}} results in at least two different values. If no suitable parameters are found,
-the function calls itself iterativly on parameters that alter \mbox{\texttt{\mdseries\slshape Coc}} until either a suitable list of parameters is found or \mbox{\texttt{\mdseries\slshape it}} is equal to \mbox{\texttt{\mdseries\slshape maxit}}. The parameters of the current iteration are provided in the list \mbox{\texttt{\mdseries\slshape paralist}}. If the function is initialized with \mbox{\texttt{\mdseries\slshape it}}=0, it only returns a list of parameters that alter the clusters in \mbox{\texttt{\mdseries\slshape Coc}}. Depending on the size of \mbox{\texttt{\mdseries\slshape coc}} their can be a lot of parameters to check. To decrease the needed time the
-following configurations are skipped: 
-\begin{itemize}
-\item  $[1,i,j]$, where the representative order of \mbox{\texttt{\mdseries\slshape coc[i]}} and j are not coprime. 
-\item  $[2,i,j]$, where the representative order of \mbox{\texttt{\mdseries\slshape coc[i]}} is less or equal then the order of \mbox{\texttt{\mdseries\slshape coc[j]}} or the length of the classes in \mbox{\texttt{\mdseries\slshape coc[i]}} is less then the ones of \mbox{\texttt{\mdseries\slshape coc[j]}}. 
-\item  $[3,i,j]$, where the representative order of \mbox{\texttt{\mdseries\slshape coc[i]}} is larger or equal then the order of \mbox{\texttt{\mdseries\slshape coc[j]}} or the length of the classes in \mbox{\texttt{\mdseries\slshape coc[i]}} is larger then the ones of \mbox{\texttt{\mdseries\slshape coc[j]}}. 
-\item  $[4,i,j,k]$, where either the classes in \mbox{\texttt{\mdseries\slshape coc[i]}} or \mbox{\texttt{\mdseries\slshape coc[j]}} are of length one. 
-\item  $[5,i,j,k]$, where either the classes in \mbox{\texttt{\mdseries\slshape coc[i]}} or \mbox{\texttt{\mdseries\slshape coc[j]}} are of length one. 
-\end{itemize}
- This function accepts a record \mbox{\texttt{\mdseries\slshape opt}} of options with the following content: 
-\begin{itemize}
-\item  \mbox{\texttt{\mdseries\slshape target}}: A list of integers that determines the desired second entries of the
-parameters. 
-\item  \mbox{\texttt{\mdseries\slshape maxlevel}}: An integer that determines the maximal first parameter entry. That might be
-useful, since the parameters for test 4 and 5 often need more time then the
-rest. 
-\end{itemize}
- The default value of \mbox{\texttt{\mdseries\slshape opt}} is $rec(target:=[1..Size(Coc[1])], maxlevel:=5$. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@Coc:=List([3, 8],id->ClusterConjClasses(SmallGroup(512, id)));;|
-  !gapprompt@gap>| !gapinput@FindParametersForCocTest(Coc, [], 1, 1);|
-  [ [ 1363, 46760 ], [ 3, 2, 4 ] ]
-  !gapprompt@gap>| !gapinput@FindParametersForCocTest(Coc, [], 1, 1, rec(target:=[4]));|
-  [ [ 63010, 76026 ], [ [ 4, 4, 6, 5 ] ] ]
-  !gapprompt@gap>| !gapinput@FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4]));|
-  [ [ 3, 4, 6 ], [ 4, 4, 6, 3 ], [ 4, 4, 6, 4 ], [ 4, 4, 6, 5 ] ]
-  !gapprompt@gap>| !gapinput@FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4], maxlevel := 3));|
-  [ [ 3, 4, 6 ] ]
-  !gapprompt@gap>| !gapinput@Coc:=List([1883, 1885],id->ClusterConjClasses(SmallGroup(512, id)));;|
-  !gapprompt@gap>| !gapinput@FindParametersForCocTest(Coc, [], 1, 2);|
-  [ [ 8, 18 ], [ [ 1, 9, 3 ], [ 2, 14, 9 ] ] ]
-\end{Verbatim}
- }
-
- 
-
-\subsection{\textcolor{Chapter }{DeEncodeDesc}}
-\logpage{[ 2, 5, 10 ]}\nobreak
-\hyperdef{L}{X833070DB8585CF82}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{DeEncodeDesc({\mdseries\slshape desc})\index{DeEncodeDesc@\texttt{DeEncodeDesc}}
-\label{DeEncodeDesc}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-An interger or a list of integers 
-
-
-
- De\texttt{\symbol{45}} or encodes a description for \texttt{EvalFPCoc}, depending on if an integer (decodes to a list) or a list of integers
-(encodes to an integer) is provided. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@DeEncodeDesc([3,2,4]);|
-  302004
-  !gapprompt@gap>| !gapinput@DeEncodeDesc(302004);|
-  [3, 2, 4]
-\end{Verbatim}
- }
-
- 
-
-\subsection{\textcolor{Chapter }{AlterCocAccordingToFp}}
-\logpage{[ 2, 5, 11 ]}\nobreak
-\hyperdef{L}{X85397672793CECF9}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{AlterCocAccordingToFp({\mdseries\slshape coc, desc, fp})\index{AlterCocAccordingToFp@\texttt{AlterCocAccordingToFp}}
-\label{AlterCocAccordingToFp}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of lists containing the conjugacy classes of a group. 
-
-
-
- Alters the clusters of conjugacy classes \mbox{\texttt{\mdseries\slshape coc}} according the result \mbox{\texttt{\mdseries\slshape fp}} from \texttt{EvalFPCoc} evaluated with \mbox{\texttt{\mdseries\slshape desc}} by spliting the cluster at position \mbox{\texttt{\mdseries\slshape desc[2]}} of \mbox{\texttt{\mdseries\slshape coc}} into smaller ones. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@coc := ClusterConjClasses(SmallGroup(512, 3));;|
-  !gapprompt@gap>| !gapinput@List(coc, Size);|
-  [ 1, 15, 4, 24, 12, 48 ]
-  !gapprompt@gap>| !gapinput@fp := EvalFpCoc(coc, [3,2,4]);|
-  [ 0, 0, 16, 16, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0 ]
-  !gapprompt@gap>| !gapinput@cocnew := AlterCocAccordingToFp(coc,[3,2,4],fp);;|
-  !gapprompt@gap>| !gapinput@List(cocnew, Size);|
-  [ 1, 12, 3, 4, 24, 12, 48 ]
-\end{Verbatim}
- }
-
- 
-
-\subsection{\textcolor{Chapter }{CocSplitRoutine}}
-\logpage{[ 2, 5, 12 ]}\nobreak
-\hyperdef{L}{X863A18A386DF3E70}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CocSplitRoutine({\mdseries\slshape Ids, order, desclist, iterate})\index{CocSplitRoutine@\texttt{CocSplitRoutine}}
-\label{CocSplitRoutine}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A search tree (implemented as a record). 
-
-
-
- Tries to split the list \mbox{\texttt{\mdseries\slshape Ids}} of group ids of \mbox{\texttt{\mdseries\slshape order}} with ids as far as possible on the returned values of \texttt{EvalFpCoc} and returns the resulting subbranch for a search tree with the relevant
-details. The parameter search is done with at most \mbox{\texttt{\mdseries\slshape iterate}} iterations. Past perfomances of \texttt{EvalFpCoc} which altered the clusters of conjugacy classes of the groups can be recreated
-in advance via the list \mbox{\texttt{\mdseries\slshape desclist}}. If no such splitis possible a warning is printed and \mbox{\texttt{\mdseries\slshape Ids}} is returned. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@CocSplitRoutine([5,6,7], 512, [], 1);|
-  rec( desc := [104003], fp := [ 1214, 16 ], next := [ [ 5 ],
-       rec( desc := [40204005], fp := [ 20792, 46881 ],
-            next := [ [ 6 ], [ 7 ] ] ) ] )
-  !gapprompt@gap>| !gapinput@CocSplitRoutine([1529,1530,1531], 512, [], 2);|
-  rec( desc := [ 209003 ], fp := [ 4, 14 ], next :=
-     [ rec( desc := [ 107003, 212007 ], fp := [ 14, 618 ],
-      next := [ [ 1529 ], [ 1530 ] ] ), [ 1531 ] ] )
-\end{Verbatim}
- }
-
- 
-
 \subsection{\textcolor{Chapter }{CocTestOnClusterList}}
-\logpage{[ 2, 5, 13 ]}\nobreak
+\logpage{[ 2, 4, 6 ]}\nobreak
 \hyperdef{L}{X7EB7CB0B84963812}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CocTestOnClusterList({\mdseries\slshape CL[, opt]})\index{CocTestOnClusterList@\texttt{CocTestOnClusterList}}
 \label{CocTestOnClusterList}
@@ -1062,9 +729,9 @@ subbranch resulting from \texttt{CocSplitRoutine}.
 
 
 
- Tries to split each cluster in \mbox{\texttt{\mdseries\slshape CL}} via \texttt{CocSplitRoutine} (\ref{CocSplitRoutine}). \mbox{\texttt{\mdseries\slshape CL}} must be a cluster list produced by \texttt{ClusterList} (\ref{ClusterList}). This function accepts a record \mbox{\texttt{\mdseries\slshape opt}} of options with the following content: 
+ Tries to split each cluster in \mbox{\texttt{\mdseries\slshape CL}} via tests on the lists of conjugacy classes. \mbox{\texttt{\mdseries\slshape CL}} must be a cluster list produced by \texttt{ClusterList} (\ref{ClusterList}). This function accepts a record \mbox{\texttt{\mdseries\slshape opt}} of options with the following content: 
 \begin{itemize}
-\item  \mbox{\texttt{\mdseries\slshape pack}}: A boolean that determines if \texttt{IdPGroup{\textunderscore}Pack} (\ref{IdPGroupuScorePack}) should be applied to the result. 
+\item  \mbox{\texttt{\mdseries\slshape pack}}: A boolean that determines if the result should be encoded as an intger. 
 \item  \mbox{\texttt{\mdseries\slshape order}}: An integer giving the order of the groups with ids in \mbox{\texttt{\mdseries\slshape CL}}. 
 \item  \mbox{\texttt{\mdseries\slshape iterate}}: An integer that determines the maximal number of iterations done while
 searching parameters. 
@@ -1097,7 +764,7 @@ searching parameters.
  
 
 \subsection{\textcolor{Chapter }{ParametersRandPresentTest}}
-\logpage{[ 2, 5, 14 ]}\nobreak
+\logpage{[ 2, 4, 7 ]}\nobreak
 \hyperdef{L}{X7FBD2B9C83B1496A}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{ParametersRandPresentTest({\mdseries\slshape CL, order, maxl})\index{ParametersRandPresentTest@\texttt{ParametersRandPresentTest}}
 \label{ParametersRandPresentTest}
@@ -1140,6 +807,42 @@ process until either the number of refinments is equal or larger than \mbox{\tex
 
 \printindex
 
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
+\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
 \immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
 \immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
 \immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}

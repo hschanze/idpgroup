@@ -1,3 +1,10 @@
+####################
+## Info Levels:
+##
+DeclareInfoClass("sibinfo");
+SetInfoLevel(sibinfo, 1);
+
+
 #####################################################################################
 ##
 ## Takes a list of bins with ids of groups of size order and performs test via
@@ -38,26 +45,18 @@ end;
 ## Performs all necessary tests on all groups of size order to determine all sets of subgroup- and
 ## factor-equivalent (SFeq) groups.
 ##
-InstallGlobalFunction(CalculateSiblings, function(order, verbose...)
+InstallGlobalFunction(CalculateSiblings, function(order)
     local Bins,tests, test, NewBins;
-
-    if Length(verbose) = 0 then
-        verbose := true;
-    else
-        verbose := verbose[1];
-    fi;
 
     Bins := [[1..NumberSmallGroups(order)]];
 
-    tests := ["MaxSubId", "SpSubId", "SubId", "MaxFactId", "FactId"];
+    tests := ["MaxSubId", "SpSubId", "MaxFactId", "FactId", "SubId"];
 
     for test in tests do
         NewBins := SplitBinsViaTest(Bins, order, test);
         Bins := Filtered(NewBins, bin -> Size(bin) > 1);
-        if verbose then
-            Print("Test '", test, "' found following bins of size greater one:",
-                  Collected(List(Bins,Size)), "\n");
-        fi;
+
+        Info(sibinfo, 1, "Test '", test, "' created bins of following size greater one: ", Collected(List(Bins,Size)));
 
         if Size(Bins) = 0 then return Bins; fi;
     od;
@@ -169,16 +168,10 @@ DetermineBrauerPairs := function(Bins, order)
 end;
 
 
-InstallGlobalFunction(CalculateStrongSiblings, function(order, verbose...)
+InstallGlobalFunction(CalculateStrongSiblings, function(order)
     local bins;
 
-    if Length(verbose) = 0 then
-        verbose := true;
-    else
-        verbose := verbose[1];
-    fi;
-
-    bins := CalculateSiblings(order, verbose);
+    bins := CalculateSiblings(order);
     return DetermineBrauerPairs(bins, order);
 end);
 
@@ -338,7 +331,7 @@ end;
 ##
 ##  Creates a list of records that can be exported into latex code
 ##
-InstallGlobalFunction(TableOfGroupInvariants, function(Bins, order)
+TableOfGroupInvariants := function(Bins, order)
     local rows, ids, newrow, G, A, O, OutEqv;
 
     rows := [];
@@ -396,10 +389,10 @@ InstallGlobalFunction(TableOfGroupInvariants, function(Bins, order)
     od;
 
     return rows;
-end);
+end;
 
 
-InstallGlobalFunction(MergeTablesOfInvariants, function(tab1, tab2)
+MergeTablesOfInvariants := function(tab1, tab2)
     local tab, row, pos, new, name;
 
     tab := [];
@@ -432,10 +425,10 @@ InstallGlobalFunction(MergeTablesOfInvariants, function(tab1, tab2)
     od;
 
     return tab;
-end);
+end;
 
 
-InstallGlobalFunction(PrintTableToFile, function(rows, filename)
+PrintTableToFile := function(rows, filename)
     local head, row, i;
     filename := Concatenation(filename, "_table.txt");
     head := "Pair & Rank & $p$-class& Isoclinic & Size of Aut & Out-equiv & MIP \\\\ \n";
@@ -456,4 +449,4 @@ InstallGlobalFunction(PrintTableToFile, function(rows, filename)
                            row.mip,
                            " \\\\ \n");
     od;
-end);
+end;

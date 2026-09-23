@@ -12,17 +12,18 @@
 <P/>
  This section briefly describes the functions and variables of this package
  associated to the identification of an arbitrary group of order 512 via
- the search tree <Ref Var="ID_GROUP_512_TREE" Style="Text"/>.
- When saying 'identify a group <M>G</M>' we want to find an <Emph>id</Emph> such that
-<Code>SmallGroup(512, id)</Code> is isomorphic to <M>G</M>.
+ a search tree.
+ By 'identify' a group <M>G</M> we mean that we want to find <Emph>id</Emph> such that
+ <Code>SmallGroup(512, id)</Code> is isomorphic to <M>G</M>. This is done by calculating
+ invariants and comparing them with the ones of the remaining candidates. This
+ process is organized in the tree <Ref Var="ID_GROUP_512_TREE" Style="Text"/>.
 <P/>
- The used tree is implement as a nested record with the following components:
+ The used tree is implemented as nested records with the following components:
 <List>
 <Item>
-"fp": a list of integers, each being the encoded fingerprint of the group resulting
+"fp": a list of integers, each being the encoded fingerprint of groups resulting
          from the specific test performed at the current level of the identification
-         routine. Each integer is gained from appyling
-         <Ref Func="IdPGroup_Pack" Style="Text"/> to the fingerprint.
+         routine.
 </Item>
 <Item>
 "next": a list comprised of the resprective subbranches corresponding to the
@@ -30,15 +31,15 @@
            implemented as a record itself.
 </Item>
 </List>
- Depending on the level each record also has one of the following two components:
+ Depending on the depth in the tree each record also has one of the following
+ two components:
 <List>
 <Item>
 "test": a string that indicates which test was used via
            <Ref Func="TestOnGroup" Style="Text"/> to create the listed fingerprints.
 </Item>
 <Item>
-"desc": a list of integers that encode a description of the performed test
-           using <Code>EvalFpCoc</Code>.
+"desc": a list of integers that encode a description of the performed powermap-test
 </Item>
 </List>
 <P/>
@@ -46,65 +47,65 @@
  groups by the following invariants:
 <List>
 <Item>
-The rank of the group.
+the rank of the group,
 </Item>
 <Item>
-The collected orders of all elements of the group.
+the collected orders of all elements of the group,
 </Item>
 <Item>
-The numbers of conjugacy classes of each length and representative order (the
-   order of the elements in the class) of the group.
+the numbers of conjugacy classes of each length and representative order (the
+   order of the elements in the class) of the group,
 </Item>
 <Item>
-The isomorphism type of the parent of the group, i.e. the quotient of the group
-   and the smallest non-trivial element of the lower-<Math>p</Math>-central series.
+the isomorphism type of the parent of the group, i.e. the quotient of the group
+   and the smallest non-trivial element of the lower-<Math>p</Math>-central series,
 </Item>
 <Item>
-The abelian invarants, i.e. the isomorphism types of the quotients of the
-   derived series.
+the abelian invarants, i.e. the isomorphism types of the quotients of the
+   derived series and
 </Item>
 <Item>
-The cycle structure of the permutations induced on all clusters of conjugacy
+the cycle structure of the permutations induced on all clusters of conjugacy
    classes of same length and representative order by the power map <Math>x\mapsto x^3</Math>.
 </Item>
 </List>
 <P/>
  If necessary these invariants are followed by invaraints resulting from
  tests evaluated on partitions of <M>G</M>.
-<P/>
  The initial partition is made of the conjugacy classes of <M>G</M>
  grouped such that conjugacy classes of the same length and same representative
- order belong to the same partitioning subset. The results of <Code>EvalFpCoc</Code>
+ order belong to the same partitioning subset. The results of a power map
  applied to a partition give the invaraints used to distinguish groups in these
  levels of the search tree. The exact behaviour is determined by the content
  of the component "desc". After the evaluation of each test, the partition is refined
- according to the result of <Code>EvalFpCoc</Code>.
+ according to the result.
 <P/>
  If the preceding invaraints do not lead to a single group, the following (more
  time consuming) invaraints are calculated.
 <List>
 <Item>
 The isomorphism types of the non-trivial factors formed by the group and
-   elements of the smallest non-trivial element of the lower-p-central series.
+   elements of the smallest non-trivial element of the lower-p-central series,
 </Item>
 <Item>
-The isomorphism types of the non-trivial factors formed by the group and
-   elements of the center.
+the isomorphism types of the non-trivial factors formed by the group and
+   elements of the center and
 </Item>
 <Item>
-The isomorphism types of all maximal subgroups.
+the isomorphism types of all maximal subgroups.
 </Item>
 </List>
 <P/>
  Remaining are 139 pairs and 1 triplet of groups of unidentified groups. All these
- groups are distinguished by a random isomorphism test. That is done by selecting
- random elements from predefined clusters of conjugacy classes, that were used
- and potentially refined before, until these elements generate the group. This list
- of generators is then turned into a <Code>pcgs</Code> and the presentation encoded into
- an integer by the funtion <Code>CodeGenerators</Code>. The resulting integer modulo 99661
- is then compared with precalculated fingerprints of the candidate groups. If
- none of the fingerprints coincides the process is repeated. Thus the runtime of
- the identification for these groups is not constant.
+ groups are distinguished by a random isomorphism test the same way as groups of
+ order 256 are finally distinguished in the &SmallGrps; library.
+<ManSection>
+  <InfoClass Name="InfoId512" />
+ <Description>
+ Info class for the identification routine of groups of order 512.
+ </Description>
+</ManSection>
+
 <ManSection>
   <Func Arg="G [,opt]" Name="IdGroup512" />
  <Returns>The id of the group of order 512 that is isomorphic to <A>G</A>.
@@ -156,14 +157,14 @@ gap> IdGroup512(H, rec(anupq := true));
 </ManSection>
 
 <ManSection>
-  <Func Arg="arg" Name="LoadTotalTree" />
+  <Func Arg="" Name="LoadTotalTree" />
  <Description>
  Loads the entire search tree <Ref Var="ID_GROUP_512_TREE" Style="Text"/>.
  </Description>
 </ManSection>
 
 <ManSection>
-  <Func Arg="arg" Name="IdGroup512Exceptions" />
+  <Func Arg="" Name="IdGroup512Exceptions" />
  <Returns>A list of bins of group-ids, that  <Ref Var="ID_GROUP_512_TREE" Style="Text"/> can
   not distinguish without random isomorphism tests.
 </Returns>
@@ -219,19 +220,16 @@ gap> L[138];
 all orders of the form <Math>p\,q</Math> for <Math>p</Math> and <Math>q</Math> primes,
 </Item>
 <Item>
-all powers of two smaller than <Math>2^9</Math>
+all powers of 2 smaller than <Math>2^9</Math>
 </Item>
 <Item>
-all powers of three smaller than <Math>3^5</Math>
+all powers of 3 smaller than <Math>3^5</Math>
 </Item>
 <Item>
-all powers of a prime smaller than <Math>p^4 </Math>
+all powers of a prime smaller than <Math>p^4</Math> and
 </Item>
 <Item>
-all products of two powers and
-</Item>
-<Item>
-all orders smaller than 255 except 60, 120, 160, 168, 180, 189, 192 and 240.
+all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 </Item>
 </List>
  If no list is available for the provided order <C>fail</C> is returned. If a
@@ -271,19 +269,16 @@ gap> SiblingsIds(256, [1..3]);
 all orders of the form <Math>p\,q</Math> for <Math>p</Math> and <Math>q</Math> primes,
 </Item>
 <Item>
-all powers of two smaller than <Math>2^9</Math>
+all powers of 2 smaller than <Math>2^9</Math>
 </Item>
 <Item>
-all powers of three smaller than <Math>3^5</Math>
+all powers of 3 smaller than <Math>3^5</Math>
 </Item>
 <Item>
-all powers of a prime smaller than <Math>p^4 </Math>
+all powers of a prime smaller than <Math>p^4</Math> and
 </Item>
 <Item>
-all products of two powers and
-</Item>
-<Item>
-all orders smaller than 255 except 60, 120, 160, 168, 180, 189, 192 and 240.
+all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 </Item>
 </List>
  If no list is available for the provided order <C>fail</C> is returned. If a
@@ -319,33 +314,16 @@ gap> StrongSiblingsIds(256, [1..3]);
  This section describes all functions for calculating (strong) siblings
  of a given order.
 <ManSection>
-  <Func Arg="Bins, order, test" Name="SplitBinsViaTest" />
- <Returns>A list of sublists of the provided lists in <A>Bins</A>.
-</Returns>
- <Description>
- Takes a list of bins with ids of groups of size <A>order</A> and splits
- them via the outcome of <A>test</A> implemented in <Code>TestOnGroup</Code>.
-<Example><![CDATA[
-gap> SplitBinsViaTest([[1..10]], 512, "MaxSubId");
-[ [ 1 ], [ 2 ], [ 3, 8 ], [ 4 ], [ 5 ], [ 6, 7 ], [ 9 ], [ 10 ] ]
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="order [,verbose]" Name="CalculateSiblings" />
+  <Func Arg="order" Name="CalculateSiblings" />
  <Returns>A list of lists of ids of groups of size <A>order</A> that are  siblings.
 </Returns>
  <Description>
  Determines all siblings among the groups of size <A>order</A> by applying
- <Ref Func="SplitBinsViaTest" Style="Text"/> with the tests
+ the tests
  <C>"MaxSubId"</C>, <C>"SpSubId"</C>,
  <C>"SubId"</C>, <C>"MaxFactId"</C> and <C>"FactId"</C> iterativly. The
  tests <C>"MaxSubId"</C> and <C>"MaxFactId"</C> are not necessary, but are
  efficient and eliminate some sets before applying the more costly tests.
- The boolean <A>verbose</A> controls if a collection of bin sizes is
- printed after each test (<K>true</K> as default).
 <Example><![CDATA[
 gap> CalculateSiblings(128);
 Test 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ]
@@ -362,142 +340,19 @@ gap> CalculateSiblings(128, false);
 </ManSection>
 
 <ManSection>
-  <Func Arg="Bins, order" Name="DetermineBrauerPairs" />
- <Returns>A list of sublists of the provided lists in <A>Bins</A>.
-</Returns>
- <Description>
- Determines the Brauer pairs among the bins of ids of groups of size
- <A>order</A> listed in <A>Bins</A>.
- </Description>
-</ManSection>
-
-<ManSection>
   <Func Arg="order [,verbose]" Name="CalculateStrongSiblings" />
  <Returns>A list of lists of ids of groups of size <A>order</A> that are  strong siblings.
 </Returns>
  <Description>
  First calculats all siblings of size <A>order</A> via
  <Ref Func="CalculateSiblings" Style="Text"/> and then determines all strong
- siblings among these by <Ref Func="DetermineBrauerPairs" Style="Text"/>.
- The boolean <A>verbose</A> controls if a
- collection of bin sizes is printed after each test while siblings are
- calculated (<K>true</K> as default).
+ siblings among them.
 <Example><![CDATA[
 gap> CalculateStrongSiblings(256, false);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
   [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
 ]]></Example>
 
- </Description>
-</ManSection>
-
-</Section>
-
-<Section Label="Section_Table">
-<Heading>Table of bins of groups</Heading>
-
-<P/>
- This section includes the functions of the package that create and fill
- a table for bins of groups, listing certain invaraints and properties and
- exporting this table as rows of a latex-tables.
-<ManSection>
-  <Func Arg="Bins, order" Name="TableOfGroupInvariants" />
- <Returns>A list of records.
-</Returns>
- <Description>
- Calculates some invariants and properties for the groups of
- order <A>order</A> with ids in lists of <A>bins</A>. If the invariants
- are equal for all groups of a bin, a record listing all information is
- added to the returned list. The calculated invariants are:
-<List>
-<Item>
-the rank of the groups,
-</Item>
-<Item>
-the <Math>p</Math>-class of the groups,
-</Item>
-<Item>
-the size of the groups of automorphisms.
-</Item>
-</List>
- Furthermore the following properties are examined for the groups of a
- bin:
-<List>
-<Item>
-Are the groups outer-automorphism-equivaleant, i.e. are the groups
-   of outer-automorphism isomorphic?
-</Item>
-<Item>
-Are the groups isoclinic?
-</Item>
-<Item>
-Are the groups a modular isomorphic pair (MIP), i.e. are their group
-   rings over a field of characteristic p isomorphic?
-</Item>
-</List>
- The last two properties are not examined and left as an empty string
- in this function, but can be filled via
- <Ref Func="DetermineMIPInTable" Style="Text"/>  and
- <Ref Func="DetermineIsoclinicInTable" Style="Text"/>.
-<Example><![CDATA[
-gap> Bins := StrongSiblingsIds(512, [1, 5, 14]);
-[ [ 1364, 1368 ], [ 1680, 1681 ], [ 15826, 15827 ] ]
-gap> TableOfGroupInvariants(Bins, 512);
-[ rec( OutEqv := "yes", SizeAut := 8192, ids := [ 1364, 1368 ],
-       isoclinic := "",  mip := "", pclass := 5, rank := 2 ),
- rec( OutEqv := "yes", SizeAut := 16384, ids := [ 1680, 1681 ],
-      isoclinic := "", mip := "", pclass := 5, rank := 2 ),
- rec( OutEqv := "no", SizeAut := 65536, ids := [ 15826, 15827 ],
-      isoclinic := "", mip := "", pclass := 3, rank := 3 ) ]
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="tab" Name="DetermineMIPInTable" />
- <Returns>A list of records.
-</Returns>
- <Description>
- Determines if the sets of groups represented by the records in
- <A>tab</A> are modular isomorphic pairs using the &ModIsom; package.
- This information is added to each record of <A>tab</A> and the
- updated list is returned. This function is included in an extension
- of the package and only available if the respective package is loaded.
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="tab" Name="DetermineIsoclinicInTable" />
- <Returns>A list of records.
-</Returns>
- <Description>
- Determines if the sets of groups represented by the records in
- <A>tab</A> are isoclinic using the &XMod; package. This
- information is added to each record and the of <A>tab</A> updated
- list is returned. This function is included in an extension
- of the package and only available if the respective package is loaded.
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="tab1, tab2" Name="MergeTablesOfInvariants" />
- <Returns>A list of records.
-</Returns>
- <Description>
- Merges the tables <A>tab1</A> and <A>tab2</A> into one table. If
- a record entry of only one is the empty string the non-empty
-string is used. This enables the parallel computation of e.g.
- <Ref Func="DetermineMIPInTable" Style="Text"/>  and
- <Ref Func="DetermineIsoclinicInTable" Style="Text"/>.
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="tab, filename" Name="PrintTableToFile" />
- <Description>
- Exports the content of the table <A>tab</A> into
- "<A>filename</A>_table.txt" as rows of a latex table.
  </Description>
 </ManSection>
 
@@ -541,50 +396,6 @@ Extending the tree with these test results via
  includes a search for suitable parameters than can take quite some
  time.
 <ManSection>
-  <Func Arg="list" Name="IdPGroup_Pack" />
- <Returns>An interger encoding the content of <A>list</A>.
-</Returns>
- <Description>
- Encodes the content of the provided <A>list</A> into an integer.
-<Example><![CDATA[
-gap> IdPGroup_Pack([1,2,3]);
-123
-gap> IdPGroup_Pack([606, 109, 1405]);
-63095
-gap> IdPGroup_Pack([[1,2,3], [606, 1405]]);
-19765
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="G" Name="ClusterConjClasses" />
- <Returns>A list of lists containing the conjugacy classes of <A>G</A>.
-</Returns>
- <Description>
- Computes the conjugacy classes of the group <A>G</A> and clusters them
- such that each clusters contains all classes of a certain length and
- certain representative order (meaning the order of any representative).
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="coc, n" Name="PowerMapCocCycSt" />
- <Returns>A lists of lists of lists of integers
-</Returns>
- <Description>
-Examines the permutation induced by the power map <Math>x\mapsto x^n</Math>
- on each cluster of <A>coc</A>. If a class of a cluster is fixed, the
- permutation within the class is determined and added to the lists of
- permutations of the cluster.
- Finally the cycle structure of each permutation associated to a cluster
- is examined via <Code>CycleStructurePerm</Code> and saved as a list of integers
- (undound entries are replaced by 0).
- </Description>
-</ManSection>
-
-<ManSection>
   <Func Arg="tree" Name="ClusterList" />
  <Returns>A list of all clusters of groups in <A>tree</A>           (i.e. the leafs of <A>tree</A>).
 </Returns>
@@ -592,7 +403,7 @@ Examines the permutation induced by the power map <Math>x\mapsto x^n</Math>
  Iterates through <A>tree</A> and collects information about each leaf
  as a record. This includes the size of the leaf, the path through
  <A>tree</A> leading to the leaf, the tests performed including
- descriptions of performed <Code>EvalFpCoc</Code>-tests and the ids of the
+ descriptions of performed powermap-tests and the ids of the
  groups contained in the leaf.
 <Example><![CDATA[
 gap> tree := rec( fp := [ 63049, 75721, 4310 ],  next := [ [ 3, 8 ], [ 4 ],
@@ -707,8 +518,8 @@ gap> ClusterList(tree);
 </Item>
 </List>
  This function accepts a record <A>opt</A> of options with the single content
- <A>opt.pack</A>, a boolean that determines if <C>IdPGroup_Pack</C> should be applied
- to the result of a test. The default value of <A>opt</A> is
+ <A>opt.pack</A>, a boolean that determines if the result of a test should be
+ encoded as an integer. The default value of <A>opt</A> is
  <M>rec(pack:=</M><K>true</K><M>)</M>.
 <Example><![CDATA[
 gap> G := SmallGroup(512, 1405);;
@@ -840,154 +651,19 @@ rec( fp := [ 88570, 4310, 63049 ], next := [ [ 1 ],
 </ManSection>
 
 <ManSection>
-  <Func Arg="Coc, paralist, it, maxit [,opt]" Name="FindParametersForCocTest" />
- <Returns>A pair made of a list of return values from <Code>EvalFpCoc</Code> and a list  describing the test performed by <Code>EvalFpCoc</Code>.
-</Returns>
- <Description>
- Does a parameter search such that evaluating <Code>EvalFpCoc</Code> on the clusters of
- conjugacy classes in <A>coc</A> results in at least two different values. If
- no suitable parameters are found, the function calls itself iterativly on
- parameters that alter <A>Coc</A> until either a suitable list of parameters
- is found or <A>it</A> is equal to <A>maxit</A>. The parameters of the current
- iteration are provided in the list <A>paralist</A>.
- If the function is initialized with <A>it</A>=0, it only returns a list of
- parameters that alter the clusters in <A>Coc</A>.
- Depending on the size of <A>coc</A> their can be a lot of parameters to check.
- To decrease the needed time the following configurations are skipped:
-<List>
-<Item>
-<Math>[1,i,j]</Math>, where the representative order of <A>coc[i]</A> and j are not coprime.
-</Item>
-<Item>
-<Math>[2,i,j]</Math>, where the representative order of <A>coc[i]</A> is less or equal
-              then the order of <A>coc[j]</A> or the length of the classes in
-              <A>coc[i]</A> is less then the ones of <A>coc[j]</A>.
-</Item>
-<Item>
-<Math>[3,i,j]</Math>, where the representative order of <A>coc[i]</A> is larger or equal
-              then the order of <A>coc[j]</A> or the length of the classes in
-              <A>coc[i]</A> is larger then the ones of <A>coc[j]</A>.
-</Item>
-<Item>
-<Math>[4,i,j,k]</Math>, where either the classes in <A>coc[i]</A> or <A>coc[j]</A> are of
-                length one.
-</Item>
-<Item>
-<Math>[5,i,j,k]</Math>, where either the classes in <A>coc[i]</A> or <A>coc[j]</A> are of
-                length one.
-</Item>
-</List>
-This function accepts a record <A>opt</A> of options with the following content:
-<List>
-<Item>
-<A>target</A>: A list of integers that determines the desired second entries
-                  of the parameters.
-</Item>
-<Item>
-<A>maxlevel</A>: An integer that determines the maximal first parameter entry.
-                    That might be useful, since the parameters for test 4 and 5
-                    often need more time then the rest.
-</Item>
-</List>
- The default value of <A>opt</A> is <M>rec(target:=[1..Size(Coc[1])],
- maxlevel:=5</M>.
-<Example><![CDATA[
-gap> Coc:=List([3, 8],id->ClusterConjClasses(SmallGroup(512, id)));;
-gap> FindParametersForCocTest(Coc, [], 1, 1);
-[ [ 1363, 46760 ], [ 3, 2, 4 ] ]
-gap> FindParametersForCocTest(Coc, [], 1, 1, rec(target:=[4]));
-[ [ 63010, 76026 ], [ [ 4, 4, 6, 5 ] ] ]
-gap> FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4]));
-[ [ 3, 4, 6 ], [ 4, 4, 6, 3 ], [ 4, 4, 6, 4 ], [ 4, 4, 6, 5 ] ]
-gap> FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4], maxlevel := 3));
-[ [ 3, 4, 6 ] ]
-gap> Coc:=List([1883, 1885],id->ClusterConjClasses(SmallGroup(512, id)));;
-gap> FindParametersForCocTest(Coc, [], 1, 2);
-[ [ 8, 18 ], [ [ 1, 9, 3 ], [ 2, 14, 9 ] ] ]
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="desc" Name="DeEncodeDesc" />
- <Returns>An interger or a list of integers
-</Returns>
- <Description>
- De- or encodes a description for <Code>EvalFPCoc</Code>, depending on if an integer
- (decodes to a list) or a list of integers (encodes to an integer)
- is provided.
-<Example><![CDATA[
-gap> DeEncodeDesc([3,2,4]);
-302004
-gap> DeEncodeDesc(302004);
-[3, 2, 4]
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="coc, desc, fp" Name="AlterCocAccordingToFp" />
- <Returns>A list of lists containing the conjugacy classes of a group.
-</Returns>
- <Description>
- Alters the clusters of conjugacy classes <A>coc</A> according the result
- <A>fp</A> from <C>EvalFPCoc</C> evaluated with <A>desc</A> by spliting
- the cluster at position <A>desc[2]</A> of <A>coc</A> into smaller ones.
-<Example><![CDATA[
-gap> coc := ClusterConjClasses(SmallGroup(512, 3));;
-gap> List(coc, Size);
-[ 1, 15, 4, 24, 12, 48 ]
-gap> fp := EvalFpCoc(coc, [3,2,4]);
-[ 0, 0, 16, 16, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0 ]
-gap> cocnew := AlterCocAccordingToFp(coc,[3,2,4],fp);;
-gap> List(cocnew, Size);
-[ 1, 12, 3, 4, 24, 12, 48 ]
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="Ids, order, desclist, iterate" Name="CocSplitRoutine" />
- <Returns>A search tree (implemented as a record).
-</Returns>
- <Description>
- Tries to split the list <A>Ids</A> of group ids of <A>order</A> with ids
- as far as possible on the returned values of <Code>EvalFpCoc</Code> and returns the
- resulting subbranch for a search tree with the relevant details. The
- parameter search is done with at most <A>iterate</A> iterations.
- Past perfomances of <Code>EvalFpCoc</Code> which altered the clusters of conjugacy
- classes of the groups can be recreated in advance via the list <A>desclist</A>.
- If no such splitis possible a warning is printed and <A>Ids</A> is returned.
-<Example><![CDATA[
-gap> CocSplitRoutine([5,6,7], 512, [], 1);
-rec( desc := [104003], fp := [ 1214, 16 ], next := [ [ 5 ],
-     rec( desc := [40204005], fp := [ 20792, 46881 ],
-          next := [ [ 6 ], [ 7 ] ] ) ] )
-gap> CocSplitRoutine([1529,1530,1531], 512, [], 2);
-rec( desc := [ 209003 ], fp := [ 4, 14 ], next :=
-   [ rec( desc := [ 107003, 212007 ], fp := [ 14, 618 ],
-    next := [ [ 1529 ], [ 1530 ] ] ), [ 1531 ] ] )
-]]></Example>
-
- </Description>
-</ManSection>
-
-<ManSection>
   <Func Arg="CL [,opt]" Name="CocTestOnClusterList" />
  <Returns>A list of pairs each containing the path of the respective cluster  and the subbranch resulting from <Code>CocSplitRoutine</Code>.
 </Returns>
  <Description>
- Tries to split each cluster in <A>CL</A> via <Ref Func="CocSplitRoutine" Style="Text"/>.
+ Tries to split each cluster in <A>CL</A> via tests on the lists of conjugacy
+ classes.
  <A>CL</A> must be a cluster list produced by <Ref Func="ClusterList" Style="Text"/>.
  This function
  accepts a record <A>opt</A> of options with the following content:
 <List>
 <Item>
-<A>pack</A>: A boolean that determines if <Ref Func="IdPGroup_Pack" Style="Text"/>
-                should be applied to the result.
+<A>pack</A>: A boolean that determines if the result should be encoded as an
+                  intger.
 </Item>
 <Item>
 <A>order</A>: An integer giving the order of the groups with ids in <A>CL</A>.

@@ -6,8 +6,8 @@
 ####################
 ## Info Levels:
 ##
-DeclareInfoClass("id512info");
-SetInfoLevel(id512info, 0);
+DeclareInfoClass("InfoId512");
+SetInfoLevel(InfoId512, 0);
 
 
 #####################################################################################
@@ -399,7 +399,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
     if not IsBound(opt.tree) then
         if not IsBound(ID_GROUP_512_TREE) then
-            Info(id512info, 2, "Load required data: ID_GROUP_512_TREE");
+            Info(InfoId512, 2, "Load required data: ID_GROUP_512_TREE");
             ID_GROUP_512_TREE := rec(fp:=[],next:=[]);
             Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/Searchtree/ID_GROUP_512_TREE.g"));
         fi;
@@ -410,7 +410,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
     if not IsPcGroup(G) then
         G := Image(IsomorphismPcGroup(G));
-        Info(id512info, 1, "Transformed group into pc group");
+        Info(InfoId512, 1, "Transformed group into pc group");
     fi;
 
     #Iterate through tree as long we have not reached a leaf and we can test
@@ -419,12 +419,12 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
         if IsBound(branch.test) then
             fp := TestOnGroup(G, branch.test);
-            Info(id512info, 1, "Perform test: ", branch.test, " and find fp: ", fp);
+            Info(InfoId512, 1, "Perform test: ", branch.test, " and find fp: ", fp);
         else
             if not IsBound(coc) then coc := ClusterConjClasses(G); fi;
             for desc in branch.desc do
                 fp := EvalFpCoc(coc, DeEncodeDesc(desc));
-                Info(id512info, 1, "Perform coc-test: ", DeEncodeDesc(desc), " and find fp: ", fp);
+                Info(InfoId512, 1, "Perform coc-test: ", DeEncodeDesc(desc), " and find fp: ", fp);
                 coc := AlterCocAccordingToFp(coc, DeEncodeDesc(desc), fp);
             od;
             fp := IdPGroup_Pack(Collected(fp));
@@ -432,7 +432,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
         #Determine next branch to follow
         pos := Position(branch.fp, fp);
-        Info(id512info, 1, "Choose branch number ", pos, " out of ", Size(branch.fp), "  possible branches");
+        Info(InfoId512, 1, "Choose branch number ", pos, " out of ", Size(branch.fp), "  possible branches");
 
         if IsBool(pos) then
             Error("Group not found in tree.\n");
@@ -440,7 +440,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
         #Load next part of branch if necessary
         if IsString(branch.next[pos]) then
-            Info(id512info, 2, "Load searchtree data: ", branch.next[pos]);
+            Info(InfoId512, 2, "Load searchtree data: ", branch.next[pos]);
             Read(Filename(DirectoriesPackageLibrary("idpgroup",""),
             Concatenation("data/Searchtree/", branch.next[pos])));
         fi;
@@ -463,7 +463,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
     elif not opt.anupq then
         pos := Position(List(ID_GROUP_512_INFOREC_F18,x->x[1]), branch);
-        Info(id512info, 1, "Use random presentation matching to distinguished ", branch);
+        Info(InfoId512, 1, "Use random presentation matching to distinguished ", branch);
         if pos <> fail then
             branch := ID_GROUP_512_INFOREC_F18[pos];
 
@@ -477,7 +477,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
                 coc := AlterCocAccordingToFp(coc, desc, EvalFpCoc(coc, desc));
             od;
 
-            Info(id512info, 2, "Perform ID_GROUP_FUNCS[18] on branch ", branch[2]);
+            Info(InfoId512, 2, "Perform ID_GROUP_FUNCS[18] on branch ", branch[2]);
             inforec := rec(coc := coc, branch := branch[2]);
             inforec := ID_GROUP_FUNCS[18](G, inforec);
 
@@ -488,7 +488,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
 
     #Hardcoded non-brauer-pairs that can be distinguished by testing the charactertables
     elif branch in [[6316783, 6316787], [ 6537030, 6537041 ]] then
-        Info(id512info, 1, "Use character tables to distinguished between ", branch);
+        Info(InfoId512, 1, "Use character tables to distinguished between ", branch);
         CT := CharacterTable(SmallGroup(512, branch[1]));
         CG := CharacterTable(G);
 
@@ -500,7 +500,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
         fi;
 
     elif opt.anupq and IsList(branch) and Size(branch) > 1 then
-        Info(id512info, 1, "Use IsPqIsomorphicPGroup from anupq to distinguished between ", branch);
+        Info(InfoId512, 1, "Use IsPqIsomorphicPGroup from anupq to distinguished between ", branch);
         for id in branch{[1..Size(branch)-1]} do
             GT := SmallGroup(512, id);
             if IsPqIsomorphicPGroup(G, GT) then
