@@ -1,4 +1,4 @@
-ID_GROUP_512_INFOREC_F18:=[ [ [ 1367, 1371 ], rec(
+ID512_INFORECF18:=[ [ [ 1367, 1371 ], rec(
           descl := [ 210002 ],
           fp := [ 39080, 80814 ],
           func := 18,

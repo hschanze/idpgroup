@@ -66,31 +66,32 @@
 #!   order of the elements in the class) of the group,
 #! * the isomorphism type of the parent of the group, i.e. the quotient of the group
 #!   and the smallest non-trivial element of the lower-$p$-central series,
-#! * the abelian invarants, i.e. the isomorphism types of the quotients of the
-#!   derived series and
+#! * the abelian invarants, i.e. the isomorphism type of the commutator factor group
+#!   of the group <M>G</M> and
 #! * the cycle structure of the permutations induced on all clusters of conjugacy
 #!   classes of same length and representative order by the power map $x\mapsto x^3$.
 #!
 #! If necessary these invariants are followed by invaraints resulting from
-#! tests evaluated on partitions of <M>G</M>.
+#! power maps evaluated on partitions of <M>G</M>.
 #! The initial partition is made of the conjugacy classes of <M>G</M>
 #! grouped such that conjugacy classes of the same length and same representative
-#! order belong to the same partitioning subset. The results of a power map
-#! applied to a partition give the invaraints used to distinguish groups in these
-#! levels of the search tree. The exact behaviour is determined by the content
-#! of the component "desc". After the evaluation of each test, the partition is refined
-#! according to the result.
+#! order belong to the same partitioning subset. The collected result of a power map
+#! applied to a subset forms a invaraint used to distinguish groups in these
+#! levels of the search tree. The describing parameters (e.g. which subset, which
+#! power map) is determined by the content
+#! of the component "desc". After the evaluation, the partition is refined
+#! according to the respective result.
 #!
 #! If the preceding invaraints do not lead to a single group, the following (more
-#! time consuming) invaraints are calculated.
-#! * The isomorphism types of the non-trivial factors formed by the group and
+#! time consuming) invaraints are calculated:
+#! * the isomorphism types of the non-trivial factors formed by the group and
 #!   elements of the smallest non-trivial element of the lower-p-central series,
 #! * the isomorphism types of the non-trivial factors formed by the group and
 #!   elements of the center and
 #! * the isomorphism types of all maximal subgroups.
 #!
-#! Remaining are 139 pairs and 1 triplet of groups of unidentified groups. All these
-#! groups are distinguished by a random isomorphism test the same way as groups of
+#! After this process 139 pairs and 1 triplet of groups remain unidentified. These
+#! groups are distinguished by a random isomorphism test in the same way the groups of
 #! order 256 are finally distinguished in the &SmallGrps; library.
 # #! That is done by selecting
 # #! random elements from predefined clusters of conjugacy classes, that were used
@@ -110,13 +111,13 @@ DeclareInfoClass("InfoId512");
 #! @Description
 #! Identifies the group <A>G</A> of order 512.
 #! This function accepts a record <A>opt</A> of options with the following content:
-#! * <A>tree</A>: A search tree that was built using the invariants resulting from
+#! * <A>path</A>: a boolean that determines if the path through the tree shall be
+#!                recorded while identification and returned as well.´
+#! * <A>tree</A>: a search tree that was built using the invariants resulting from
 #!                <M>tests</M>.
-#! * <A>anupq</A>: A boolean that determines if <M>IsPqIsomorphicPGroup</M> from the
+#! * <A>anupq</A>: a boolean that determines if <M>IsPqIsomorphicPGroup</M> from the
 #!                 &Anupq;-Package should be used to find the to <A>G</A> isomorphic
 #!                 group among the remaining candidates.
-#! * <A>path</A>: A boolean that determines if the path through the tree shall be
-#!                recorded while identification and returned as well.
 #! The default values of <A>opt</A> is <C>rec(anupq</C>:=<K>false</K>,
 #!  <C>tree:=ID_GROUP_512_TREE, path:=</C> <K>false</K> <C>)</C>.
 #! @BeginExampleSession
@@ -145,19 +146,19 @@ DeclareGlobalName("ID_GROUP_512_TREE");
 #! Loads the entire search tree <Ref Var="ID_GROUP_512_TREE" Style="Text"/>.
 DeclareGlobalFunction("LoadTotalTree");
 
-#! @Arguments
-#! @Returns A list of bins of group-ids, that
-#! <Ref Var="ID_GROUP_512_TREE" Style="Text"/> can
-#! not distinguish without random isomorphism tests.
-#! @Description
-#! @BeginExampleSession
-#! gap> L := IdGroup512Exceptions();;
-#! gap> Collected(List(L, Size));
-#! [ [ 2, 139 ], [ 3, 1 ] ]
-#! gap> L[138];
-#! [ 6249609, 6249610, 6249611 ]
-#! @EndExampleSession
-DeclareGlobalFunction("IdGroup512Exceptions");
+# #! @Arguments
+# #! @Returns A list of bins of group-ids, that
+# #! <Ref Var="ID_GROUP_512_TREE" Style="Text"/> can
+# #! not distinguish without random isomorphism tests.
+# #! @Description
+# #! @BeginExampleSession
+# #! gap> L := IdGroup512Exceptions();;
+# #! gap> Collected(List(L, Size));
+# #! [ [ 2, 139 ], [ 3, 1 ] ]
+# #! gap> L[138];
+# #! [ 6249609, 6249610, 6249611 ]
+# #! @EndExampleSession
+# DeclareGlobalFunction("IdGroup512Exceptions");
 
 #! @Section Loading (strong) siblings
 #! @SectionLabel Load
@@ -175,10 +176,11 @@ DeclareGlobalFunction("IdGroup512Exceptions");
 #! All (strong) siblings of orders dividing 512 together with some trivial cases
 #! are implemented in this package and are callable by the following functions.
 
-#! @Arguments order [,indices]
-#! @Returns A list of lists of ids of siblings of size <A>order</A>.
+#! @Arguments order, justids, [,indices]
+#! @Returns A list of lists of siblings of size <A>order</A>. The parameter
+#! <A>justids</A> controls if just the ids or the groups (default) shall be returned.
 #! @Description
-#! Loads and returns a list of ids of siblings of size <A>order</A> if available.
+#! Loads and returns a list of siblings of size <A>order</A> if available.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
 #! * all powers of 2 smaller than $2^9$
@@ -188,27 +190,29 @@ DeclareGlobalFunction("IdGroup512Exceptions");
 #! If no list is available for the provided order <C>fail</C> is returned. If a
 #! list <A>indices</A> is given, only the respective entries are returned.
 #! @BeginExampleSession
-#! gap> SiblingsIds(101);
+#! gap> Siblings(101);
 #! [ ]
-#! gap> SiblingsIds(128);
+#! gap> Siblings(128);
+#! [ [ <pc group of size 128 with 7 generators>,
+#!     <pc group of size 128 with 7 generators> ],
+#!   [ <pc group of size 128 with 7 generators>,
+#!     <pc group of size 128 with 7 generators> ],
+#!   [ <pc group of size 128 with 7 generators>,
+#!     <pc group of size 128 with 7 generators> ] ]
+#! gap> Siblings(128, true);
 #! [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-#! gap> SiblingsIds(256, [1..3]);
+#! gap> Siblings(256, true, [1..3]);
 #! [ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
 #! @EndExampleSession
-DeclareGlobalFunction("SiblingsIds");
-
-#! @Arguments order [,indices]
-#! @Returns A list of siblings of size <A>order</A>.
-#! @Description
-#! Loads and returns a list of siblings of size <A>order</A> if available. If
-#! no list is available for the provided order <C>fail</C> is returned. If
-#! <A>indices</A> are given, only the respective entries are returned.
 DeclareGlobalFunction("Siblings");
 
-#! @Arguments order [,indices]
-#! @Returns A list of lists of ids of strong siblings of <A>order</A>.
+
+#! @Arguments order, justids, [,indices]
+#! @Returns A list of lists of strong siblings of <A>order</A>.
 #! @Description
-#! Loads and returns a list of ids of strong siblings of <A>order</A> if available.
+#! Loads and returns a list of strong siblings of <A>order</A> if available. The
+#! parameter <A>justids</A> controls if just the ids or the groups (default) shall be
+#! returned.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
 #! * all powers of 2 smaller than $2^9$
@@ -218,21 +222,21 @@ DeclareGlobalFunction("Siblings");
 #! If no list is available for the provided order <C>fail</C> is returned. If a
 #! list <A>indices</A> is given, only the respective entries are returned.
 #! @BeginExampleSession
-#! gap> StrongSiblingsIds(256);
+#! gap> StrongSiblings(256, true);
 #! [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],
 #!   [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
-#! gap> StrongSiblingsIds(256, [1..3]);
+#! gap> StrongSiblings(256, false, [1..3]);
+#! [ [ <pc group of size 256 with 8 generators>,
+#!     <pc group of size 256 with 8 generators> ],
+#!   [ <pc group of size 256 with 8 generators>,
+#!     <pc group of size 256 with 8 generators> ],
+#!   [ <pc group of size 256 with 8 generators>,
+#!     <pc group of size 256 with 8 generators> ] ]
+#! gap> StrongSiblings(256, true, [1..3]);
 #! [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
 #! @EndExampleSession
-DeclareGlobalFunction("StrongSiblingsIds");
-
-#! @Arguments order [,indices]
-#! @Returns A list of strong siblings of <A>order</A>.
-#! @Description
-#! Loads and returns a list of strong siblings of <A>order</A> if available. If
-#! no list is available for the provided order <C>fail</C> is returned. If a
-#! list <A>indices</A> is given, only the respective entries are returned.
 DeclareGlobalFunction("StrongSiblings");
+
 
 DeclareGlobalName("BINS_OF_IDS");
 
@@ -241,6 +245,10 @@ DeclareGlobalName("BINS_OF_IDS");
 #!
 #! This section describes all functions for calculating (strong) siblings
 #! of a given order.
+
+#! @Description
+#! Info class for the calculation of (strong) siblings.
+DeclareInfoClass("InfoSiblings");
 
 # #! @Arguments Bins, order, test
 # #! @Returns A list of sublists of the provided lists in <A>Bins</A>.
@@ -265,13 +273,6 @@ DeclareGlobalName("BINS_OF_IDS");
 #! efficient and eliminate some sets before applying the more costly tests.
 #! @BeginExampleSession
 #! gap> CalculateSiblings(128);
-#! Test 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ]
-#! Test 'SpSubId' found following bins of size greater one:[ [ 2, 22 ] ]
-#! Test 'SubId' found following bins of size greater one:[ [ 2, 16 ] ]
-#! Test 'MaxFactId' found following bins of size greater one:[ [ 2, 3 ] ]
-#! Test 'FactId' found following bins of size greater one:[ [ 2, 3 ] ]
-#! [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-#! gap> CalculateSiblings(128, false);
 #! [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
 #! @EndExampleSession
 DeclareGlobalFunction("CalculateSiblings");
@@ -283,7 +284,7 @@ DeclareGlobalFunction("CalculateSiblings");
 # #! <A>order</A> listed in <A>Bins</A>.
 # #DeclareGlobalFunction("DetermineBrauerPairs");
 
-#! @Arguments order [,verbose]
+#! @Arguments order
 #! @Returns A list of lists of ids of groups of size <A>order</A> that are
 #! strong siblings.
 #! @Description
@@ -291,7 +292,7 @@ DeclareGlobalFunction("CalculateSiblings");
 #! <Ref Func="CalculateSiblings" Style="Text"/> and then determines all strong
 #! siblings among them.
 #! @BeginExampleSession
-#! gap> CalculateStrongSiblings(256, false);
+#! gap> CalculateStrongSiblings(256);
 #! [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
 #!   [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
 #! @EndExampleSession

@@ -2,15 +2,13 @@
 \indexentry{IdGroup512@\texttt  {IdGroup512}|hyperpage}{5}
 \indexentry{ID{\textunderscore }GROUP{\textunderscore }512{\textunderscore }TREE@\texttt  {ID{\textunderscore }}\-\texttt  {G}\-\texttt  {R}\-\texttt  {O}\-\texttt  {U}\-\texttt  {P{\textunderscore }512{\textunderscore }}\-\texttt  {TREE}|hyperpage}{6}
 \indexentry{LoadTotalTree@\texttt  {LoadTotalTree}|hyperpage}{6}
-\indexentry{IdGroup512Exceptions@\texttt  {IdGroup512Exceptions}|hyperpage}{6}
-\indexentry{SiblingsIds@\texttt  {SiblingsIds}|hyperpage}{7}
 \indexentry{Siblings@\texttt  {Siblings}|hyperpage}{7}
-\indexentry{StrongSiblingsIds@\texttt  {StrongSiblingsIds}|hyperpage}{7}
-\indexentry{StrongSiblings@\texttt  {StrongSiblings}|hyperpage}{8}
+\indexentry{StrongSiblings@\texttt  {StrongSiblings}|hyperpage}{7}
+\indexentry{InfoSiblings@\texttt  {InfoSiblings}|hyperpage}{8}
 \indexentry{CalculateSiblings@\texttt  {CalculateSiblings}|hyperpage}{8}
 \indexentry{CalculateStrongSiblings@\texttt  {CalculateStrongSiblings}|hyperpage}{8}
 \indexentry{ClusterList@\texttt  {ClusterList}|hyperpage}{9}
-\indexentry{TestOnGroup@\texttt  {TestOnGroup}|hyperpage}{10}
+\indexentry{TestOnGroup@\texttt  {TestOnGroup}|hyperpage}{9}
 \indexentry{TestOnClusterList@\texttt  {TestOnClusterList}|hyperpage}{11}
 \indexentry{AddClusterTestResults@\texttt  {AddClusterTestResults}|hyperpage}{12}
 \indexentry{BuildSearchTree@\texttt  {BuildSearchTree}|hyperpage}{12}

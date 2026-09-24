@@ -35,15 +35,13 @@
       2.1-2 IdGroup512
       2.1-3 ID_GROUP_512_TREE
       2.1-4 LoadTotalTree
-      2.1-5 IdGroup512Exceptions
     2.2 [33X[0;0YLoading (strong) siblings[133X
-      2.2-1 SiblingsIds
-      2.2-2 Siblings
-      2.2-3 StrongSiblingsIds
-      2.2-4 StrongSiblings
+      2.2-1 Siblings
+      2.2-2 StrongSiblings
     2.3 [33X[0;0YFunctions for calculating (strong) siblings[133X
-      2.3-1 CalculateSiblings
-      2.3-2 CalculateStrongSiblings
+      2.3-1 InfoSiblings
+      2.3-2 CalculateSiblings
+      2.3-3 CalculateStrongSiblings
     2.4 [33X[0;0YFunctions for building a search tree[133X
       2.4-1 ClusterList
       2.4-2 TestOnGroup

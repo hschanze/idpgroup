@@ -61,8 +61,8 @@ the isomorphism type of the parent of the group, i.e. the quotient of the group
    and the smallest non-trivial element of the lower-<Math>p</Math>-central series,
 </Item>
 <Item>
-the abelian invarants, i.e. the isomorphism types of the quotients of the
-   derived series and
+the abelian invarants, i.e. the isomorphism type of the commutator factor group
+   of the group <M>G</M> and
 </Item>
 <Item>
 the cycle structure of the permutations induced on all clusters of conjugacy
@@ -71,14 +71,15 @@ the cycle structure of the permutations induced on all clusters of conjugacy
 </List>
 <P/>
  If necessary these invariants are followed by invaraints resulting from
- tests evaluated on partitions of <M>G</M>.
+ power maps evaluated on partitions of <M>G</M>.
  The initial partition is made of the conjugacy classes of <M>G</M>
  grouped such that conjugacy classes of the same length and same representative
- order belong to the same partitioning subset. The results of a power map
- applied to a partition give the invaraints used to distinguish groups in these
- levels of the search tree. The exact behaviour is determined by the content
- of the component "desc". After the evaluation of each test, the partition is refined
- according to the result.
+ order belong to the same partitioning subset. The collected result of a power map
+ applied to a subset forms a invaraint used to distinguish groups in these
+ levels of the search tree. The describing parameters (e.g. which subset, which
+ power map) is determined by the content
+ of the component "desc". After the evaluation, the partition is refined
+ according to the respective result.
 <P/>
  If the preceding invaraints do not lead to a single group, the following (more
  time consuming) invaraints are calculated.
@@ -163,23 +164,6 @@ gap> IdGroup512(H, rec(anupq := true));
  </Description>
 </ManSection>
 
-<ManSection>
-  <Func Arg="" Name="IdGroup512Exceptions" />
- <Returns>A list of bins of group-ids, that  <Ref Var="ID_GROUP_512_TREE" Style="Text"/> can
-  not distinguish without random isomorphism tests.
-</Returns>
- <Description>
-<Example><![CDATA[
-gap> L := IdGroup512Exceptions();;
-gap> Collected(List(L, Size));
-[ [ 2, 139 ], [ 3, 1 ] ]
-gap> L[138];
-[ 6249609, 6249610, 6249611 ]
-]]></Example>
-
- </Description>
-</ManSection>
-
 </Section>
 
 <Section Label="Section_Load">
@@ -209,11 +193,11 @@ gap> L[138];
  All (strong) siblings of orders dividing 512 together with some trivial cases
  are implemented in this package and are callable by the following functions.
 <ManSection>
-  <Func Arg="order [,indices]" Name="SiblingsIds" />
- <Returns>A list of lists of ids of siblings of size <A>order</A>.
+  <Func Arg="order, justids, [,indices]" Name="Siblings" />
+ <Returns>A list of lists of siblings of size <A>order</A>. The parameter  <A>justids</A> controls if just the ids or the groups (default) shall be returned.
 </Returns>
  <Description>
- Loads and returns a list of ids of siblings of size <A>order</A> if available.
+ Loads and returns a list of siblings of size <A>order</A> if available.
  Currently available sizes are:
 <List>
 <Item>
@@ -235,11 +219,18 @@ all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
  If no list is available for the provided order <C>fail</C> is returned. If a
  list <A>indices</A> is given, only the respective entries are returned.
 <Example><![CDATA[
-gap> SiblingsIds(101);
+gap> Siblings(101);
 [ ]
-gap> SiblingsIds(128);
+gap> Siblings(128);
+[ [ <pc group of size 128 with 7 generators>,
+    <pc group of size 128 with 7 generators> ],
+  [ <pc group of size 128 with 7 generators>,
+    <pc group of size 128 with 7 generators> ],
+  [ <pc group of size 128 with 7 generators>,
+    <pc group of size 128 with 7 generators> ] ]
+gap> Siblings(128, true);
 [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-gap> SiblingsIds(256, [1..3]);
+gap> Siblings(256, true, [1..3]);
 [ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
 ]]></Example>
 
@@ -247,22 +238,13 @@ gap> SiblingsIds(256, [1..3]);
 </ManSection>
 
 <ManSection>
-  <Func Arg="order [,indices]" Name="Siblings" />
- <Returns>A list of siblings of size <A>order</A>.
+  <Func Arg="order, justids, [,indices]" Name="StrongSiblings" />
+ <Returns>A list of lists of strong siblings of <A>order</A>.
 </Returns>
  <Description>
- Loads and returns a list of siblings of size <A>order</A> if available. If
- no list is available for the provided order <C>fail</C> is returned. If
- <A>indices</A> are given, only the respective entries are returned.
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="order [,indices]" Name="StrongSiblingsIds" />
- <Returns>A list of lists of ids of strong siblings of <A>order</A>.
-</Returns>
- <Description>
- Loads and returns a list of ids of strong siblings of <A>order</A> if available.
+ Loads and returns a list of strong siblings of <A>order</A> if available. The
+ parameter <A>justids</A> controls if just the ids or the groups (default) shall be
+ returned.
  Currently available sizes are:
 <List>
 <Item>
@@ -284,24 +266,20 @@ all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
  If no list is available for the provided order <C>fail</C> is returned. If a
  list <A>indices</A> is given, only the respective entries are returned.
 <Example><![CDATA[
-gap> StrongSiblingsIds(256);
+gap> StrongSiblings(256, true);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],
   [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
-gap> StrongSiblingsIds(256, [1..3]);
+gap> StrongSiblings(256, false, [1..3]);
+[ [ <pc group of size 256 with 8 generators>,
+    <pc group of size 256 with 8 generators> ],
+  [ <pc group of size 256 with 8 generators>,
+    <pc group of size 256 with 8 generators> ],
+  [ <pc group of size 256 with 8 generators>,
+    <pc group of size 256 with 8 generators> ] ]
+gap> StrongSiblings(256, true, [1..3]);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
 ]]></Example>
 
- </Description>
-</ManSection>
-
-<ManSection>
-  <Func Arg="order [,indices]" Name="StrongSiblings" />
- <Returns>A list of strong siblings of <A>order</A>.
-</Returns>
- <Description>
- Loads and returns a list of strong siblings of <A>order</A> if available. If
- no list is available for the provided order <C>fail</C> is returned. If a
- list <A>indices</A> is given, only the respective entries are returned.
  </Description>
 </ManSection>
 
@@ -313,6 +291,13 @@ gap> StrongSiblingsIds(256, [1..3]);
 <P/>
  This section describes all functions for calculating (strong) siblings
  of a given order.
+<ManSection>
+  <InfoClass Name="InfoSiblings" />
+ <Description>
+ Info class for the calculation of (strong) siblings.
+ </Description>
+</ManSection>
+
 <ManSection>
   <Func Arg="order" Name="CalculateSiblings" />
  <Returns>A list of lists of ids of groups of size <A>order</A> that are  siblings.
@@ -326,13 +311,6 @@ gap> StrongSiblingsIds(256, [1..3]);
  efficient and eliminate some sets before applying the more costly tests.
 <Example><![CDATA[
 gap> CalculateSiblings(128);
-Test 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ]
-Test 'SpSubId' found following bins of size greater one:[ [ 2, 22 ] ]
-Test 'SubId' found following bins of size greater one:[ [ 2, 16 ] ]
-Test 'MaxFactId' found following bins of size greater one:[ [ 2, 3 ] ]
-Test 'FactId' found following bins of size greater one:[ [ 2, 3 ] ]
-[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-gap> CalculateSiblings(128, false);
 [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
 ]]></Example>
 
@@ -340,7 +318,7 @@ gap> CalculateSiblings(128, false);
 </ManSection>
 
 <ManSection>
-  <Func Arg="order [,verbose]" Name="CalculateStrongSiblings" />
+  <Func Arg="order" Name="CalculateStrongSiblings" />
  <Returns>A list of lists of ids of groups of size <A>order</A> that are  strong siblings.
 </Returns>
  <Description>
@@ -348,7 +326,7 @@ gap> CalculateSiblings(128, false);
  <Ref Func="CalculateSiblings" Style="Text"/> and then determines all strong
  siblings among them.
 <Example><![CDATA[
-gap> CalculateStrongSiblings(256, false);
+gap> CalculateStrongSiblings(256);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
   [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
 ]]></Example>

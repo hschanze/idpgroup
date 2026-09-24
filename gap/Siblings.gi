@@ -1,8 +1,8 @@
 ####################
 ## Info Levels:
 ##
-DeclareInfoClass("sibinfo");
-SetInfoLevel(sibinfo, 1);
+DeclareInfoClass("InfoSiblings");
+SetInfoLevel(InfoSiblings, 0);
 
 
 #####################################################################################
@@ -56,7 +56,7 @@ InstallGlobalFunction(CalculateSiblings, function(order)
         NewBins := SplitBinsViaTest(Bins, order, test);
         Bins := Filtered(NewBins, bin -> Size(bin) > 1);
 
-        Info(sibinfo, 1, "Test '", test, "' created bins of following size greater one: ", Collected(List(Bins,Size)));
+        Info(InfoSiblings, 1, "Test '", test, "' created bins of following size greater one: ", Collected(List(Bins,Size)));
 
         if Size(Bins) = 0 then return Bins; fi;
     od;
@@ -64,34 +64,37 @@ InstallGlobalFunction(CalculateSiblings, function(order)
     return Bins;
 end);
 
+
 #####################################################################################
 ##
 ##  Loads and returns a list of ids of subgroup- and factor-equivalent groups of
 ##  order size if available
 ##
-InstallGlobalFunction(SiblingsIds, function(args...)
-    local size, filename, ind;
+InstallGlobalFunction(Siblings, function(args...)
+    local ids, size, filename, ind;
 
+    ids := [];
     size := args[1];
+    if Size(args) = 1 then args[2] := false; fi;
 
     if size < 256 and not size in [60,120,128,160,168,180,189,192,240,243] then
         #Print("There are no siblings of order ", size, ".\n");
-        return [];
+        ids := [];
     elif List(Collected(Factors(size)),x->x[2]) in [[1], [2], [3], [1,1]] then
-        return [];
+        ids := [];
     elif size = 243 then
-        return [[19, 20], [44, 45]];
+        ids := [[19, 20], [44, 45]];
     elif Size(Collected(Factors(size))) = 1 and Collected(Factors(size))[1][2] = 4 then
-        return [[9, 10]];
+        ids := [[9, 10]];
     elif size in [128, 256, 512, 729] then
         filename := Concatenation("Siblings_", String(size),".g");
         filename := Concatenation("data/SiblingsData/",filename);
         Read(Filename(DirectoriesPackageLibrary("idpgroup",""), filename));
 
-        if Length(args) = 1 then
+        if Length(args) = 2 then
             ind := [1..Length(BINS_OF_IDS)];
-        elif Length(args) = 2 and IsList(args[2]) then
-            ind := args[2];
+        elif Length(args) = 3 and IsList(args[3]) then
+            ind := args[3];
             if not IsSubset([1..Length(BINS_OF_IDS)], ind) then
                 Error("Please choose a subset of [1..", Length(BINS_OF_IDS),"] as the list of indicies");
             fi;
@@ -99,42 +102,32 @@ InstallGlobalFunction(SiblingsIds, function(args...)
             Error("SiblingsIds only expects at most 2 arguments");
         fi;
 
-        return BINS_OF_IDS{ind};
+        ids := BINS_OF_IDS{ind};
     else
         Print("Siblings of size ", size, " are not documented yet.\n");
         return fail;
     fi;
-end);
 
-#####################################################################################
-##
-##  Loads and returns a list siblings of order size if available
-##
-InstallGlobalFunction(Siblings, function(args...)
-    local Ids;
-
-    if Length(args) = 1 then
-        Ids := SiblingsIds(args[1]);
+    if args[2] then
+        return ids;
     else
-        Ids := SiblingsIds(args[1], args[2]);
+        return List(ids, id -> List(id, i -> SmallGroup(size, i)));
     fi;
-
-    if Ids = fail then return fail; fi;
-
-    return List(Ids, ids -> List(ids, id -> SmallGroup(args[1], id)));
 end);
 
 
-#####################################################################################
-##
-## Determines the Brauer pairs among the bins of ids of groups of size order listet in Bins.
-##
-DetermineBrauerPairs := function(Bins, order)
-    local BPs, bin, BP, CT, i, j, bp;
+InstallGlobalFunction(CalculateStrongSiblings, function(order)
+    local bins, BPs, bin, BP, CT, i, j, bp;
+
+    Info(InfoSiblings, 1, "Start by calculating siblings of order ", order);
+
+    bins := CalculateSiblings(order);
+
+    Info(InfoSiblings, 1, "Find Brauer pairs among the found siblings ");
+
     BPs := [];
 
-
-    for bin in Bins do
+    for bin in bins do
         if Size(bin) = 1 then continue; fi;
 
         BP := [[1]];
@@ -165,14 +158,6 @@ DetermineBrauerPairs := function(Bins, order)
     od;
 
     return BPs;
-end;
-
-
-InstallGlobalFunction(CalculateStrongSiblings, function(order)
-    local bins;
-
-    bins := CalculateSiblings(order);
-    return DetermineBrauerPairs(bins, order);
 end);
 
 
@@ -181,22 +166,25 @@ end);
 ##  Loads and returns a list of ids of subgroup- and factor-equivalent Brauer
 ##  pairs of groups of order size if available.
 ##
-InstallGlobalFunction(StrongSiblingsIds, function(args...)
-    local size, filename, ind;
+InstallGlobalFunction(StrongSiblings, function(args...)
+    local ids, size, filename, ind;
 
+    ids := [];
     size := args[1];
 
+    if Size(args) = 1 then args[2] := false; fi;
+
     if size in List([1..7],i->2^i) then
-        return [];
+        ids := [];
     elif size in [256, 512] then
         filename := Concatenation("StrongSiblings_", String(size),".g");
         filename := Concatenation("data/SiblingsData/",filename);
         Read(Filename(DirectoriesPackageLibrary("idpgroup",""), filename));
 
-        if Length(args) = 1 then
+        if Length(args) = 2 then
             ind := [1..Length(BINS_OF_IDS)];
-        elif Length(args) = 2 and IsList(args[2]) then
-            ind := args[2];
+        elif Length(args) = 3 and IsList(args[3]) then
+            ind := args[3];
             if not IsSubset([1..Length(BINS_OF_IDS)], ind) then
                 Error("Please choose a subset of [1..", Length(BINS_OF_IDS),"] as the list of indicies");
             fi;
@@ -204,31 +192,19 @@ InstallGlobalFunction(StrongSiblingsIds, function(args...)
             Error("StrongSiblingsIds only expects at most 2 arguments");
         fi;
 
-        return BINS_OF_IDS{ind};
+        ids := BINS_OF_IDS{ind};
     else
         Print("Strong siblings of size ", size, " are not documented yet.\n");
         return fail;
     fi;
-end);
 
-
-#####################################################################################
-##
-##  Loads and returns a list strong siblings of order size if available
-##
-InstallGlobalFunction(StrongSiblings, function(args...)
-    local Ids;
-
-    if Length(args) = 1 then
-        Ids := StrongSiblingsIds(args[1]);
+    if args[2] then
+        return ids;
     else
-        Ids := StrongSiblingsIds(args[1], args[2]);
+        return List(ids, id -> List(id, i -> SmallGroup(size, i)));
     fi;
-
-    if Ids = fail then return fail; fi;
-
-    return List(Ids, ids -> List(ids, id -> SmallGroup(args[1], id)));
 end);
+
 
 #####################################################################################
 ##
@@ -326,6 +302,7 @@ BinsOfOutEqGroups := function(Bins, order, exact)
 
     return NewBins;
 end;
+
 
 #####################################################################################
 ##

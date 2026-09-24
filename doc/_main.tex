@@ -197,20 +197,20 @@ order of the elements in the class) of the group,
 \item  the isomorphism type of the parent of the group, i.e. the quotient of the
 group and the smallest non\texttt{\symbol{45}}trivial element of the
 lower\texttt{\symbol{45}}$p$\texttt{\symbol{45}}central series, 
-\item  the abelian invarants, i.e. the isomorphism types of the quotients of the
-derived series and 
+\item  the abelian invarants, i.e. the isomorphism type of the commutator factor
+group of the group $G$ and 
 \item  the cycle structure of the permutations induced on all clusters of conjugacy
 classes of same length and representative order by the power map $x\mapsto x^3$. 
 \end{itemize}
  
 
- If necessary these invariants are followed by invaraints resulting from tests
-evaluated on partitions of $G$. The initial partition is made of the conjugacy classes of $G$ grouped such that conjugacy classes of the same length and same representative
-order belong to the same partitioning subset. The results of a power map
-applied to a partition give the invaraints used to distinguish groups in these
-levels of the search tree. The exact behaviour is determined by the content of
-the component "desc". After the evaluation of each test, the partition is
-refined according to the result. 
+ If necessary these invariants are followed by invaraints resulting from power
+maps evaluated on partitions of $G$. The initial partition is made of the conjugacy classes of $G$ grouped such that conjugacy classes of the same length and same representative
+order belong to the same partitioning subset. The collected result of a power
+map applied to a subset forms a invaraint used to distinguish groups in these
+levels of the search tree. The describing parameters (e.g. which subset, which
+power map) is determined by the content of the component "desc". After the
+evaluation, the partition is refined according to the respective result. 
 
  If the preceding invaraints do not lead to a single group, the following (more
 time consuming) invaraints are calculated. 
@@ -301,29 +301,6 @@ loaded if necessary. }
 
  Loads the entire search tree \texttt{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE} (\ref{IDuScoreGROUPuScore512uScoreTREE}). }
 
- 
-
-\subsection{\textcolor{Chapter }{IdGroup512Exceptions}}
-\logpage{[ 2, 1, 5 ]}\nobreak
-\hyperdef{L}{X78FA5E5D78E8E44A}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{IdGroup512Exceptions({\mdseries\slshape })\index{IdGroup512Exceptions@\texttt{IdGroup512Exceptions}}
-\label{IdGroup512Exceptions}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of bins of group\texttt{\symbol{45}}ids, that \texttt{ID{\textunderscore}GROUP{\textunderscore}512{\textunderscore}TREE} (\ref{IDuScoreGROUPuScore512uScoreTREE}) can not distinguish without random isomorphism tests. 
-
-
-
- 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@L := IdGroup512Exceptions();;|
-  !gapprompt@gap>| !gapinput@Collected(List(L, Size));|
-  [ [ 2, 139 ], [ 3, 1 ] ]
-  !gapprompt@gap>| !gapinput@L[138];|
-  [ 6249609, 6249610, 6249611 ]
-\end{Verbatim}
- }
-
  }
 
  
@@ -349,18 +326,18 @@ counterparts,
  All (strong) siblings of orders dividing 512 together with some trivial cases
 are implemented in this package and are callable by the following functions. 
 
-\subsection{\textcolor{Chapter }{SiblingsIds}}
+\subsection{\textcolor{Chapter }{Siblings}}
 \logpage{[ 2, 2, 1 ]}\nobreak
-\hyperdef{L}{X7F39858187F267DA}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{SiblingsIds({\mdseries\slshape order[, indices]})\index{SiblingsIds@\texttt{SiblingsIds}}
-\label{SiblingsIds}
+\hyperdef{L}{X878A3FFE837F9EF6}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Siblings({\mdseries\slshape order, justids[, indices]})\index{Siblings@\texttt{Siblings}}
+\label{Siblings}
 }\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
-A list of lists of ids of siblings of size \mbox{\texttt{\mdseries\slshape order}}. 
+A list of lists of siblings of size \mbox{\texttt{\mdseries\slshape order}}. The parameter \mbox{\texttt{\mdseries\slshape justids}} controls if just the ids or the groups (default) shall be returned. 
 
 
 
- Loads and returns a list of ids of siblings of size \mbox{\texttt{\mdseries\slshape order}} if available. Currently available sizes are: 
+ Loads and returns a list of siblings of size \mbox{\texttt{\mdseries\slshape order}} if available. Currently available sizes are: 
 \begin{itemize}
 \item  all orders of the form $p\,q$ for $p$ and $q$ primes, 
 \item  all powers of 2 smaller than $2^9$ 
@@ -370,44 +347,37 @@ A list of lists of ids of siblings of size \mbox{\texttt{\mdseries\slshape order
 \end{itemize}
  If no list is available for the provided order \texttt{fail} is returned. If a list \mbox{\texttt{\mdseries\slshape indices}} is given, only the respective entries are returned. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@SiblingsIds(101);|
+  !gapprompt@gap>| !gapinput@Siblings(101);|
   [ ]
-  !gapprompt@gap>| !gapinput@SiblingsIds(128);|
+  !gapprompt@gap>| !gapinput@Siblings(128);|
+  [ [ <pc group of size 128 with 7 generators>,
+      <pc group of size 128 with 7 generators> ],
+    [ <pc group of size 128 with 7 generators>,
+      <pc group of size 128 with 7 generators> ],
+    [ <pc group of size 128 with 7 generators>,
+      <pc group of size 128 with 7 generators> ] ]
+  !gapprompt@gap>| !gapinput@Siblings(128, true);|
   [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-  !gapprompt@gap>| !gapinput@SiblingsIds(256, [1..3]);|
+  !gapprompt@gap>| !gapinput@Siblings(256, true, [1..3]);|
   [ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
 \end{Verbatim}
  }
 
  
 
-\subsection{\textcolor{Chapter }{Siblings}}
+\subsection{\textcolor{Chapter }{StrongSiblings}}
 \logpage{[ 2, 2, 2 ]}\nobreak
-\hyperdef{L}{X878A3FFE837F9EF6}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{Siblings({\mdseries\slshape order[, indices]})\index{Siblings@\texttt{Siblings}}
-\label{Siblings}
+\hyperdef{L}{X843063807B06E65B}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StrongSiblings({\mdseries\slshape order, justids[, indices]})\index{StrongSiblings@\texttt{StrongSiblings}}
+\label{StrongSiblings}
 }\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
-A list of siblings of size \mbox{\texttt{\mdseries\slshape order}}. 
+A list of lists of strong siblings of \mbox{\texttt{\mdseries\slshape order}}. 
 
 
 
- Loads and returns a list of siblings of size \mbox{\texttt{\mdseries\slshape order}} if available. If no list is available for the provided order \texttt{fail} is returned. If \mbox{\texttt{\mdseries\slshape indices}} are given, only the respective entries are returned. }
-
- 
-
-\subsection{\textcolor{Chapter }{StrongSiblingsIds}}
-\logpage{[ 2, 2, 3 ]}\nobreak
-\hyperdef{L}{X8766ECFD817FB4A7}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StrongSiblingsIds({\mdseries\slshape order[, indices]})\index{StrongSiblingsIds@\texttt{StrongSiblingsIds}}
-\label{StrongSiblingsIds}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of lists of ids of strong siblings of \mbox{\texttt{\mdseries\slshape order}}. 
-
-
-
- Loads and returns a list of ids of strong siblings of \mbox{\texttt{\mdseries\slshape order}} if available. Currently available sizes are: 
+ Loads and returns a list of strong siblings of \mbox{\texttt{\mdseries\slshape order}} if available. The parameter \mbox{\texttt{\mdseries\slshape justids}} controls if just the ids or the groups (default) shall be returned. Currently
+available sizes are: 
 \begin{itemize}
 \item  all orders of the form $p\,q$ for $p$ and $q$ primes, 
 \item  all powers of 2 smaller than $2^9$ 
@@ -417,28 +387,20 @@ A list of lists of ids of strong siblings of \mbox{\texttt{\mdseries\slshape ord
 \end{itemize}
  If no list is available for the provided order \texttt{fail} is returned. If a list \mbox{\texttt{\mdseries\slshape indices}} is given, only the respective entries are returned. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@StrongSiblingsIds(256);|
+  !gapprompt@gap>| !gapinput@StrongSiblings(256, true);|
   [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],
     [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
-  !gapprompt@gap>| !gapinput@StrongSiblingsIds(256, [1..3]);|
+  !gapprompt@gap>| !gapinput@StrongSiblings(256, false, [1..3]);|
+  [ [ <pc group of size 256 with 8 generators>,
+      <pc group of size 256 with 8 generators> ],
+    [ <pc group of size 256 with 8 generators>,
+      <pc group of size 256 with 8 generators> ],
+    [ <pc group of size 256 with 8 generators>,
+      <pc group of size 256 with 8 generators> ] ]
+  !gapprompt@gap>| !gapinput@StrongSiblings(256, true, [1..3]);|
   [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
 \end{Verbatim}
  }
-
- 
-
-\subsection{\textcolor{Chapter }{StrongSiblings}}
-\logpage{[ 2, 2, 4 ]}\nobreak
-\hyperdef{L}{X843063807B06E65B}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StrongSiblings({\mdseries\slshape order[, indices]})\index{StrongSiblings@\texttt{StrongSiblings}}
-\label{StrongSiblings}
-}\hfill{\scriptsize (function)}}\\
-\textbf{\indent Returns:\ }
-A list of strong siblings of \mbox{\texttt{\mdseries\slshape order}}. 
-
-
-
- Loads and returns a list of strong siblings of \mbox{\texttt{\mdseries\slshape order}} if available. If no list is available for the provided order \texttt{fail} is returned. If a list \mbox{\texttt{\mdseries\slshape indices}} is given, only the respective entries are returned. }
 
  }
 
@@ -452,8 +414,20 @@ A list of strong siblings of \mbox{\texttt{\mdseries\slshape order}}.
  This section describes all functions for calculating (strong) siblings of a
 given order. 
 
-\subsection{\textcolor{Chapter }{CalculateSiblings}}
+\subsection{\textcolor{Chapter }{InfoSiblings}}
 \logpage{[ 2, 3, 1 ]}\nobreak
+\hyperdef{L}{X87BC15127AE5D98F}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{InfoSiblings\index{InfoSiblings@\texttt{InfoSiblings}}
+\label{InfoSiblings}
+}\hfill{\scriptsize (info class)}}\\
+
+
+ Info class for the calculation of (strong) siblings. }
+
+ 
+
+\subsection{\textcolor{Chapter }{CalculateSiblings}}
+\logpage{[ 2, 3, 2 ]}\nobreak
 \hyperdef{L}{X7A81D24885DD46A1}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CalculateSiblings({\mdseries\slshape order})\index{CalculateSiblings@\texttt{CalculateSiblings}}
 \label{CalculateSiblings}
@@ -467,13 +441,6 @@ A list of lists of ids of groups of size \mbox{\texttt{\mdseries\slshape order}}
 the more costly tests. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
   !gapprompt@gap>| !gapinput@CalculateSiblings(128);|
-  Test 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ]
-  Test 'SpSubId' found following bins of size greater one:[ [ 2, 22 ] ]
-  Test 'SubId' found following bins of size greater one:[ [ 2, 16 ] ]
-  Test 'MaxFactId' found following bins of size greater one:[ [ 2, 3 ] ]
-  Test 'FactId' found following bins of size greater one:[ [ 2, 3 ] ]
-  [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-  !gapprompt@gap>| !gapinput@CalculateSiblings(128, false);|
   [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
 \end{Verbatim}
  }
@@ -481,9 +448,9 @@ the more costly tests.
  
 
 \subsection{\textcolor{Chapter }{CalculateStrongSiblings}}
-\logpage{[ 2, 3, 2 ]}\nobreak
+\logpage{[ 2, 3, 3 ]}\nobreak
 \hyperdef{L}{X7E2FC2447FF1E8FE}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CalculateStrongSiblings({\mdseries\slshape order[, verbose]})\index{CalculateStrongSiblings@\texttt{CalculateStrongSiblings}}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CalculateStrongSiblings({\mdseries\slshape order})\index{CalculateStrongSiblings@\texttt{CalculateStrongSiblings}}
 \label{CalculateStrongSiblings}
 }\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
@@ -493,7 +460,7 @@ A list of lists of ids of groups of size \mbox{\texttt{\mdseries\slshape order}}
 
  First calculats all siblings of size \mbox{\texttt{\mdseries\slshape order}} via \texttt{CalculateSiblings} (\ref{CalculateSiblings}) and then determines all strong siblings among them. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@CalculateStrongSiblings(256, false);|
+  !gapprompt@gap>| !gapinput@CalculateStrongSiblings(256);|
   [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
     [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
 \end{Verbatim}
@@ -807,42 +774,6 @@ process until either the number of refinments is equal or larger than \mbox{\tex
 
 \printindex
 
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
-\immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
 \immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
 \immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}
 \immediate\write\pagenrlog{["Ind", 0, 0], \arabic{page},}

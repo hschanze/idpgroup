@@ -16,10 +16,10 @@
   \indexspace
 
   \item \texttt  {IdGroup512}, \hyperpage{5}
-  \item \texttt  {IdGroup512Exceptions}, \hyperpage{6}
   \item \texttt  {ID{\textunderscore }}\-\texttt  {G}\-\texttt  {R}\-\texttt  {O}\-\texttt  {U}\-\texttt  {P{\textunderscore }512{\textunderscore }}\-\texttt  {TREE}, 
 		\hyperpage{6}
   \item \texttt  {InfoId512}, \hyperpage{5}
+  \item \texttt  {InfoSiblings}, \hyperpage{8}
 
   \indexspace
 
@@ -32,13 +32,11 @@
   \indexspace
 
   \item \texttt  {Siblings}, \hyperpage{7}
-  \item \texttt  {SiblingsIds}, \hyperpage{7}
-  \item \texttt  {StrongSiblings}, \hyperpage{8}
-  \item \texttt  {StrongSiblingsIds}, \hyperpage{7}
+  \item \texttt  {StrongSiblings}, \hyperpage{7}
 
   \indexspace
 
   \item \texttt  {TestOnClusterList}, \hyperpage{11}
-  \item \texttt  {TestOnGroup}, \hyperpage{10}
+  \item \texttt  {TestOnGroup}, \hyperpage{9}
 
 \end{theindex}

@@ -29,21 +29,19 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X81731B9A798C5985">2.1-2 IdGroup512</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E6424F37C14208E">2.1-3 ID_GROUP_512_TREE</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7BA3357E86269C3B">2.1-4 LoadTotalTree</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X78FA5E5D78E8E44A">2.1-5 IdGroup512Exceptions</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7EDB790F85B7753E">2.2 <span class="Heading">Loading (strong) siblings</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7F39858187F267DA">2.2-1 SiblingsIds</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X878A3FFE837F9EF6">2.2-2 Siblings</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X8766ECFD817FB4A7">2.2-3 StrongSiblingsIds</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X843063807B06E65B">2.2-4 StrongSiblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X878A3FFE837F9EF6">2.2-1 Siblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X843063807B06E65B">2.2-2 StrongSiblings</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7AA188507AFCEC21">2.3 <span class="Heading">Functions for calculating (strong) siblings</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A81D24885DD46A1">2.3-1 CalculateSiblings</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E2FC2447FF1E8FE">2.3-2 CalculateStrongSiblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X87BC15127AE5D98F">2.3-1 InfoSiblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7A81D24885DD46A1">2.3-2 CalculateSiblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2.html#X7E2FC2447FF1E8FE">2.3-3 CalculateStrongSiblings</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2.html#X7E8276BF79FDD898">2.4 <span class="Heading">Functions for building a search tree</span></a>
 </span>
@@ -106,14 +104,14 @@
 <li><p>the isomorphism type of the parent of the group, i.e. the quotient of the group and the smallest non-trivial element of the lower-<span class="Math">p</span>-central series,</p>
 
 </li>
-<li><p>the abelian invarants, i.e. the isomorphism types of the quotients of the derived series and</p>
+<li><p>the abelian invarants, i.e. the isomorphism type of the commutator factor group of the group <span class="SimpleMath">G</span> and</p>
 
 </li>
 <li><p>the cycle structure of the permutations induced on all clusters of conjugacy classes of same length and representative order by the power map <span class="Math">x\mapsto x^3</span>.</p>
 
 </li>
 </ul>
-<p>If necessary these invariants are followed by invaraints resulting from tests evaluated on partitions of <span class="SimpleMath">G</span>. The initial partition is made of the conjugacy classes of <span class="SimpleMath">G</span> grouped such that conjugacy classes of the same length and same representative order belong to the same partitioning subset. The results of a power map applied to a partition give the invaraints used to distinguish groups in these levels of the search tree. The exact behaviour is determined by the content of the component "desc". After the evaluation of each test, the partition is refined according to the result.</p>
+<p>If necessary these invariants are followed by invaraints resulting from power maps evaluated on partitions of <span class="SimpleMath">G</span>. The initial partition is made of the conjugacy classes of <span class="SimpleMath">G</span> grouped such that conjugacy classes of the same length and same representative order belong to the same partitioning subset. The collected result of a power map applied to a subset forms a invaraint used to distinguish groups in these levels of the search tree. The describing parameters (e.g. which subset, which power map) is determined by the content of the component "desc". After the evaluation, the partition is refined according to the respective result.</p>
 
 <p>If the preceding invaraints do not lead to a single group, the following (more time consuming) invaraints are calculated.</p>
 
@@ -190,22 +188,6 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoadTotalTree</code>(  )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Loads the entire search tree <code class="func">ID_GROUP_512_TREE</code> (<a href="chap2.html#X7E6424F37C14208E"><span class="RefLink">2.1-3</span></a>).</p>
 
-<p><a id="X78FA5E5D78E8E44A" name="X78FA5E5D78E8E44A"></a></p>
-
-<h5>2.1-5 IdGroup512Exceptions</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdGroup512Exceptions</code>(  )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: A list of bins of group-ids, that <code class="func">ID_GROUP_512_TREE</code> (<a href="chap2.html#X7E6424F37C14208E"><span class="RefLink">2.1-3</span></a>) can not distinguish without random isomorphism tests.</p>
-
-
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L := IdGroup512Exceptions();;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Collected(List(L, Size));</span>
-[ [ 2, 139 ], [ 3, 1 ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">L[138];</span>
-[ 6249609, 6249610, 6249611 ]
-</pre></div>
-
 <p><a id="X7EDB790F85B7753E" name="X7EDB790F85B7753E"></a></p>
 
 <h4>2.2 <span class="Heading">Loading (strong) siblings</span></h4>
@@ -229,62 +211,14 @@
 </ul>
 <p>All (strong) siblings of orders dividing 512 together with some trivial cases are implemented in this package and are callable by the following functions.</p>
 
-<p><a id="X7F39858187F267DA" name="X7F39858187F267DA"></a></p>
-
-<h5>2.2-1 SiblingsIds</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; SiblingsIds</code>( <var class="Arg">order</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: A list of lists of ids of siblings of size <var class="Arg">order</var>.</p>
-
-<p>Loads and returns a list of ids of siblings of size <var class="Arg">order</var> if available. Currently available sizes are:</p>
-
-
-<ul>
-<li><p>all orders of the form <span class="Math">p\,q</span> for <span class="Math">p</span> and <span class="Math">q</span> primes,</p>
-
-</li>
-<li><p>all powers of 2 smaller than <span class="Math">2^9</span></p>
-
-</li>
-<li><p>all powers of 3 smaller than <span class="Math">3^5</span></p>
-
-</li>
-<li><p>all powers of a prime smaller than <span class="Math">p^4</span> and</p>
-
-</li>
-<li><p>all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.</p>
-
-</li>
-</ul>
-<p>If no list is available for the provided order <code class="code">fail</code> is returned. If a list <var class="Arg">indices</var> is given, only the respective entries are returned.</p>
-
-
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SiblingsIds(101);</span>
-[ ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SiblingsIds(128);</span>
-[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">SiblingsIds(256, [1..3]);</span>
-[ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
-</pre></div>
-
 <p><a id="X878A3FFE837F9EF6" name="X878A3FFE837F9EF6"></a></p>
 
-<h5>2.2-2 Siblings</h5>
+<h5>2.2-1 Siblings</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Siblings</code>( <var class="Arg">order</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: A list of siblings of size <var class="Arg">order</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Siblings</code>( <var class="Arg">order</var>, <var class="Arg">justids</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of lists of siblings of size <var class="Arg">order</var>. The parameter <var class="Arg">justids</var> controls if just the ids or the groups (default) shall be returned.</p>
 
-<p>Loads and returns a list of siblings of size <var class="Arg">order</var> if available. If no list is available for the provided order <code class="code">fail</code> is returned. If <var class="Arg">indices</var> are given, only the respective entries are returned.</p>
-
-<p><a id="X8766ECFD817FB4A7" name="X8766ECFD817FB4A7"></a></p>
-
-<h5>2.2-3 StrongSiblingsIds</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StrongSiblingsIds</code>( <var class="Arg">order</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: A list of lists of ids of strong siblings of <var class="Arg">order</var>.</p>
-
-<p>Loads and returns a list of ids of strong siblings of <var class="Arg">order</var> if available. Currently available sizes are:</p>
+<p>Loads and returns a list of siblings of size <var class="Arg">order</var> if available. Currently available sizes are:</p>
 
 
 <ul>
@@ -308,21 +242,65 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblingsIds(256);</span>
-[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],
-  [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblingsIds(256, [1..3]);</span>
-[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(101);</span>
+[ ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(128);</span>
+[ [ &lt;pc group of size 128 with 7 generators&gt;,
+    &lt;pc group of size 128 with 7 generators&gt; ],
+  [ &lt;pc group of size 128 with 7 generators&gt;,
+    &lt;pc group of size 128 with 7 generators&gt; ],
+  [ &lt;pc group of size 128 with 7 generators&gt;,
+    &lt;pc group of size 128 with 7 generators&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(128, true);</span>
+[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(256, true, [1..3]);</span>
+[ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
 </pre></div>
 
 <p><a id="X843063807B06E65B" name="X843063807B06E65B"></a></p>
 
-<h5>2.2-4 StrongSiblings</h5>
+<h5>2.2-2 StrongSiblings</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StrongSiblings</code>( <var class="Arg">order</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: A list of strong siblings of <var class="Arg">order</var>.</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StrongSiblings</code>( <var class="Arg">order</var>, <var class="Arg">justids</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of lists of strong siblings of <var class="Arg">order</var>.</p>
 
-<p>Loads and returns a list of strong siblings of <var class="Arg">order</var> if available. If no list is available for the provided order <code class="code">fail</code> is returned. If a list <var class="Arg">indices</var> is given, only the respective entries are returned.</p>
+<p>Loads and returns a list of strong siblings of <var class="Arg">order</var> if available. The parameter <var class="Arg">justids</var> controls if just the ids or the groups (default) shall be returned. Currently available sizes are:</p>
+
+
+<ul>
+<li><p>all orders of the form <span class="Math">p\,q</span> for <span class="Math">p</span> and <span class="Math">q</span> primes,</p>
+
+</li>
+<li><p>all powers of 2 smaller than <span class="Math">2^9</span></p>
+
+</li>
+<li><p>all powers of 3 smaller than <span class="Math">3^5</span></p>
+
+</li>
+<li><p>all powers of a prime smaller than <span class="Math">p^4</span> and</p>
+
+</li>
+<li><p>all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.</p>
+
+</li>
+</ul>
+<p>If no list is available for the provided order <code class="code">fail</code> is returned. If a list <var class="Arg">indices</var> is given, only the respective entries are returned.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblings(256, true);</span>
+[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],
+  [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblings(256, false, [1..3]);</span>
+[ [ &lt;pc group of size 256 with 8 generators&gt;,
+    &lt;pc group of size 256 with 8 generators&gt; ],
+  [ &lt;pc group of size 256 with 8 generators&gt;,
+    &lt;pc group of size 256 with 8 generators&gt; ],
+  [ &lt;pc group of size 256 with 8 generators&gt;,
+    &lt;pc group of size 256 with 8 generators&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblings(256, true, [1..3]);</span>
+[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
+</pre></div>
 
 <p><a id="X7AA188507AFCEC21" name="X7AA188507AFCEC21"></a></p>
 
@@ -330,9 +308,16 @@
 
 <p>This section describes all functions for calculating (strong) siblings of a given order.</p>
 
+<p><a id="X87BC15127AE5D98F" name="X87BC15127AE5D98F"></a></p>
+
+<h5>2.3-1 InfoSiblings</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoSiblings</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>Info class for the calculation of (strong) siblings.</p>
+
 <p><a id="X7A81D24885DD46A1" name="X7A81D24885DD46A1"></a></p>
 
-<h5>2.3-1 CalculateSiblings</h5>
+<h5>2.3-2 CalculateSiblings</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateSiblings</code>( <var class="Arg">order</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: A list of lists of ids of groups of size <var class="Arg">order</var> that are siblings.</p>
@@ -342,28 +327,21 @@
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateSiblings(128);</span>
-Test 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ]
-Test 'SpSubId' found following bins of size greater one:[ [ 2, 22 ] ]
-Test 'SubId' found following bins of size greater one:[ [ 2, 16 ] ]
-Test 'MaxFactId' found following bins of size greater one:[ [ 2, 3 ] ]
-Test 'FactId' found following bins of size greater one:[ [ 2, 3 ] ]
-[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateSiblings(128, false);</span>
 [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
 </pre></div>
 
 <p><a id="X7E2FC2447FF1E8FE" name="X7E2FC2447FF1E8FE"></a></p>
 
-<h5>2.3-2 CalculateStrongSiblings</h5>
+<h5>2.3-3 CalculateStrongSiblings</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateStrongSiblings</code>( <var class="Arg">order</var>[, <var class="Arg">verbose</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateStrongSiblings</code>( <var class="Arg">order</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: A list of lists of ids of groups of size <var class="Arg">order</var> that are strong siblings.</p>
 
-<p>First calculats all siblings of size <var class="Arg">order</var> via <code class="func">CalculateSiblings</code> (<a href="chap2.html#X7A81D24885DD46A1"><span class="RefLink">2.3-1</span></a>) and then determines all strong siblings among them.</p>
+<p>First calculats all siblings of size <var class="Arg">order</var> via <code class="func">CalculateSiblings</code> (<a href="chap2.html#X7A81D24885DD46A1"><span class="RefLink">2.3-2</span></a>) and then determines all strong siblings among them.</p>
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateStrongSiblings(256, false);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateStrongSiblings(256);</span>
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
   [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
 </pre></div>

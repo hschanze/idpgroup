@@ -349,7 +349,7 @@ end;
 ##
 Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/Searchtree/ID_GROUP_512_TREE.g"));
 
-Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/ID_GROUP_512_INFOREC_F18.g"));
+Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/ID512_INFORECF18.g"));
 
 
 InstallGlobalFunction(LoadTotalTree, function()
@@ -380,7 +380,7 @@ end);
 ##  Identifies the group G of Order 512.
 ##
 InstallGlobalFunction(IdGroup512, function(G, opt...)
-    local branch, fp, desc, pos, coc, res, CG, CT, GT, id, L, inforec;
+    local branch, fp, desc, pos, coc, CG, CT, GT, id, inforec;
 
     #Process handled options
     if Size(opt) = 0 then
@@ -462,10 +462,14 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
         branch := branch[1];
 
     elif not opt.anupq then
-        pos := Position(List(ID_GROUP_512_INFOREC_F18,x->x[1]), branch);
         Info(InfoId512, 1, "Use random presentation matching to distinguished ", branch);
+        if not IsBound(ID512_INFORECF18) then
+            ID512_INFORECF18 := [];
+            Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/ID512_INFORECF18.g"));
+        fi;
+        pos := Position(List(ID512_INFORECF18,x->x[1]), branch);
         if pos <> fail then
-            branch := ID_GROUP_512_INFOREC_F18[pos];
+            branch := ID512_INFORECF18[pos];
 
             if not IsBound(coc) then coc := ClusterConjClasses(G); fi;
 
@@ -477,7 +481,7 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
                 coc := AlterCocAccordingToFp(coc, desc, EvalFpCoc(coc, desc));
             od;
 
-            Info(InfoId512, 2, "Perform ID_GROUP_FUNCS[18] on branch ", branch[2]);
+            Info(InfoId512, 2, "Perform ID_GROUP_FUNCS[18] on ", branch[2]);
             inforec := rec(coc := coc, branch := branch[2]);
             inforec := ID_GROUP_FUNCS[18](G, inforec);
 
@@ -520,12 +524,15 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
     fi;
 end);
 
-
+#####################################################################################
+##
+##  Extending functionality of IdSmallGroup/IdGroup
+##
 InstallMethod( IdSmallGroup,
     "for groups of order 512, via IdGroup512",
     [ IsGroup and IsFinite ],
     SUM_FLAGS,
-        function(G)
+    function(G)
         local n;
         n := Size( G );
         if n <> 512 then
@@ -533,10 +540,11 @@ InstallMethod( IdSmallGroup,
         else
             return [512, IdGroup512(G)];
         fi;
-end );
+    end
+);
 
 
-InstallGlobalFunction(IdGroup512Exceptions, function()
+IdGroup512Exceptions := function()
     Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/Id512Exceptions.g"));
     return BINS_OF_IDS;
-end);
+end;

@@ -47,21 +47,22 @@
         the  group and the smallest non-trivial element of the lower-[23Xp[123X-central
         series,[133X
   
-  [30X    [33X[0;6Ythe  abelian invarants, i.e. the isomorphism types of the quotients of
-        the derived series and[133X
+  [30X    [33X[0;6Ythe  abelian  invarants,  i.e.  the isomorphism type of the commutator
+        factor group of the group [22XG[122X and[133X
   
   [30X    [33X[0;6Ythe  cycle  structure  of  the permutations induced on all clusters of
         conjugacy classes of same length and representative order by the power
         map [23Xx\mapsto x^3[123X.[133X
   
   [33X[0;0YIf  necessary  these  invariants  are  followed by invaraints resulting from
-  tests  evaluated  on  partitions  of [22XG[122X. The initial partition is made of the
-  conjugacy  classes  of  [22XG[122X  grouped  such  that conjugacy classes of the same
+  power  maps  evaluated  on partitions of [22XG[122X. The initial partition is made of
+  the  conjugacy  classes of [22XG[122X grouped such that conjugacy classes of the same
   length and same representative order belong to the same partitioning subset.
-  The  results  of a power map applied to a partition give the invaraints used
-  to  distinguish  groups  in  these  levels  of  the  search  tree. The exact
-  behaviour  is  determined  by the content of the component "desc". After the
-  evaluation of each test, the partition is refined according to the result.[133X
+  The  collected  result  of a power map applied to a subset forms a invaraint
+  used  to  distinguish  groups  in  these  levels  of  the  search  tree. The
+  describing  parameters (e.g. which subset, which power map) is determined by
+  the  content of the component "desc". After the evaluation, the partition is
+  refined according to the respective result.[133X
   
   [33X[0;0YIf  the  preceding  invaraints  do not lead to a single group, the following
   (more time consuming) invaraints are calculated.[133X
@@ -134,20 +135,6 @@
   
   [33X[0;0YLoads the entire search tree [2XID_GROUP_512_TREE[102X ([14X2.1-3[114X).[133X
   
-  [1X2.1-5 IdGroup512Exceptions[101X
-  
-  [33X[1;0Y[29X[2XIdGroup512Exceptions[102X(  ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA  list  of  bins of group-ids, that [2XID_GROUP_512_TREE[102X ([14X2.1-3[114X) can
-            not distinguish without random isomorphism tests.[133X
-  
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XL := IdGroup512Exceptions();;[127X[104X
-    [4X[25Xgap>[125X [27XCollected(List(L, Size));[127X[104X
-    [4X[28X[ [ 2, 139 ], [ 3, 1 ] ][128X[104X
-    [4X[25Xgap>[125X [27XL[138];[127X[104X
-    [4X[28X[ 6249609, 6249610, 6249611 ][128X[104X
-  [4X[32X[104X
-  
   
   [1X2.2 [33X[0;0YLoading (strong) siblings[133X[101X
   
@@ -171,13 +158,15 @@
   cases  are  implemented  in  this  package and are callable by the following
   functions.[133X
   
-  [1X2.2-1 SiblingsIds[101X
+  [1X2.2-1 Siblings[101X
   
-  [33X[1;0Y[29X[2XSiblingsIds[102X( [3Xorder[103X[, [3Xindices[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of lists of ids of siblings of size [3Xorder[103X.[133X
+  [33X[1;0Y[29X[2XSiblings[102X( [3Xorder[103X, [3Xjustids[103X[, [3Xindices[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA  list  of lists of siblings of size [3Xorder[103X. The parameter [3Xjustids[103X
+            controls  if  just  the  ids  or  the  groups  (default)  shall be
+            returned.[133X
   
-  [33X[0;0YLoads  and  returns  a  list  of ids of siblings of size [3Xorder[103X if available.
-  Currently available sizes are:[133X
+  [33X[0;0YLoads  and  returns a list of siblings of size [3Xorder[103X if available. Currently
+  available sizes are:[133X
   
   [30X    [33X[0;6Yall orders of the form [23Xp\,q[123X for [23Xp[123X and [23Xq[123X primes,[133X
   
@@ -194,30 +183,29 @@
   [3Xindices[103X is given, only the respective entries are returned.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XSiblingsIds(101);[127X[104X
+    [4X[25Xgap>[125X [27XSiblings(101);[127X[104X
     [4X[28X[ ][128X[104X
-    [4X[25Xgap>[125X [27XSiblingsIds(128);[127X[104X
+    [4X[25Xgap>[125X [27XSiblings(128);[127X[104X
+    [4X[28X[ [ <pc group of size 128 with 7 generators>,[128X[104X
+    [4X[28X    <pc group of size 128 with 7 generators> ],[128X[104X
+    [4X[28X  [ <pc group of size 128 with 7 generators>,[128X[104X
+    [4X[28X    <pc group of size 128 with 7 generators> ],[128X[104X
+    [4X[28X  [ <pc group of size 128 with 7 generators>,[128X[104X
+    [4X[28X    <pc group of size 128 with 7 generators> ] ][128X[104X
+    [4X[25Xgap>[125X [27XSiblings(128, true);[127X[104X
     [4X[28X[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ][128X[104X
-    [4X[25Xgap>[125X [27XSiblingsIds(256, [1..3]);[127X[104X
+    [4X[25Xgap>[125X [27XSiblings(256, true, [1..3]);[127X[104X
     [4X[28X[ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ][128X[104X
   [4X[32X[104X
   
-  [1X2.2-2 Siblings[101X
+  [1X2.2-2 StrongSiblings[101X
   
-  [33X[1;0Y[29X[2XSiblings[102X( [3Xorder[103X[, [3Xindices[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of siblings of size [3Xorder[103X.[133X
+  [33X[1;0Y[29X[2XStrongSiblings[102X( [3Xorder[103X, [3Xjustids[103X[, [3Xindices[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YA list of lists of strong siblings of [3Xorder[103X.[133X
   
-  [33X[0;0YLoads  and returns a list of siblings of size [3Xorder[103X if available. If no list
-  is  available for the provided order [10Xfail[110X is returned. If [3Xindices[103X are given,
-  only the respective entries are returned.[133X
-  
-  [1X2.2-3 StrongSiblingsIds[101X
-  
-  [33X[1;0Y[29X[2XStrongSiblingsIds[102X( [3Xorder[103X[, [3Xindices[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of lists of ids of strong siblings of [3Xorder[103X.[133X
-  
-  [33X[0;0YLoads  and  returns  a list of ids of strong siblings of [3Xorder[103X if available.
-  Currently available sizes are:[133X
+  [33X[0;0YLoads  and  returns  a  list  of  strong siblings of [3Xorder[103X if available. The
+  parameter  [3Xjustids[103X controls if just the ids or the groups (default) shall be
+  returned. Currently available sizes are:[133X
   
   [30X    [33X[0;6Yall orders of the form [23Xp\,q[123X for [23Xp[123X and [23Xq[123X primes,[133X
   
@@ -234,21 +222,19 @@
   [3Xindices[103X is given, only the respective entries are returned.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XStrongSiblingsIds(256);[127X[104X
+    [4X[25Xgap>[125X [27XStrongSiblings(256, true);[127X[104X
     [4X[28X[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],[128X[104X
     [4X[28X  [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ][128X[104X
-    [4X[25Xgap>[125X [27XStrongSiblingsIds(256, [1..3]);[127X[104X
+    [4X[25Xgap>[125X [27XStrongSiblings(256, false, [1..3]);[127X[104X
+    [4X[28X[ [ <pc group of size 256 with 8 generators>,[128X[104X
+    [4X[28X    <pc group of size 256 with 8 generators> ],[128X[104X
+    [4X[28X  [ <pc group of size 256 with 8 generators>,[128X[104X
+    [4X[28X    <pc group of size 256 with 8 generators> ],[128X[104X
+    [4X[28X  [ <pc group of size 256 with 8 generators>,[128X[104X
+    [4X[28X    <pc group of size 256 with 8 generators> ] ][128X[104X
+    [4X[25Xgap>[125X [27XStrongSiblings(256, true, [1..3]);[127X[104X
     [4X[28X[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ][128X[104X
   [4X[32X[104X
-  
-  [1X2.2-4 StrongSiblings[101X
-  
-  [33X[1;0Y[29X[2XStrongSiblings[102X( [3Xorder[103X[, [3Xindices[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10YA list of strong siblings of [3Xorder[103X.[133X
-  
-  [33X[0;0YLoads  and  returns  a  list of strong siblings of [3Xorder[103X if available. If no
-  list is available for the provided order [10Xfail[110X is returned. If a list [3Xindices[103X
-  is given, only the respective entries are returned.[133X
   
   
   [1X2.3 [33X[0;0YFunctions for calculating (strong) siblings[133X[101X
@@ -256,7 +242,13 @@
   [33X[0;0YThis  section describes all functions for calculating (strong) siblings of a
   given order.[133X
   
-  [1X2.3-1 CalculateSiblings[101X
+  [1X2.3-1 InfoSiblings[101X
+  
+  [33X[1;0Y[29X[2XInfoSiblings[102X [32X info class[133X
+  
+  [33X[0;0YInfo class for the calculation of (strong) siblings.[133X
+  
+  [1X2.3-2 CalculateSiblings[101X
   
   [33X[1;0Y[29X[2XCalculateSiblings[102X( [3Xorder[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA list of lists of ids of groups of size [3Xorder[103X that are siblings.[133X
@@ -268,27 +260,20 @@
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XCalculateSiblings(128);[127X[104X
-    [4X[28XTest 'MaxSubId' found following bins of size greater one:[ [ 2, 23 ], [ 3, 2 ] ][128X[104X
-    [4X[28XTest 'SpSubId' found following bins of size greater one:[ [ 2, 22 ] ][128X[104X
-    [4X[28XTest 'SubId' found following bins of size greater one:[ [ 2, 16 ] ][128X[104X
-    [4X[28XTest 'MaxFactId' found following bins of size greater one:[ [ 2, 3 ] ][128X[104X
-    [4X[28XTest 'FactId' found following bins of size greater one:[ [ 2, 3 ] ][128X[104X
-    [4X[28X[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ][128X[104X
-    [4X[25Xgap>[125X [27XCalculateSiblings(128, false);[127X[104X
     [4X[28X[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ][128X[104X
   [4X[32X[104X
   
-  [1X2.3-2 CalculateStrongSiblings[101X
+  [1X2.3-3 CalculateStrongSiblings[101X
   
-  [33X[1;0Y[29X[2XCalculateStrongSiblings[102X( [3Xorder[103X[, [3Xverbose[103X] ) [32X function[133X
+  [33X[1;0Y[29X[2XCalculateStrongSiblings[102X( [3Xorder[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA  list  of  lists  of ids of groups of size [3Xorder[103X that are strong
             siblings.[133X
   
-  [33X[0;0YFirst calculats all siblings of size [3Xorder[103X via [2XCalculateSiblings[102X ([14X2.3-1[114X) and
+  [33X[0;0YFirst calculats all siblings of size [3Xorder[103X via [2XCalculateSiblings[102X ([14X2.3-2[114X) and
   then determines all strong siblings among them.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XCalculateStrongSiblings(256, false);[127X[104X
+    [4X[25Xgap>[125X [27XCalculateStrongSiblings(256);[127X[104X
     [4X[28X[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],[128X[104X
     [4X[28X  [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ][128X[104X
   [4X[32X[104X
