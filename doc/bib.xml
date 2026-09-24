@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE file SYSTEM "bibxmlext.dtd">
+<file>
+
+<entry id="eickschanze"><article>
+  <author>
+    <name><first>Bettina</first><last>Eick</last></name>
+    <name><first>Henrik</first><last>Schanze</last></name>
+  </author>
+  <title>The group identification problem for <Math>p</Math>-groups of small order</title>
+  <journal>Journal of Groups, Complexity, Cryptology</journal>
+  <year>2026</year>
+  <volume>18</volume>
+  <pages>13</pages>
+</article></entry>
+
+</file>
