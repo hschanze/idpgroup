@@ -8,7 +8,7 @@ if fail = LoadPackage("AutoDoc", "2018.02.14") then
 fi;
 
 
-AutoDoc( rec( scaffold := true, autodoc := true ) );
+AutoDoc( rec( scaffold := rec(bib := "bib.xml"), autodoc := true ) );
 
 
 AutoDoc( rec(
@@ -19,6 +19,7 @@ AutoDoc( rec(
         """ )
     ),
     scaffold := rec(
+        bib := "bib.xml",
         includes := [ "_AutoDocMainFile.xml"],
         entities := rec(SmallGrps := "<Package>SmallGrps</Package>",
                         Anupq := "<Package>Anupq</Package>",

@@ -1,3 +1,9 @@
+####################
+## Info Levels:
+##
+DeclareInfoClass("InfoTreeBuild");
+SetInfoLevel(InfoTreeBuild, 0);
+
 #####################################################################################
 ##
 ##  Returns a list of all clusters of groups in a given tree. When initializing the
@@ -108,8 +114,7 @@ end);
 ##  - pack: a boolean that is handed to TestOnGroup
 ##  - ign1cl: a boolean that determines if clusters of size 1 should be ignored
 ##  - order: an integer giving the order of the groups with ids in CL
-##  - verbose: an boolean that determines if a progress should be printed
-##  The default value is pack:=true, ign1cl:=true, order:=512, verbose:=true.
+##  The default value is pack:=true, ign1cl:=true, order:=512.
 ##
 InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
     local TR, cl, fp, id, G, PCS, asList, coc, M, C, Q, z, CCS, N, A, O, branch, i, pos, prog, IdList;
@@ -117,7 +122,7 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
     #Process provided options
     if Size(opt) = 0 then
         #If not options are given, create default options
-        opt := rec(pack := true, ign1cl := true, order := 512, verbose := true,
+        opt := rec(pack := true, ign1cl := true, order := 512,
                    notetest := true);
     elif IsRecord(opt[1]) then
         #If options are given, fill unbound otions with default values
@@ -125,10 +130,16 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
         if not IsBound(opt.pack) then opt.pack := true; fi;
         if not IsBound(opt.ign1cl) then opt.ign1cl := true; fi;
         if not IsBound(opt.order) then opt.order := 512; fi;
-        if not IsBound(opt.verbose) then opt.verbose := true; fi;
         if not IsBound(opt.notetest) then opt.notetest := true; fi;
     else
         Error("Inadmissable option: opt must be empty or a record\n");
+    fi;
+
+    if First(CL, cl -> not IsInt(cl)) = fail then
+        Info(InfoTreeBuild, 1, "Initialize tree with given ids. Result will be a tree.");
+        CL := [CL];
+    elif First(CL, cl -> not IsRecord(cl)) = fail then
+        Info(InfoTreeBuild, 1, "Try to extend given clusters of a tree. Result will be a list of extending branches.");
     fi;
 
     #Check if CL is just a list of ids and replace them accordingly
@@ -148,10 +159,9 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
         branch := rec(fp:=[], next:=[]);
 
         for id in cl.ids do
-            #Print progress if opt.verbose=true
-            if opt.verbose and prog <> QuoInt(Position(IdList,id)*10,Size(IdList)) then
+            if prog <> QuoInt(Position(IdList,id)*10,Size(IdList)) then
                 prog := QuoInt(Position(IdList,id)*10,Size(IdList));
-                Print(prog, "0% \n");
+                Info(InfoTreeBuild, 1, "Progress: ", prog, "0%");
             fi;
 
             G := SmallGroup(opt.order, id);
@@ -191,6 +201,7 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
 
     #Print results into file with opt.filename if wanted
     if IsBound(opt.filename) and opt.filename <> "" then
+        Info(InfoTreeBuild, 1, "Export result into ", opt.filename, "_", test,".txt");
         PrintTo(StringFormatted("{}_{}.txt", opt.filename, test), "TR:=", TR, ";");
     fi;
 
@@ -205,6 +216,7 @@ end);
 InstallGlobalFunction(AddClusterTestResults, function(tree, TR)
     local tr, branch, fp, pos;
 
+    Info(InfoTreeBuild, 1, "Extend ", Size(TR), " clusters of given tree");
     for tr in TR do
         branch := tree;
 
@@ -231,8 +243,7 @@ end);
 InstallGlobalFunction(BuildSearchTree, function(N, order, tests)
     local tree, test, CL, TR;
 
-    if IsInt(N) then N:=[[1..N]]; fi;
-    if not IsList(N[1]) then N:=[N]; fi;
+    if IsInt(N) then N:=[1..N]; fi;
 
     tree := TestOnClusterList(N, tests[1], rec(order := order, verbose := false));
 
@@ -401,7 +412,7 @@ end;
 ##  - order: an integer giving the order of the groups with ids in CL
 ##  - iterate: an integer determining how many iterations the parameter search should ##    do in the worst case.
 ##  - verbose: an boolean that determines if a progress should be printed
-##  The default value is pack:=true, ign1cl:=true, order:=512, verbose:=true.
+##  The default value is pack:=true, ign1cl:=true, order:=512.
 ##
 InstallGlobalFunction(CocTestOnClusterList, function(CL, opt...)
     local prog, TR, cl, tree;
@@ -409,14 +420,13 @@ InstallGlobalFunction(CocTestOnClusterList, function(CL, opt...)
     #Process handled options
     if Size(opt) = 0 then
         #If not options are given, create default options
-        opt := rec(pack := true, order := 512, iterate := 1, verbose := true);
+        opt := rec(pack := true, order := 512, iterate := 1);
     elif IsRecord(opt[1]) then
         #If options are given, fill unbound otions with default values
         opt := opt[1];
         if not IsBound(opt.pack) then opt.pack := true; fi;
         if not IsBound(opt.order) then opt.order := 512; fi;
         if not IsBound(opt.iterate) then opt.iterate := 1; fi;
-        if not IsBound(opt.verbose) then opt.verbose := true; fi;
     else
         Error("Inadmissable option: opt must be empty or a record\n");
     fi;
@@ -427,9 +437,9 @@ InstallGlobalFunction(CocTestOnClusterList, function(CL, opt...)
     for cl in CL do
 
         #Print progress if opt.verbose=true
-        if opt.verbose and prog <> QuoInt(Position(CL,cl)*10,Size(CL)) then
+        if  prog <> QuoInt(Position(CL,cl)*10,Size(CL)) then
             prog := QuoInt(Position(CL,cl)*10,Size(CL));
-            Print(prog, "0% \n");
+            Info(InfoTreeBuild, 1, "Progress: ", prog, "0%");
         fi;
 
         #Ignore clusters of size one

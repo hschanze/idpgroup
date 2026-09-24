@@ -8,20 +8,18 @@
  The purpose of the &IdPGroup; package is to implement identification functions for
  different <Math>p</Math>-groups and thereby extend the functionality of the &SmallGrps;
  library.
- Currently this includes an identification function for groups of order 512.
+ Currently this includes an identification function for groups of order 512 as
+ described in <Cite Key="eickschanze" />.
 <P/>
  Details of the implementation and functionality of the identification functions
- are dicussed in section <Ref Sect='Section_Identification'/>.
-<P/>
+ are discussed in section <Ref Sect='Section_Identification'/>.
  Section <Ref Sect='Section_Load'/> introduces the definitions of (strong) siblings
  and includes functions to load all such sets of groups of certain order.
-<P/>
  Functions that were used to calculate these lists of groups and which can be used to
  calculate them for different orders can be found in section
  <Ref Sect='Section_Calculate'/>.
-<P/>
- Finally section <Ref Sect='Section_Build'/> describes all funcions that were used
- to build the search tree in the descirbed identification routine and which
+ Finally, section <Ref Sect='Section_Build'/> describes all functions that were used
+ to build the search tree in the described identification routine and which
  can be used to build other such trees.
 </Chapter>
 

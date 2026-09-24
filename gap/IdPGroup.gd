@@ -6,26 +6,23 @@
 #! The purpose of the &IdPGroup; package is to implement identification functions for
 #! different $p$-groups and thereby extend the functionality of the &SmallGrps;
 #! library.
-#! Currently this includes an identification function for groups of order 512.
+#! Currently this includes an identification function for groups of order 512 as
+#! described in <Cite Key="eickschanze" />.
 #!
 #! Details of the implementation and functionality of the identification functions
-#! are dicussed in section <Ref Sect='Section_Identification'/>.
-#!
+#! are discussed in section <Ref Sect='Section_Identification'/>.
 #! Section <Ref Sect='Section_Load'/> introduces the definitions of (strong) siblings
 #! and includes functions to load all such sets of groups of certain order.
-#!
 #! Functions that were used to calculate these lists of groups and which can be used to
 #! calculate them for different orders can be found in section
 #! <Ref Sect='Section_Calculate'/>.
-#!
 # #! Once such sets of groups are determined one might want to examine them further by
 # #! checking certain properties and calculating additionaly invariants. In
 # #! Section <Ref Sect='Section_Table'/> one can find functions to calculate some
 # #! selected invarants and properties for such sets and export them into LaTeX-readable
 # #! lines of code.
-#!
-#! Finally section <Ref Sect='Section_Build'/> describes all funcions that were used
-#! to build the search tree in the descirbed identification routine and which
+#! Finally, section <Ref Sect='Section_Build'/> describes all functions that were used
+#! to build the search tree in the described identification routine and which
 #! can be used to build other such trees.
 
 
@@ -38,18 +35,18 @@
 #! @SectionLabel Identification
 #!
 #! This section briefly describes the functions and variables of this package
-#! associated to the identification of an arbitrary group of order 512 via
-#! a search tree.
+#! associated with the identification of an arbitrary group of order 512 via
+#! a search tree. For further informations see <Cite Key="eickschanze" />.
+#!
 #! By 'identify' a group <M>G</M> we mean that we want to find __id__ such that
 #! `SmallGroup(512, id)` is isomorphic to <M>G</M>. This is done by calculating
 #! invariants and comparing them with the ones of the remaining candidates. This
 #! process is organized in the tree <Ref Var="ID_GROUP_512_TREE" Style="Text"/>.
-#!
-#! The used tree is implemented as nested records with the following components:
+#! The tree used is implemented as nested records with the following components:
 #! * "fp": a list of integers, each being the encoded fingerprint of groups resulting
 #!         from the specific test performed at the current level of the identification
 #!         routine.
-#! * "next": a list comprised of the resprective subbranches corresponding to the
+#! * "next": a list comprised of the respective subbranches corresponding to the
 #!           fingerprints in "fp". This is either a list of ids or a branch
 #!           implemented as a record itself.
 #! Depending on the depth in the tree each record also has one of the following
@@ -57,7 +54,6 @@
 #! * "test": a string that indicates which test was used via
 #!           <Ref Func="TestOnGroup" Style="Text"/> to create the listed fingerprints.
 #! * "desc": a list of integers that encode a description of the performed powermap-test
-#!
 #! The first levels of <Ref Var="ID_GROUP_512_TREE" Style="Text"/> try to distinguish
 #! groups by the following invariants:
 #! * the rank of the group,
@@ -66,30 +62,28 @@
 #!   order of the elements in the class) of the group,
 #! * the isomorphism type of the parent of the group, i.e. the quotient of the group
 #!   and the smallest non-trivial element of the lower-$p$-central series,
-#! * the abelian invarants, i.e. the isomorphism type of the commutator factor group
-#!   of the group <M>G</M> and
+#! * the abelian invariants, i.e. the isomorphism types of the factor groups
+#!   of the derived series of the group <M>G</M> and
 #! * the cycle structure of the permutations induced on all clusters of conjugacy
 #!   classes of same length and representative order by the power map $x\mapsto x^3$.
-#!
-#! If necessary these invariants are followed by invaraints resulting from
+#! If necessary these invariants are followed by invariants resulting from
 #! power maps evaluated on partitions of <M>G</M>.
 #! The initial partition is made of the conjugacy classes of <M>G</M>
 #! grouped such that conjugacy classes of the same length and same representative
 #! order belong to the same partitioning subset. The collected result of a power map
-#! applied to a subset forms a invaraint used to distinguish groups in these
-#! levels of the search tree. The describing parameters (e.g. which subset, which
+#! applied to a subset forms an invariant used to distinguish groups in these
+#! levels of the search tree. The describing parameters (e.g. which subset and
 #! power map) is determined by the content
 #! of the component "desc". After the evaluation, the partition is refined
 #! according to the respective result.
-#!
-#! If the preceding invaraints do not lead to a single group, the following (more
-#! time consuming) invaraints are calculated:
-#! * the isomorphism types of the non-trivial factors formed by the group and
-#!   elements of the smallest non-trivial element of the lower-p-central series,
-#! * the isomorphism types of the non-trivial factors formed by the group and
-#!   elements of the center and
+#! If the preceding invariants do not lead to a single group, the following (more
+#! time consuming) invariants are calculated:
+#! * the isomorphism types of maximal factors formed by factoring out subgroups
+#!   generated by elements of the smallest non-trivial subgroup in the lower-p-central
+#!   series,
+#! * the isomorphism types of maximal factors formed by the group and
+#!   central subgroups and
 #! * the isomorphism types of all maximal subgroups.
-#!
 #! After this process 139 pairs and 1 triplet of groups remain unidentified. These
 #! groups are distinguished by a random isomorphism test in the same way the groups of
 #! order 256 are finally distinguished in the &SmallGrps; library.
@@ -107,17 +101,17 @@
 DeclareInfoClass("InfoId512");
 
 #! @Arguments G [,opt]
-#! @Returns The id of the group of order 512 that is isomorphic to <A>G</A>.
+#! @Returns Integer id such that `SmallGroup(512, id)` is isomorphic to <A>G</A>.
 #! @Description
 #! Identifies the group <A>G</A> of order 512.
 #! This function accepts a record <A>opt</A> of options with the following content:
 #! * <A>path</A>: a boolean that determines if the path through the tree shall be
-#!                recorded while identification and returned as well.´
+#!                recorded while identification and returned as well.
 #! * <A>tree</A>: a search tree that was built using the invariants resulting from
 #!                <M>tests</M>.
 #! * <A>anupq</A>: a boolean that determines if <M>IsPqIsomorphicPGroup</M> from the
-#!                 &Anupq;-Package should be used to find the to <A>G</A> isomorphic
-#!                 group among the remaining candidates.
+#!                 &Anupq;-Package is used to find the group isomorphic to
+#!                 <A>G</A> among the remaining candidates.
 #! The default values of <A>opt</A> is <C>rec(anupq</C>:=<K>false</K>,
 #!  <C>tree:=ID_GROUP_512_TREE, path:=</C> <K>false</K> <C>)</C>.
 #! @BeginExampleSession
@@ -137,7 +131,7 @@ DeclareGlobalFunction("IdGroup512");
 
 #! @Description
 #! The search tree of groups of order 512 that can determine the vast majority
-#! of groups. At the beginning only a small part is loaded. Other branches are
+#! of groups. Only a small part is loaded initlialy. Further branches are
 #! loaded if necessary.
 DeclareGlobalName("ID_GROUP_512_TREE");
 
@@ -164,13 +158,13 @@ DeclareGlobalFunction("LoadTotalTree");
 #! @SectionLabel Load
 #!
 #! This section describes the functions used to load precalculated lists of (strong)
-#! siblings, i.e. groups that fulfil the following definitions:
+#! siblings, i.e. groups satisying the following definitions:
 #! * __subgroup-equivalent groups__ are groups with a bijection between the sets of
 #!   proper subgroups s.t. preimage and image are isomorphic,
 #! * __factor-equivalent groups__ are groups with a bijection between the sets of
 #!   proper factors s.t. preimage and image are isomorphic,
 #! * __siblings__ are subgroup- and factor-equivalent groups, where the
-#!   bijection of proper subgroups preservs conjugacy and maps the Frattini subgroup,
+#!   bijection of proper subgroups preserves conjugacy and maps the Frattini subgroup,
 #!   lower and upper central series onto the respective counterparts,
 #! * __strong siblings__ are siblings that are also Brauer Pairs.
 #! All (strong) siblings of orders dividing 512 together with some trivial cases
@@ -178,14 +172,14 @@ DeclareGlobalFunction("LoadTotalTree");
 
 #! @Arguments order, justids, [,indices]
 #! @Returns A list of lists of siblings of size <A>order</A>. The parameter
-#! <A>justids</A> controls if just the ids or the groups (default) shall be returned.
+#! <A>justids</A> detemines wether the ids or the groups (default) shall be returned.
 #! @Description
 #! Loads and returns a list of siblings of size <A>order</A> if available.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
-#! * all powers of 2 smaller than $2^9$
-#! * all powers of 3 smaller than $3^5$
-#! * all powers of a prime smaller than $p^4$ and
+#! * all powers of 2 up to $2^9$
+#! * all powers of 3 up to $3^5$
+#! * all powers of a prime up to $p^4$ and
 #! * all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 #! If no list is available for the provided order <C>fail</C> is returned. If a
 #! list <A>indices</A> is given, only the respective entries are returned.
@@ -215,9 +209,9 @@ DeclareGlobalFunction("Siblings");
 #! returned.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
-#! * all powers of 2 smaller than $2^9$
-#! * all powers of 3 smaller than $3^5$
-#! * all powers of a prime smaller than $p^4$ and
+#! * all powers of 2 up to $2^9$
+#! * all powers of 3 up to $3^5$
+#! * all powers of a prime up to $p^4$ and
 #! * all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 #! If no list is available for the provided order <C>fail</C> is returned. If a
 #! list <A>indices</A> is given, only the respective entries are returned.
@@ -268,7 +262,7 @@ DeclareInfoClass("InfoSiblings");
 #! Determines all siblings among the groups of size <A>order</A> by applying
 #! the tests
 #! <C>"MaxSubId"</C>, <C>"SpSubId"</C>,
-#! <C>"SubId"</C>, <C>"MaxFactId"</C> and <C>"FactId"</C> iterativly. The
+#! <C>"SubId"</C>, <C>"MaxFactId"</C> and <C>"FactId"</C> iteratively. The
 #! tests <C>"MaxSubId"</C> and <C>"MaxFactId"</C> are not necessary, but are
 #! efficient and eliminate some sets before applying the more costly tests.
 #! @BeginExampleSession
@@ -288,7 +282,7 @@ DeclareGlobalFunction("CalculateSiblings");
 #! @Returns A list of lists of ids of groups of size <A>order</A> that are
 #! strong siblings.
 #! @Description
-#! First calculats all siblings of size <A>order</A> via
+#! First calculates all siblings of size <A>order</A> via
 #! <Ref Func="CalculateSiblings" Style="Text"/> and then determines all strong
 #! siblings among them.
 #! @BeginExampleSession
@@ -314,7 +308,7 @@ DeclareGlobalFunction("CalculateStrongSiblings");
 # #! @SectionLabel Table
 # #!
 # #! This section includes the functions of the package that create and fill
-# #! a table for bins of groups, listing certain invaraints and properties and
+# #! a table for bins of groups, listing certain invariants and properties and
 # #! exporting this table as rows of a latex-tables.
 
 # #! @Arguments Bins, order
@@ -396,26 +390,30 @@ DeclareGlobalFunction("CalculateStrongSiblings");
 #! <Ref Func="IdGroup512" Style="Text"/> to
 #! identify groups via implemented invariants.
 #!
-#! In short this is done be initializing a tree via calling
+#! In short, this is done by initializing a tree via calling
 #! <Ref Func="TestOnClusterList" Style="Text"/> with a selected
-#! test on a list of (lists of)
-#! ids of groups of given order and then iteratnig the following
-#! three steps
-#! * Collecting the clusters of the curent tree via
+#! test on a list of
+#! ids of groups of given order and then iterating the following
+#! three steps:
+#! * collecting the clusters of the current tree via
 #!       <Ref Func="ClusterList" Style="Text"/>,
-#! * Performing a choosen test on these clusters via
-#!       <Ref Func="TestOnClusterList" Style="Text"/>,
-#! * Extending the tree with these test results via
+#! * performing a chosen test on these clusters via
+#!       <Ref Func="TestOnClusterList" Style="Text"/> and
+#! * extending the tree with these test results via
 #!       <Ref Func="AddClusterTestResults" Style="Text"/>.
-#! A very effective set of invaraints can be obtained by calling
+#! A very effective set of invariants can be obtained by calling
 #! <Ref Func="CocTestOnClusterList" Style="Text"/> in the second step.
 #! This should only be done when
-#! the groups of each provided cluster yields the same value when the
+#! the groups of each provided cluster yield the same value when the
 #! test `CocList` is applied. Furthermore
-#! these invaraints should be used for as few as possible clusters since
+#! these invariants should be used for as few as possible clusters since
 #! <Ref Func="CocTestOnClusterList" Style="Text"/>
-#! includes a search for suitable parameters than can take quite some
+#! includes a search for suitable parameters that can take quite some
 #! time.
+
+#! @Description
+#! Info class for the building of a search tree.
+DeclareInfoClass("InfoTreeBuild");
 
 ##! @Arguments list
 ##! @Returns An interger encoding the content of <A>list</A>.
@@ -452,12 +450,12 @@ DeclareGlobalFunction("CalculateStrongSiblings");
 
 #! @Arguments tree
 #! @Returns A list of all clusters of groups in <A>tree</A>
-#!          (i.e. the leafs of <A>tree</A>).
+#!          (i.e. the leaves of <A>tree</A>).
 #! @Description
 #! Iterates through <A>tree</A> and collects information about each leaf
 #! as a record. This includes the size of the leaf, the path through
 #! <A>tree</A> leading to the leaf, the tests performed including
-#! descriptions of performed powermap-tests and the ids of the
+#! descriptions of performed power map tests and the ids of the
 #! groups contained in the leaf.
 #! @BeginExampleSession
 #! gap> tree := rec( fp := [ 63049, 75721, 4310 ],  next := [ [ 3, 8 ], [ 4 ],
@@ -476,60 +474,53 @@ DeclareGlobalFunction("CalculateStrongSiblings");
 DeclareGlobalFunction("ClusterList");
 
 #! @Arguments G, test [,opt]
-#! @Returns The result of <A>test</A> applied to <A>G</A>, if desried encoded as
+#! @Returns The result of <A>test</A> applied to <A>G</A>, if desired encoded as
 #!          an integer.
 #! @Description
-#! Performs the selected <A>test</A> on the group <A>G</A>. The following
+#! Calculates an invariant of the group <A>G</A>. The following
 #! choices for <A>test</A> are implemented:
-#! * <A>"ElmOrds"</A>: Collects the orders of all elements of <A>G</A>.
-#! * <A>"Center"</A>: Calculates the abelian invariants of the center of
-#!                    <A>G</A>.
-#! * <A>"Rank"</A>: Calculates the rank of <A>G</A>.
-#! * <A>"AbelInv"</A>: Computes the order of each term of the derived series
-#!                     and the abelian Invariants of the derived factors of
-#!                     <A>G</A>.
-#! * <A>"UCSId"</A>: Identifies the proper subgroups of the upper central
-#!                   series of <A>G</A>
-#!                   via `IdGroup`.
-#! * <A>"LCSId"</A>: Identifies the proper subgroups of the lower central
-#!                   series of <A>G</A>
-#!                   via `IdGroup`.
-#! * <A>"PCSId"</A>: Identifies the proper subgroups of the p-central series
-#!                   of <A>G</A>
-#!                   via `IdGroup`.
-#! * <A>"SpSubId"</A>: Computes the Frattini subgroup, the upper and lower
-#!                     central series of <A>G</A> and identifies all terms
-#!                     if possible via `IdGroup`.
-#! * <A>"MaxSubId"</A>: Collects the sizes and isomorphism types of all
-#!                      maximal subgroups of <A>G</A> via `IdGroup`.
-#! * <A>"SubId"</A>: Collects the sizes and isormorphism types of conjugacy
-#!                   classes of all proper subgoups via `IdGroup`.
-#! * <A>"MaxFactId"</A>: Collects the sizes and isomorphism types of all
-#!                       maximal factors of <A>G</A> via `IdGroup`.
-#! * <A>"CentQuot"</A>: Collects the sizes and isomorphism types of all
-#!                      quotients of <A>G</A> with non-trivial elements
-#!                      of the center of <A>G</A> via `IdGroup`.
-#! * <A>"LCSFactId"</A>: Collects the isomorphism types of all quotients of
-#!                       <A>G</A> with with cyclic subgroups generated by
-#!                       by non-trivial elements of the last non-trivial
-#!                       term of the p-central series.
-#! * <A>"FactId"</A>: Identifies all proper factors of <A>G</A> via `IdGroup`.
-#! * <A>"CocList"</A>: Collects the number of conjugacy classes of a <A>G</A>
+#! * <A>"ElmOrds"</A>: the collected orders of the elements of <A>G</A>,
+#! * <A>"Center"</A>: the abelian invariants of the center of <A>G</A>,
+#! * <A>"Rank"</A>: the rank of <A>G</A>,
+#! * <A>"AbelInv"</A>: the order and abelian invariants of each term in the derived
+#!                     series of <A>G</A>,
+#! * <A>"UCSId"</A>: the isomorphism types of the proper subgroups in the upper central
+#!                   series of <A>G</A> via `IdGroup`,
+#! * <A>"LCSId"</A>: the isomorphism types of the proper subgroups in the lower central
+#!                   series of <A>G</A> via `IdGroup`,
+#! * <A>"PCSId"</A>: the isomorphism types of the proper subgroups in the p-central
+#!                   series of <A>G</A> via `IdGroup`,
+#! * <A>"SpSubId"</A>: the isomorphismtypes of the Frattini subgroup, the terms in the #!                     upper and lower central series of <A>G</A> via `IdGroup`,
+#! * <A>"MaxSubId"</A>: the collected isomorphism types of all
+#!                      maximal subgroups of <A>G</A> via `IdGroup`,
+#! * <A>"SubId"</A>: the sizes and collected isomorphism types of conjugacy
+#!                   classes of all proper subgroups via `IdGroup`,
+#! * <A>"MaxFactId"</A>: the collected isomorphism types of all
+#!                       maximal factors of <A>G</A> via `IdGroup`,
+#! * <A>"CentQuot"</A>: the collected isomorphism types of all
+#!                      quotients of <A>G</A> with subgroups generated by non-trivial
+#!                      central elements of <A>G</A> via `IdGroup`,
+#! * <A>"LCSFactId"</A>: the collected isomorphism types of all quotients of
+#!                       <A>G</A> with cyclic subgroups generated by
+#!                       non-trivial elements of the last non-trivial
+#!                       term of the $p$-central series,
+#! * <A>"FactId"</A>: the collected isomorphism types of all proper factors of
+#!                    <A>G</A> via `IdGroup`,
+#! * <A>"CocList"</A>: the collected numbers of conjugacy classes of <A>G</A>
 #!                     of same length and same representative order
-#!                     (the order of a representative).
-#! * <A>"PMCycSt"</A>: Determines the cycle-structure invariant for the power
-#!                     map $x\mapsto x^3$ on the clusters of conjugacy classes via
-#!                     `PowerMapCocCycSt`.
-#! * <A>"OutId"</A>: Tries to identify the groups of outer automorphisms of
-#!                   <A>G</A>, either via `IdGroup` (if available) or via its
-#!                   size and `TestOnGroup` with <A>"ElmOrds"</A> and
-#!                   <A>"CocList"</A> (<A>"MaxSubId"</A> and <A>"CentQuot"</A>
-#!                   can also be used if feasible).
-#! * <A>"LattEqv"</A>: Calculates all conjugacy classes of proper subgoups of
-#!                     <A>G</A>, stores their size, identifies the the
-#!                     isomorphism types of each class and determines the
-#!                     isomorphism types and conjugacy classes in <A>G</A> of
-#!                     its maximal subgroups and minimal supergroups.
+#!                     (the order of a representative),
+#! * <A>"PMCycSt"</A>: the cycle-structure of the permutation induced by the power
+#!                     map $x\mapsto x^3$ on the collected conjugacy classes.
+##! * <A>"OutId"</A>: Tries to identify the groups of outer automorphisms of
+##!                   <A>G</A>, either via `IdGroup` (if available) or via its
+##!                   size and `TestOnGroup` with <A>"ElmOrds"</A> and
+##!                   <A>"CocList"</A> (<A>"MaxSubId"</A> and <A>"CentQuot"</A>
+##!                   can also be used if feasible),
+##! * <A>"LattEqv"</A>: Calculates all conjugacy classes of proper subgroups of
+##!                     <A>G</A>, stores their size, identifies the
+##!                     isomorphism types of each class and determines the
+##!                     isomorphism types and conjugacy classes in <A>G</A> of
+##!                     its maximal subgroups and minimal supergroups.
 #! This function accepts a record <A>opt</A> of options with the single content
 #! <A>opt.pack</A>, a boolean that determines if the result of a test should be
 #! encoded as an integer. The default value of <A>opt</A> is
@@ -544,20 +535,20 @@ DeclareGlobalFunction("ClusterList");
 DeclareGlobalFunction("TestOnGroup");
 
 #! @Arguments CL, test [,opt]
-#! @Returns Either a list of pairs each containg the path to the respective
+#! @Returns Either a list of pairs each containing the path to the respective
 #! cluster (which is a leaf of a search tree) and the subbranch resulting
 #! from the results of <A>test</A>, or just the list of subbranches if <A>CL</A>
-#! contains only lists of integers. If <A>CL</A> consits of a single list
+#! contains only lists of integers. If <A>CL</A> consists of a single list
 #! of integers the single resulting subbranch is returned on its own.
 #! @Description
-#! Performs the choosen test on the groups of each record in the <A>CL</A>.
+#! Performs the chosen test on the groups of each record in the <A>CL</A>.
 #! The tests are performed by <Ref Func="TestOnGroup" Style="Text"/>.
 #! <A>CL</A> could either be a
 #! list of records produced by <Ref Func="ClusterList" Style="Text"/> or be
 #! a list of lists containing
-#! ids. In the former case the output is a list of pairs containg the path of
+#! ids. In the former case the output is a list of pairs containing the path of
 #! a cluster and the subbranch resulting from the test. In the latter case
-#! only a list of subbranches is returned. If in the latter case the returned
+#! only a list of subbranches is returned. If in the latter case, the returned
 #! list only one contains one subbranch, the subbranch itself is returned.
 #! This is useful when building the first level of a search tree.
 #! This function accepts a record <A>opt</A> of options with the following
@@ -567,24 +558,23 @@ DeclareGlobalFunction("TestOnGroup");
 #!                  ignored.
 #! * <A>order</A>: An integer giving the order of the groups with ids in
 #!                 <A>CL</A>.
-#! * <A>verbose</A>: A boolean that determines if progress should be printed.
 #! * <A>notetest</A>: A boolean that decides if the performed test should be
-#!                    noted in the returned subbranches. If so subbranches,
-#!                    that do not split a cluster are omited.
+#!                    noted in the returned subbranches. If so, subbranches
+#!                    that do not split a cluster are omitted.
 #! The default value of <A>opt</A> is <M>rec(pack</M>:=<K>true</K>,
 #! <M>ign1cl</M>:=<K>true</K>, <M>order</M>:=512,
-#! <M>verbose</M>:=<K>true</K>, <M>notetest</M>:=<K>true</K><M>)</M>.
+#! <M>notetest</M>:=<K>true</K><M>)</M>.
 #! @BeginExampleSession
-#! gap> TestOnClusterList([[1..10]],"ElmOrds", rec(verbose:=false));
+#! gap> TestOnClusterList([[1..10]],"ElmOrds");
 #! rec( fp := [ 88570, 4310, 63049, 75721 ],
 #!      next := [ [ 1 ], [ 2, 5, 6, 7, 9, 10 ], [ 3, 8 ], [ 4 ] ],
 #!      test := "ElmOrds")
-#! gap> TestOnClusterList([[1,2,5],[7,8,9]],"ElmOrds", rec(verbose:=false));
+#! gap> TestOnClusterList([[1,2,5],[7,8,9]],"ElmOrds");
 #! [ rec( fp := [ 88570, 4310 ], next := [ [ 1 ], [ 2, 5 ] ],
 #!        test := "ElmOrds" ),
 #!   rec( fp := [ 4310, 63049 ], next := [ [ 7, 9 ], [ 8 ] ],
 #!        test := "ElmOrds") ]
-#! gap> tree := TestOnClusterList([[3..8]],"ElmOrds", rec(verbose:=false));;
+#! gap> tree := TestOnClusterList([[3..8]],"ElmOrds");;
 #! gap> CL := ClusterList(tree);
 #! [ rec( descl := [  ], ids := [ 3, 8 ], path := [ 63049 ], size := 2,
 #!        tests := [ "ElmOrds" ]),
@@ -592,7 +582,7 @@ DeclareGlobalFunction("TestOnGroup");
 #!        tests := [ "ElmOrds" ]),
 #!   rec( descl := [  ], ids := [ 5, 6, 7 ], path := [ 4310 ], size := 3,
 #!        tests := [ "ElmOrds" ]) ]
-#! gap> TestOnClusterList(CL, "MaxSubId", rec(verbose:=false, notetest := false));
+#! gap> TestOnClusterList(CL, "MaxSubId", rec(notetest := false));
 #! [ [ [ 63049 ], rec( fp := [ 62603 ], next := [ [ 3, 8 ] ] ) ],
 #!   [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ] ) ] ]
 #! @EndExampleSession
@@ -601,14 +591,14 @@ DeclareGlobalFunction("TestOnClusterList");
 #! @Arguments tree, TR
 #! @Returns The extended <A>tree</A> with the subbranches in <A>TR</A>.
 #! @Description
-#! Extends <A>tree</A> by the test results stored in <A>TR</A>, a list of pairs
+#! Extends <A>tree</A> by the test results stored in <A>TR</A>, a list of pairs,
 #! each containing the path in <A>tree</A> and a branch (a tree of depth one),
-#! extending the corresponding cluster of the inital <A>tree</A>.
+#! extending the corresponding cluster of the initial <A>tree</A>.
 #! @BeginExampleSession
-#! gap> tree := TestOnClusterList([[3..8]],"ElmOrds", rec(verbose:=false));
+#! gap> tree := TestOnClusterList([[3..8]],"ElmOrds");
 #! rec( fp := [ 63049, 75721, 4310 ], next := [ [ 3, 8 ], [ 4 ], [ 5, 6, 7 ] ],
 #!      test := "ElmOrds")
-#! gap> TR:=TestOnClusterList(ClusterList(tree),"MaxSubId",rec(verbose:=false));
+#! gap> TR:=TestOnClusterList(ClusterList(tree),"MaxSubId");
 #! [ [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ],
 #!                    test := "MaxSubId" ) ] ]
 #! gap> AddClusterTestResults(tree,TR);
@@ -644,7 +634,7 @@ DeclareGlobalFunction("BuildSearchTree");
 # #! @Description
 # #! Does a parameter search such that evaluating the powermap on the clusters of
 # #! conjugacy classes in <A>coc</A> results in at least two different values. If
-# #! no suitable parameters are found, the function calls itself iterativly on
+# #! no suitable parameters are found, the function calls itself iteratively on
 # #! parameters that alter <A>Coc</A> until either a suitable list of parameters
 # #! is found or <A>it</A> is equal to <A>maxit</A>. The parameters of the current
 # #! iteration are provided in the list <A>paralist</A>.
@@ -755,17 +745,16 @@ DeclareGlobalFunction("BuildSearchTree");
 #! * <A>order</A>: An integer giving the order of the groups with ids in <A>CL</A>.
 #! * <A>iterate</A>: An integer that determines the maximal number of iterations
 #!                   done while searching parameters.
-#! * <A>verbose</A>: An boolean that determines if progress should be printed.
 #! The default value of <A>opt</A> is <A>rec(pack</A>:=<K>true</K>, <A>order</A>:=512,
-#! <A>iterate</A>:=1,<A>verbose</A>:=<K>true</K><A>)</A>.
+#! <A>iterate</A><A>:=1)</A>.
 #! @BeginExampleSession
-#! gap> tree := TestOnClusterList([[3,5,6,7,8]],"CocList",rec(verbose:=false));;
+#! gap> tree := TestOnClusterList([[3,5,6,7,8]],"CocList");;
 #! gap> CL := ClusterList(tree);
 #! [ rec( descl := [  ], ids := [ 3, 8 ], path := [ 337 ], size := 2,
 #!        tests := [ "CocList" ] ),
 #!   rec( descl := [  ], ids := [ 5, 6, 7 ], path := [ 32173 ], size := 3,
 #!        tests := [ "CocList" ] ) ]
-#! gap> TR := CocTestOnClusterList(CL,rec(verbose:=false));;
+#! gap> TR := CocTestOnClusterList(CL);;
 #! gap> AddClusterTestResults(tree, TR);;
 #! gap> ClusterList(tree);
 #! [ rec( descl := [ [ 302004 ] ], ids := [ 3 ], path := [ 337, 1363 ], size := 1,
