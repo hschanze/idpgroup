@@ -12,9 +12,13 @@ SetInfoLevel(InfoSiblings, 0);
 ##  bins according to the test.
 ##
 SplitBinsViaTest := function(Bins, order, test)
-    local NewBins, bin, fps, newsubbins, id, G, M, i, fp, pos;
+    local NewBins, IdList, prog, bin, fps, newsubbins, id, G, M, i, fp, pos;
 
     NewBins := [];
+    IdList := Flat(Bins);
+    prog := 0;
+
+    Info(InfoSiblings, 1, "Performing '", test, "' on ", Size(IdList), " groups");
 
     for bin in Bins do
 
@@ -22,6 +26,11 @@ SplitBinsViaTest := function(Bins, order, test)
         newsubbins := [];
 
         for id in bin do
+
+            if prog <> QuoInt(Position(IdList,id)*10,Size(IdList)) then
+                prog := QuoInt(Position(IdList,id)*10,Size(IdList));
+                Info(InfoSiblings, 1, "Progress: ", prog, "0%");
+            fi;
             G := SmallGroup(order, id);
             fp := TestOnGroup(G, test, rec(pack := false));
 
@@ -117,23 +126,28 @@ end);
 
 
 InstallGlobalFunction(CalculateStrongSiblings, function(order)
-    local bins, BPs, bin, BP, CT, i, j, bp;
+    local Bins, BPs, prog, bin, BP, CT, i, j, bp;
 
     Info(InfoSiblings, 1, "Start by calculating siblings of order ", order);
 
-    bins := CalculateSiblings(order);
+    Bins := CalculateSiblings(order);
 
     Info(InfoSiblings, 1, "Find Brauer pairs among the found siblings ");
 
     BPs := [];
+    prog := 0;
 
-    for bin in bins do
+    for bin in Bins do
         if Size(bin) = 1 then continue; fi;
 
         BP := [[1]];
         CT := List(bin, id -> CharacterTable(SmallGroup(order, id)));
 
         for i in [2..Size(bin)] do
+            if prog <> QuoInt(Position(Flat(Bins),bin[i])*10,Size(Flat(Bins))) then
+                prog := QuoInt(Position(Flat(Bins),bin[i])*10,Size(Flat(Bins)));
+                Info(InfoSiblings, 1, "Progress: ", prog, "0%");
+            fi;
             for j in [1..Size(BP)] do
                 if TransformingPermutationsCharacterTables(CT[i], CT[BP[j][1]]) <> fail then
                     #If CT[i] is equivalent to a known CT[j], add i to the Brauer pair BP[j]
