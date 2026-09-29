@@ -179,6 +179,8 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
             Add(branch.next[pos], id);
         od;
 
+        SortParallel(branch.fp, branch.next);
+
         #If the used test should be noted, we omit clusters, that do not split
         if opt.notetest then
            if Size(branch.fp) = 1 then continue; fi;
