@@ -112,8 +112,8 @@ DeclareInfoClass("InfoId512");
 #! * <A>anupq</A>: a boolean that determines if <M>IsPqIsomorphicPGroup</M> from the
 #!                 &Anupq;-Package is used to find the group isomorphic to
 #!                 <A>G</A> among the remaining candidates.
-#! The default values of <A>opt</A> is <C>rec(anupq</C>:=<K>false</K>,
-#!  <C>tree:=ID_GROUP_512_TREE, path:=</C> <K>false</K> <C>)</C>.
+##! The default values of <A>opt</A> is <C>rec(anupq</C>:=<K>false</K>,
+##!  <C>tree:=ID_GROUP_512_TREE, path:=</C> <K>false</K> <C>)</C>.
 #! @BeginExampleSession
 #! gap> G := Image(IsomorphismPermGroup(SmallGroup(512, 1984)));;
 #! gap> IdGroup512(G);
@@ -172,13 +172,13 @@ DeclareGlobalFunction("LoadTotalTree");
 
 #! @Arguments order, justids, [,indices]
 #! @Returns A list of lists of siblings of size <A>order</A>. The parameter
-#! <A>justids</A> detemines wether the ids or the groups (default) shall be returned.
+#! <A>justids</A> determines wether the ids or the groups (default) shall be returned.
 #! @Description
 #! Loads and returns a list of siblings of size <A>order</A> if available.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
 #! * all powers of 2 up to $2^9$
-#! * all powers of 3 up to $3^5$
+#! * all powers of 3 up to $3^6$
 #! * all powers of a prime up to $p^4$ and
 #! * all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 #! If no list is available for the provided order <C>fail</C> is returned. If a
@@ -210,7 +210,7 @@ DeclareGlobalFunction("Siblings");
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
 #! * all powers of 2 up to $2^9$
-#! * all powers of 3 up to $3^5$
+#! * all powers of 3 up to $3^6$
 #! * all powers of a prime up to $p^4$ and
 #! * all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 #! If no list is available for the provided order <C>fail</C> is returned. If a
@@ -523,8 +523,9 @@ DeclareGlobalFunction("ClusterList");
 ##!                     its maximal subgroups and minimal supergroups.
 #! This function accepts a record <A>opt</A> of options with the single content
 #! <A>opt.pack</A>, a boolean that determines if the result of a test should be
-#! encoded as an integer. The default value of <A>opt</A> is
-#! <M>rec(pack:=</M><K>true</K><M>)</M>.
+#! encoded as an integer.
+##! The default value of <A>opt</A> is
+##! <M>rec(pack:=</M><K>true</K><M>)</M>.
 #! @BeginExampleSession
 #! gap> G := SmallGroup(512, 1405);;
 #! gap> TestOnGroup(G, "ElmOrds");
@@ -561,9 +562,9 @@ DeclareGlobalFunction("TestOnGroup");
 #! * <A>notetest</A>: A boolean that decides if the performed test should be
 #!                    noted in the returned subbranches. If so, subbranches
 #!                    that do not split a cluster are omitted.
-#! The default value of <A>opt</A> is <M>rec(pack</M>:=<K>true</K>,
-#! <M>ign1cl</M>:=<K>true</K>, <M>order</M>:=512,
-#! <M>notetest</M>:=<K>true</K><M>)</M>.
+##! The default value of <A>opt</A> is <M>rec(pack</M>:=<K>true</K>,
+##! <M>ign1cl</M>:=<K>true</K>, <M>order</M>:=512,
+##! <M>notetest</M>:=<K>true</K><M>)</M>.
 #! @BeginExampleSession
 #! gap> TestOnClusterList([[1..10]],"ElmOrds");
 #! rec( fp := [ 88570, 4310, 63049, 75721 ],
@@ -741,12 +742,12 @@ DeclareGlobalFunction("BuildSearchTree");
 #! This function
 #! accepts a record <A>opt</A> of options with the following content:
 #! * <A>pack</A>: A boolean that determines if the result should be encoded as an
-#!                  intger.
+#!                  integer.
 #! * <A>order</A>: An integer giving the order of the groups with ids in <A>CL</A>.
 #! * <A>iterate</A>: An integer that determines the maximal number of iterations
 #!                   done while searching parameters.
-#! The default value of <A>opt</A> is <A>rec(pack</A>:=<K>true</K>, <A>order</A>:=512,
-#! <A>iterate</A><A>:=1)</A>.
+##! The default value of <A>opt</A> is <A>rec(pack</A>:=<K>true</K>, <A>order</A>:=512,
+##! <A>iterate</A><A>:=1)</A>.
 #! @BeginExampleSession
 #! gap> tree := TestOnClusterList([[3,5,6,7,8]],"CocList");;
 #! gap> CL := ClusterList(tree);
