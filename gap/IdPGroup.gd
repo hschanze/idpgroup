@@ -6,7 +6,7 @@
 #! The purpose of the &IdPGroup; package is to implement identification functions for
 #! different $p$-groups and thereby extend the functionality of the &SmallGrps;
 #! library.
-#! Currently this includes an identification function for groups of order 512 as
+#! Currently, this includes an identification function for groups of order 512, as
 #! described in <Cite Key="eickschanze" />.
 #!
 #! Details of the implementation and functionality of the identification functions
@@ -38,7 +38,7 @@
 #! associated with the identification of an arbitrary group of order 512 via
 #! a search tree. For further informations see <Cite Key="eickschanze" />.
 #!
-#! By 'identify' a group <M>G</M> we mean that we want to find __id__ such that
+#! By 'identify' a group <M>G</M>, we mean that we want to find an __id__ such that
 #! `SmallGroup(512, id)` is isomorphic to <M>G</M>. This is done by calculating
 #! invariants and comparing them with the ones of the remaining candidates. This
 #! process is organized in the tree <Ref Var="ID_GROUP_512_TREE" Style="Text"/>.
@@ -49,11 +49,11 @@
 #! * "next": a list comprised of the respective subbranches corresponding to the
 #!           fingerprints in "fp". This is either a list of ids or a branch
 #!           implemented as a record itself.
-#! Depending on the depth in the tree each record also has one of the following
+#! Depending on the depth in the tree, each record also has one of the following
 #! two components:
 #! * "test": a string that indicates which test was used via
 #!           <Ref Func="TestOnGroup" Style="Text"/> to create the listed fingerprints.
-#! * "desc": a list of integers that encode a description of the performed powermap-test
+#! * "desc": a list of integers that encode a description of the performed powermap-test.
 #! The first levels of <Ref Var="ID_GROUP_512_TREE" Style="Text"/> try to distinguish
 #! groups by the following invariants:
 #! * the rank of the group,
@@ -66,14 +66,14 @@
 #!   of the derived series of the group <M>G</M> and
 #! * the cycle structure of the permutations induced on all clusters of conjugacy
 #!   classes of same length and representative order by the power map $x\mapsto x^3$.
-#! If necessary these invariants are followed by invariants resulting from
+#! If necessary, these invariants are followed by invariants resulting from
 #! power maps evaluated on partitions of <M>G</M>.
 #! The initial partition is made of the conjugacy classes of <M>G</M>
 #! grouped such that conjugacy classes of the same length and same representative
 #! order belong to the same partitioning subset. The collected result of a power map
 #! applied to a subset forms an invariant used to distinguish groups in these
 #! levels of the search tree. The describing parameters (e.g. which subset and
-#! power map) is determined by the content
+#! power map) are determined by the content
 #! of the component "desc". After the evaluation, the partition is refined
 #! according to the respective result.
 #! If the preceding invariants do not lead to a single group, the following (more
@@ -84,8 +84,8 @@
 #! * the isomorphism types of maximal factors formed by the group and
 #!   central subgroups and
 #! * the isomorphism types of all maximal subgroups.
-#! After this process 139 pairs and 1 triplet of groups remain unidentified. These
-#! groups are distinguished by a random isomorphism test in the same way the groups of
+#! After this process, 139 pairs and 1 triplet of groups remain unidentified. These
+#! groups are distinguished by a random isomorphism test, in the same way the groups of
 #! order 256 are finally distinguished in the &SmallGrps; library.
 # #! That is done by selecting
 # #! random elements from predefined clusters of conjugacy classes, that were used
@@ -168,20 +168,20 @@ DeclareGlobalFunction("LoadTotalTree");
 #!   lower and upper central series onto the respective counterparts,
 #! * __strong siblings__ are siblings that are also Brauer Pairs.
 #! All (strong) siblings of orders dividing 512 together with some trivial cases
-#! are implemented in this package and are callable by the following functions.
+#! are implemented in this package, and are callable by the following functions.
 
 #! @Arguments order, justids, [,indices]
 #! @Returns A list of lists of siblings of size <A>order</A>. The parameter
 #! <A>justids</A> determines wether the ids or the groups (default) shall be returned.
 #! @Description
-#! Loads and returns a list of siblings of size <A>order</A> if available.
+#! If available, loads and returns a list of siblings of size <A>order</A>.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
-#! * all powers of 2 up to $2^9$
-#! * all powers of 3 up to $3^6$
+#! * all powers of 2 up to $2^9$,
+#! * all powers of 3 up to $3^6$,
 #! * all powers of a prime up to $p^4$ and
 #! * all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
-#! If no list is available for the provided order <C>fail</C> is returned. If a
+#! If no list is available for the provided order, <C>fail</C> is returned. If a
 #! list <A>indices</A> is given, only the respective entries are returned.
 #! @BeginExampleSession
 #! gap> Siblings(101);
@@ -209,8 +209,8 @@ DeclareGlobalFunction("Siblings");
 #! returned.
 #! Currently available sizes are:
 #! * all orders of the form $p\,q$ for $p$ and $q$ primes,
-#! * all powers of 2 up to $2^9$
-#! * all powers of 3 up to $3^6$
+#! * all powers of 2 up to $2^9$,
+#! * all powers of 3 up to $3^6$,
 #! * all powers of a prime up to $p^4$ and
 #! * all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.
 #! If no list is available for the provided order <C>fail</C> is returned. If a
@@ -283,7 +283,7 @@ DeclareGlobalFunction("CalculateSiblings");
 #! strong siblings.
 #! @Description
 #! First calculates all siblings of size <A>order</A> via
-#! <Ref Func="CalculateSiblings" Style="Text"/> and then determines all strong
+#! <Ref Func="CalculateSiblings" Style="Text"/>, and then determines all strong
 #! siblings among them.
 #! @BeginExampleSession
 #! gap> CalculateStrongSiblings(256);
@@ -540,17 +540,17 @@ DeclareGlobalFunction("TestOnGroup");
 #! cluster (which is a leaf of a search tree) and the subbranch resulting
 #! from the results of <A>test</A>, or just the list of subbranches if <A>CL</A>
 #! contains only lists of integers. If <A>CL</A> consists of a single list
-#! of integers the single resulting subbranch is returned on its own.
+#! of integers, the single resulting subbranch is returned on its own.
 #! @Description
 #! Performs the chosen test on the groups of each record in the <A>CL</A>.
 #! The tests are performed by <Ref Func="TestOnGroup" Style="Text"/>.
 #! <A>CL</A> could either be a
 #! list of records produced by <Ref Func="ClusterList" Style="Text"/> or be
 #! a list of lists containing
-#! ids. In the former case the output is a list of pairs containing the path of
-#! a cluster and the subbranch resulting from the test. In the latter case
+#! ids. In the former case, the output is a list of pairs containing the path of
+#! a cluster and the subbranch resulting from the test. In the latter case,
 #! only a list of subbranches is returned. If in the latter case, the returned
-#! list only one contains one subbranch, the subbranch itself is returned.
+#! list only contains one subbranch, the subbranch itself is returned.
 #! This is useful when building the first level of a search tree.
 #! This function accepts a record <A>opt</A> of options with the following
 #! content:
@@ -779,8 +779,8 @@ DeclareGlobalFunction("CocTestOnClusterList");
 #! Determines the needed parameters for the groups of size <A>order</A> in the
 #! clusters <A>cl</A> of <A>CL</A>.
 #! Creates the clusters of conjugcy classes and alters them accordingly to the
-#! <A>cl.descl</A>. Afterwards minimal generators for all groups and their position
-#! among the clusters of conjugacy classes. If the positions do not coincide, the
+#! <A>cl.descl</A>. Afterwards minimal generators for all groups are chosen and their position
+#! among the clusters of conjugacy classes is determined. If the positions do not coincide, the
 #! positions of the generators of the first group are selected and the generators
 #! of the other groups are selected from the same clusters. Otherwise the positions
 #! and generators are sorted by the positions. Sequently the function tries to refine
