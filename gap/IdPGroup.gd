@@ -85,8 +85,9 @@
 #!   central subgroups and
 #! * the isomorphism types of all maximal subgroups.
 #! After this process, 139 pairs and 1 triplet of groups remain unidentified. These
-#! groups are distinguished by a random isomorphism test, in the same way the groups of
-#! order 256 are finally distinguished in the &SmallGrps; library.
+#! groups are distinguished by a random isomorphism test, the same way ultimately used
+#! in the &SmallGrps; library for the groups of order 256, for more details see
+#! <Cite Key="BE99" />.
 # #! That is done by selecting
 # #! random elements from predefined clusters of conjugacy classes, that were used
 # #! and potentially refined before, until these elements generate the group. This list
@@ -128,6 +129,7 @@ DeclareInfoClass("InfoId512");
 #! 449
 #! @EndExampleSession
 DeclareGlobalFunction("IdGroup512");
+
 
 #! @Description
 #! The search tree of groups of order 512 that can determine the vast majority
@@ -230,7 +232,6 @@ DeclareGlobalFunction("Siblings");
 #! [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
 #! @EndExampleSession
 DeclareGlobalFunction("StrongSiblings");
-
 
 DeclareGlobalName("BINS_OF_IDS");
 
@@ -708,7 +709,7 @@ DeclareGlobalFunction("BuildSearchTree");
 # #! gap> List(cocnew, Size);
 # #! [ 1, 12, 3, 4, 24, 12, 48 ]
 # #! @EndExampleSession
-# #DeclareGlobalFunction("AlterCocAccordingToFp");
+# DeclareGlobalFunction("AlterCocAccordingToFp");
 
 # #! @Arguments Ids, order, desclist, iterate
 # #! @Returns A search tree (implemented as a record).
@@ -730,7 +731,7 @@ DeclareGlobalFunction("BuildSearchTree");
 # #!    [ rec( desc := [ 107003, 212007 ], fp := [ 14, 618 ],
 # #!     next := [ [ 1529 ], [ 1530 ] ] ), [ 1531 ] ] )
 # #! @EndExampleSession
-# #DeclareGlobalFunction("CocSplitRoutine");
+# DeclareGlobalFunction("CocSplitRoutine");
 
 #! @Arguments CL [,opt]
 #! @Returns A list of pairs each containing the path of the respective cluster
@@ -774,13 +775,14 @@ DeclareGlobalFunction("CocTestOnClusterList");
 
 #! @Arguments CL, order, maxl
 #! @Returns A list consisting of pairs of a list of ids and a record containing the
-#! parameters for a random presentation test via `ID_GROUP_FUNCS[18]`.
+#! parameters for a random presentation test via `ID_GROUP_FUNCS[18]` defined in the
+#! &SmallGrps; package.
 #! @Description
 #! Determines the needed parameters for the groups of size <A>order</A> in the
 #! clusters <A>cl</A> of <A>CL</A>.
 #! Creates the clusters of conjugcy classes and alters them accordingly to the
 #! <A>cl.descl</A>. Afterwards minimal generators for all groups are chosen and their position
-#! among the clusters of conjugacy classes is determined. If the positions do not coincide, the
+#! among the clusters of conjugacy classes are determined. If the positions do not coincide, the
 #! positions of the generators of the first group are selected and the generators
 #! of the other groups are selected from the same clusters. Otherwise the positions
 #! and generators are sorted by the positions. Sequently the function tries to refine
