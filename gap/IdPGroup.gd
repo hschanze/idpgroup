@@ -279,17 +279,20 @@ DeclareGlobalFunction("CalculateSiblings");
 # #! <A>order</A> listed in <A>Bins</A>.
 # #DeclareGlobalFunction("DetermineBrauerPairs");
 
-#! @Arguments order
+#! @Arguments order [,list]
 #! @Returns A list of lists of ids of groups of size <A>order</A> that are
 #! strong siblings.
 #! @Description
-#! First calculates all siblings of size <A>order</A> via
+#! If no lists of siblings is given via <A>list</A>, first calculate
+#! all siblings of size <A>order</A> via
 #! <Ref Func="CalculateSiblings" Style="Text"/>, and then determines all strong
 #! siblings among them.
 #! @BeginExampleSession
 #! gap> CalculateStrongSiblings(256);
 #! [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
 #!   [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
+#! gap> CalculateStrongSiblings(256, [[227, 228], [1734, 1735]]);
+#! [ [1734, 1735 ] ]
 #! @EndExampleSession
 DeclareGlobalFunction("CalculateStrongSiblings");
 
@@ -511,7 +514,7 @@ DeclareGlobalFunction("ClusterList");
 #!                     of same length and same representative order
 #!                     (the order of a representative),
 #! * <A>"PMCycSt"</A>: the cycle-structure of the permutation induced by the power
-#!                     map $x\mapsto x^3$ on the collected conjugacy classes.
+#!                     map $x\mapsto x^3$ on the collected conjugacy classes,
 ##! * <A>"OutId"</A>: Tries to identify the groups of outer automorphisms of
 ##!                   <A>G</A>, either via `IdGroup` (if available) or via its
 ##!                   size and `TestOnGroup` with <A>"ElmOrds"</A> and
@@ -522,9 +525,10 @@ DeclareGlobalFunction("ClusterList");
 ##!                     isomorphism types of each class and determines the
 ##!                     isomorphism types and conjugacy classes in <A>G</A> of
 ##!                     its maximal subgroups and minimal supergroups.
-#! This function accepts a record <A>opt</A> of options with the single content
-#! <A>opt.pack</A>, a boolean that determines if the result of a test should be
-#! encoded as an integer.
+#! * <A>"fpfunc"</A>: Uses the function provided as <A>opt.fpfunc</A>.
+#! This function accepts a record <A>opt</A> of options consisting of the boolean
+#! <A>opt.pack</A>, that determines if the result of a test should be
+#! encoded as an integer, and <A>opt.fpfunc</A> a costume function.
 ##! The default value of <A>opt</A> is
 ##! <M>rec(pack:=</M><K>true</K><M>)</M>.
 #! @BeginExampleSession

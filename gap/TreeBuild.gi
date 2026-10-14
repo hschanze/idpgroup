@@ -136,10 +136,10 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
     fi;
 
     if First(CL, cl -> not IsInt(cl)) = fail then
-        Info(InfoTreeBuild, 1, "Initialize tree with given ids. Result will be a tree.");
+        Info(InfoTreeBuild, 2, "Initialize tree with given ids. Result will be a tree.");
         CL := [CL];
     elif First(CL, cl -> not IsRecord(cl)) = fail then
-        Info(InfoTreeBuild, 1, "Try to extend given clusters of a tree. Result will be a list of extending branches.");
+        Info(InfoTreeBuild, 2, "Try to extend given clusters of a tree. Result will be a list of extending branches.");
     fi;
 
     #Check if CL is just a list of ids and replace them accordingly
@@ -203,7 +203,7 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
 
     #Print results into file with opt.filename if wanted
     if IsBound(opt.filename) and opt.filename <> "" then
-        Info(InfoTreeBuild, 1, "Export result into ", opt.filename, "_", test,".txt");
+        Info(InfoTreeBuild, 2, "Export result into ", opt.filename, "_", test,".txt");
         PrintTo(StringFormatted("{}_{}.txt", opt.filename, test), "TR:=", TR, ";");
     fi;
 
@@ -218,7 +218,7 @@ end);
 InstallGlobalFunction(AddClusterTestResults, function(tree, TR)
     local tr, branch, fp, pos;
 
-    Info(InfoTreeBuild, 1, "Extend ", Size(TR), " clusters of given tree");
+    Info(InfoTreeBuild, 2, "Extend ", Size(TR), " clusters of given tree");
     for tr in TR do
         branch := tree;
 

@@ -283,6 +283,8 @@ InstallGlobalFunction(TestOnGroup, function(G, test, opt...)
         od;
         fp := SortedList(fp);
 
+    elif test = "fpfunc" and IsBound(opt.fpfunc) and IsFunction(opt.fpfunc) then
+        fp := opt.fpfunc(G);
     else
         Error("Please enter a valid test! ", test, " is not recognized.");
     fi;

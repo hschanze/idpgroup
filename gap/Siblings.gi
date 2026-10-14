@@ -125,12 +125,16 @@ InstallGlobalFunction(Siblings, function(args...)
 end);
 
 
-InstallGlobalFunction(CalculateStrongSiblings, function(order)
+InstallGlobalFunction(CalculateStrongSiblings, function(order, arg...)
     local Bins, BPs, prog, bin, BP, CT, i, j, bp;
 
-    Info(InfoSiblings, 1, "Start by calculating siblings of order ", order);
-
-    Bins := CalculateSiblings(order);
+    if Length(arg) = 0 then
+        Info(InfoSiblings, 1, "Start by calculating siblings of order ", order);
+        Bins := CalculateSiblings(order);
+    else
+        Info(InfoSiblings, 1, "Use provided siblings ");
+        Bins := arg[1];
+    fi;
 
     Info(InfoSiblings, 1, "Find Brauer pairs among the found siblings ");
 
