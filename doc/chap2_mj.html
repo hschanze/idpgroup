@@ -1,0 +1,642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (IdPGroup) - Chapter 2: Functionality</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap2"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap2.html">[MathJax off]</a></p>
+<p><a id="X87F1120883F5B4D0" name="X87F1120883F5B4D0"></a></p>
+<div class="ChapSects"><a href="chap2_mj.html#X87F1120883F5B4D0">2 <span class="Heading">Functionality</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X82BA59FA865D19E5">2.1 <span class="Heading">Identifying groups via a search tree</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7E229FC579EB31F7">2.1-1 InfoId512</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X81731B9A798C5985">2.1-2 IdGroup512</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7E6424F37C14208E">2.1-3 ID_GROUP_512_TREE</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7BA3357E86269C3B">2.1-4 LoadTotalTree</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7EDB790F85B7753E">2.2 <span class="Heading">Loading (strong) siblings</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X878A3FFE837F9EF6">2.2-1 Siblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X843063807B06E65B">2.2-2 StrongSiblings</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7AA188507AFCEC21">2.3 <span class="Heading">Functions for calculating (strong) siblings</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X87BC15127AE5D98F">2.3-1 InfoSiblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7A81D24885DD46A1">2.3-2 CalculateSiblings</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7E2FC2447FF1E8FE">2.3-3 CalculateStrongSiblings</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap2_mj.html#X7E8276BF79FDD898">2.4 <span class="Heading">Functions for building a search tree</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7E1DEA937C9150F0">2.4-1 InfoTreeBuild</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7812E18678076D7B">2.4-2 ClusterList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7C14B8DF7A4C0115">2.4-3 TestOnGroup</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7BC4B6397C17B535">2.4-4 TestOnClusterList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X85F0BFE88445D1B7">2.4-5 AddClusterTestResults</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X82CDC04E8588770B">2.4-6 BuildSearchTree</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7EB7CB0B84963812">2.4-7 CocTestOnClusterList</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap2_mj.html#X7FBD2B9C83B1496A">2.4-8 ParametersRandPresentTest</a></span>
+</div></div>
+</div>
+
+<h3>2 <span class="Heading">Functionality</span></h3>
+
+<p>This chapter lists all functions contained in the <strong class="pkg">IdPGroup</strong> package.</p>
+
+<p><a id="X82BA59FA865D19E5" name="X82BA59FA865D19E5"></a></p>
+
+<h4>2.1 <span class="Heading">Identifying groups via a search tree</span></h4>
+
+<p>This section briefly describes the functions and variables of this package associated with the identification of an arbitrary group of order 512 via a search tree. For further informations see <a href="chapBib_mj.html#biBeickschanze">[ES26]</a>.</p>
+
+<p>By 'identify' a group <span class="SimpleMath">\(G\)</span>, we mean that we want to find an <em>id</em> such that <code class="code">SmallGroup(512, id)</code> is isomorphic to <span class="SimpleMath">\(G\)</span>. This is done by calculating invariants and comparing them with the ones of the remaining candidates. This process is organized in the tree <code class="func">ID_GROUP_512_TREE</code> (<a href="chap2_mj.html#X7E6424F37C14208E"><span class="RefLink">2.1-3</span></a>). The tree used is implemented as nested records with the following components:</p>
+
+
+<ul>
+<li><p>"fp": a list of integers, each being the encoded fingerprint of groups resulting from the specific test performed at the current level of the identification routine.</p>
+
+</li>
+<li><p>"next": a list comprised of the respective subbranches corresponding to the fingerprints in "fp". This is either a list of ids or a branch implemented as a record itself.</p>
+
+</li>
+</ul>
+<p>Depending on the depth in the tree, each record also has one of the following two components:</p>
+
+
+<ul>
+<li><p>"test": a string that indicates which test was used via <code class="func">TestOnGroup</code> (<a href="chap2_mj.html#X7C14B8DF7A4C0115"><span class="RefLink">2.4-3</span></a>) to create the listed fingerprints.</p>
+
+</li>
+<li><p>"desc": a list of integers that encode a description of the performed powermap-test.</p>
+
+</li>
+</ul>
+<p>The first levels of <code class="func">ID_GROUP_512_TREE</code> (<a href="chap2_mj.html#X7E6424F37C14208E"><span class="RefLink">2.1-3</span></a>) try to distinguish groups by the following invariants:</p>
+
+
+<ul>
+<li><p>the rank of the group,</p>
+
+</li>
+<li><p>the collected orders of all elements of the group,</p>
+
+</li>
+<li><p>the numbers of conjugacy classes of each length and representative order (the order of the elements in the class) of the group,</p>
+
+</li>
+<li><p>the isomorphism type of the parent of the group, i.e. the quotient of the group and the smallest non-trivial element of the lower-<span class="SimpleMath">\(p\)</span>-central series,</p>
+
+</li>
+<li><p>the abelian invariants, i.e. the isomorphism types of the factor groups of the derived series of the group <span class="SimpleMath">\(G\)</span> and</p>
+
+</li>
+<li><p>the cycle structure of the permutations induced on all clusters of conjugacy classes of same length and representative order by the power map <span class="SimpleMath">\(x\mapsto x^3\)</span>.</p>
+
+</li>
+</ul>
+<p>If necessary, these invariants are followed by invariants resulting from power maps evaluated on partitions of <span class="SimpleMath">\(G\)</span>. The initial partition is made of the conjugacy classes of <span class="SimpleMath">\(G\)</span> grouped such that conjugacy classes of the same length and same representative order belong to the same partitioning subset. The collected result of a power map applied to a subset forms an invariant used to distinguish groups in these levels of the search tree. The describing parameters (e.g. which subset and power map) are determined by the content of the component "desc". After the evaluation, the partition is refined according to the respective result. If the preceding invariants do not lead to a single group, the following (more time consuming) invariants are calculated:</p>
+
+
+<ul>
+<li><p>the isomorphism types of maximal factors formed by factoring out subgroups generated by elements of the smallest non-trivial subgroup in the lower-p-central series,</p>
+
+</li>
+<li><p>the isomorphism types of maximal factors formed by the group and central subgroups and</p>
+
+</li>
+<li><p>the isomorphism types of all maximal subgroups.</p>
+
+</li>
+</ul>
+<p>After this process, 139 pairs and 1 triplet of groups remain unidentified. These groups are distinguished by a random isomorphism test, the same way ultimately used in the <strong class="pkg">SmallGrps</strong> library for the groups of order 256, for more details see <a href="chapBib_mj.html#biBBE99">[BE99]</a>.</p>
+
+<p><a id="X7E229FC579EB31F7" name="X7E229FC579EB31F7"></a></p>
+
+<h5>2.1-1 InfoId512</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoId512</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>Info class for the identification routine of groups of order 512.</p>
+
+<p><a id="X81731B9A798C5985" name="X81731B9A798C5985"></a></p>
+
+<h5>2.1-2 IdGroup512</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; IdGroup512</code>( <var class="Arg">G</var>[, <var class="Arg">opt</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: Integer id such that <code class="code">SmallGroup(512, id)</code> is isomorphic to <var class="Arg">G</var>.</p>
+
+<p>Identifies the group <var class="Arg">G</var> of order 512. This function accepts a record <var class="Arg">opt</var> of options with the following content:</p>
+
+
+<ul>
+<li><p><var class="Arg">path</var>: a boolean that determines if the path through the tree shall be recorded while identification and returned as well.</p>
+
+</li>
+<li><p><var class="Arg">tree</var>: a search tree that was built using the invariants resulting from <span class="SimpleMath">\(tests\)</span>.</p>
+
+</li>
+<li><p><var class="Arg">anupq</var>: a boolean that determines if <span class="SimpleMath">\(IsPqIsomorphicPGroup\)</span> from the <strong class="pkg">Anupq</strong>-Package is used to find the group isomorphic to <var class="Arg">G</var> among the remaining candidates.</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := Image(IsomorphismPermGroup(SmallGroup(512, 1984)));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IdGroup512(G);</span>
+1984
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IdGroup512(G, rec(path := true));</span>
+[ 1984, rec( fp := [ 2, 8217, 5321 ], pos := [ 2, 188, 1 ],
+        tests := [ "Rank", "ElmOrds", [ 40511009 ] ] ) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := Image(IsomorphismPermGroup(SmallGroup(512, 449)));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IdGroup512(H, rec(anupq := false));</span>
+449
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IdGroup512(H, rec(anupq := true));</span>
+449
+</pre></div>
+
+<p><a id="X7E6424F37C14208E" name="X7E6424F37C14208E"></a></p>
+
+<h5>2.1-3 ID_GROUP_512_TREE</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ID_GROUP_512_TREE</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>The search tree of groups of order 512 that can determine the vast majority of groups. Only a small part is loaded initlialy. Further branches are loaded if necessary.</p>
+
+<p><a id="X7BA3357E86269C3B" name="X7BA3357E86269C3B"></a></p>
+
+<h5>2.1-4 LoadTotalTree</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoadTotalTree</code>(  )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Loads the entire search tree <code class="func">ID_GROUP_512_TREE</code> (<a href="chap2_mj.html#X7E6424F37C14208E"><span class="RefLink">2.1-3</span></a>).</p>
+
+<p><a id="X7EDB790F85B7753E" name="X7EDB790F85B7753E"></a></p>
+
+<h4>2.2 <span class="Heading">Loading (strong) siblings</span></h4>
+
+<p>This section describes the functions used to load precalculated lists of (strong) siblings, i.e. groups satisying the following definitions:</p>
+
+
+<ul>
+<li><p><em>subgroup-equivalent groups</em> are groups with a bijection between the sets of proper subgroups s.t. preimage and image are isomorphic,</p>
+
+</li>
+<li><p><em>factor-equivalent groups</em> are groups with a bijection between the sets of proper factors s.t. preimage and image are isomorphic,</p>
+
+</li>
+<li><p><em>siblings</em> are subgroup- and factor-equivalent groups, where the bijection of proper subgroups preserves conjugacy and maps the Frattini subgroup, lower and upper central series onto the respective counterparts,</p>
+
+</li>
+<li><p><em>strong siblings</em> are siblings that are also Brauer Pairs.</p>
+
+</li>
+</ul>
+<p>All (strong) siblings of orders dividing 512 together with some trivial cases are implemented in this package, and are callable by the following functions.</p>
+
+<p><a id="X878A3FFE837F9EF6" name="X878A3FFE837F9EF6"></a></p>
+
+<h5>2.2-1 Siblings</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Siblings</code>( <var class="Arg">order</var>, <var class="Arg">justids</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of lists of siblings of size <var class="Arg">order</var>. The parameter <var class="Arg">justids</var> determines wether the ids or the groups (default) shall be returned.</p>
+
+<p>If available, loads and returns a list of siblings of size <var class="Arg">order</var>. Currently available sizes are:</p>
+
+
+<ul>
+<li><p>all orders of the form <span class="SimpleMath">\(p\,q\)</span> for <span class="SimpleMath">\(p\)</span> and <span class="SimpleMath">\(q\)</span> primes,</p>
+
+</li>
+<li><p>all powers of 2 up to <span class="SimpleMath">\(2^9\)</span>,</p>
+
+</li>
+<li><p>all powers of 3 up to <span class="SimpleMath">\(3^6\)</span>,</p>
+
+</li>
+<li><p>all powers of a prime up to <span class="SimpleMath">\(p^4\)</span> and</p>
+
+</li>
+<li><p>all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.</p>
+
+</li>
+</ul>
+<p>If no list is available for the provided order, <code class="code">fail</code> is returned. If a list <var class="Arg">indices</var> is given, only the respective entries are returned.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(101);</span>
+[ ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(128);</span>
+[ [ &lt;pc group of size 128 with 7 generators&gt;,
+    &lt;pc group of size 128 with 7 generators&gt; ],
+  [ &lt;pc group of size 128 with 7 generators&gt;,
+    &lt;pc group of size 128 with 7 generators&gt; ],
+  [ &lt;pc group of size 128 with 7 generators&gt;,
+    &lt;pc group of size 128 with 7 generators&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(128, true);</span>
+[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Siblings(256, true, [1..3]);</span>
+[ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
+</pre></div>
+
+<p><a id="X843063807B06E65B" name="X843063807B06E65B"></a></p>
+
+<h5>2.2-2 StrongSiblings</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StrongSiblings</code>( <var class="Arg">order</var>, <var class="Arg">justids</var>[, <var class="Arg">indices</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of lists of strong siblings of <var class="Arg">order</var>.</p>
+
+<p>Loads and returns a list of strong siblings of <var class="Arg">order</var> if available. The parameter <var class="Arg">justids</var> controls if just the ids or the groups (default) shall be returned. Currently available sizes are:</p>
+
+
+<ul>
+<li><p>all orders of the form <span class="SimpleMath">\(p\,q\)</span> for <span class="SimpleMath">\(p\)</span> and <span class="SimpleMath">\(q\)</span> primes,</p>
+
+</li>
+<li><p>all powers of 2 up to <span class="SimpleMath">\(2^9\)</span>,</p>
+
+</li>
+<li><p>all powers of 3 up to <span class="SimpleMath">\(3^6\)</span>,</p>
+
+</li>
+<li><p>all powers of a prime up to <span class="SimpleMath">\(p^4\)</span> and</p>
+
+</li>
+<li><p>all orders smaller than 256 except 60, 120, 160, 168, 180, 189, 192 and 240.</p>
+
+</li>
+</ul>
+<p>If no list is available for the provided order <code class="code">fail</code> is returned. If a list <var class="Arg">indices</var> is given, only the respective entries are returned.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblings(256, true);</span>
+[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ],
+  [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblings(256, false, [1..3]);</span>
+[ [ &lt;pc group of size 256 with 8 generators&gt;,
+    &lt;pc group of size 256 with 8 generators&gt; ],
+  [ &lt;pc group of size 256 with 8 generators&gt;,
+    &lt;pc group of size 256 with 8 generators&gt; ],
+  [ &lt;pc group of size 256 with 8 generators&gt;,
+    &lt;pc group of size 256 with 8 generators&gt; ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StrongSiblings(256, true, [1..3]);</span>
+[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
+</pre></div>
+
+<p><a id="X7AA188507AFCEC21" name="X7AA188507AFCEC21"></a></p>
+
+<h4>2.3 <span class="Heading">Functions for calculating (strong) siblings</span></h4>
+
+<p>This section describes all functions for calculating (strong) siblings of a given order.</p>
+
+<p><a id="X87BC15127AE5D98F" name="X87BC15127AE5D98F"></a></p>
+
+<h5>2.3-1 InfoSiblings</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoSiblings</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>Info class for the calculation of (strong) siblings.</p>
+
+<p><a id="X7A81D24885DD46A1" name="X7A81D24885DD46A1"></a></p>
+
+<h5>2.3-2 CalculateSiblings</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateSiblings</code>( <var class="Arg">order</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of lists of ids of groups of size <var class="Arg">order</var> that are siblings.</p>
+
+<p>Determines all siblings among the groups of size <var class="Arg">order</var> by applying the tests <code class="code">"MaxSubId"</code>, <code class="code">"SpSubId"</code>, <code class="code">"SubId"</code>, <code class="code">"MaxFactId"</code> and <code class="code">"FactId"</code> iteratively. The tests <code class="code">"MaxSubId"</code> and <code class="code">"MaxFactId"</code> are not necessary, but are efficient and eliminate some sets before applying the more costly tests.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateSiblings(128);</span>
+[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
+</pre></div>
+
+<p><a id="X7E2FC2447FF1E8FE" name="X7E2FC2447FF1E8FE"></a></p>
+
+<h5>2.3-3 CalculateStrongSiblings</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateStrongSiblings</code>( <var class="Arg">order</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of lists of ids of groups of size <var class="Arg">order</var> that are strong siblings.</p>
+
+<p>First calculates all siblings of size <var class="Arg">order</var> via <code class="func">CalculateSiblings</code> (<a href="chap2_mj.html#X7A81D24885DD46A1"><span class="RefLink">2.3-2</span></a>), and then determines all strong siblings among them.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateStrongSiblings(256);</span>
+[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
+  [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
+</pre></div>
+
+<p><a id="X7E8276BF79FDD898" name="X7E8276BF79FDD898"></a></p>
+
+<h4>2.4 <span class="Heading">Functions for building a search tree</span></h4>
+
+<p>This section describes all functions and variables connected to building a search tree that can be used with <code class="func">IdGroup512</code> (<a href="chap2_mj.html#X81731B9A798C5985"><span class="RefLink">2.1-2</span></a>) to identify groups via implemented invariants.</p>
+
+<p>In short, this is done by initializing a tree via calling <code class="func">TestOnClusterList</code> (<a href="chap2_mj.html#X7BC4B6397C17B535"><span class="RefLink">2.4-4</span></a>) with a selected test on a list of ids of groups of given order and then iterating the following three steps:</p>
+
+
+<ul>
+<li><p>collecting the clusters of the current tree via <code class="func">ClusterList</code> (<a href="chap2_mj.html#X7812E18678076D7B"><span class="RefLink">2.4-2</span></a>),</p>
+
+</li>
+<li><p>performing a chosen test on these clusters via <code class="func">TestOnClusterList</code> (<a href="chap2_mj.html#X7BC4B6397C17B535"><span class="RefLink">2.4-4</span></a>) and</p>
+
+</li>
+<li><p>extending the tree with these test results via <code class="func">AddClusterTestResults</code> (<a href="chap2_mj.html#X85F0BFE88445D1B7"><span class="RefLink">2.4-5</span></a>).</p>
+
+</li>
+</ul>
+<p>A very effective set of invariants can be obtained by calling <code class="func">CocTestOnClusterList</code> (<a href="chap2_mj.html#X7EB7CB0B84963812"><span class="RefLink">2.4-7</span></a>) in the second step. This should only be done when the groups of each provided cluster yield the same value when the test <code class="code">CocList</code> is applied. Furthermore these invariants should be used for as few as possible clusters since <code class="func">CocTestOnClusterList</code> (<a href="chap2_mj.html#X7EB7CB0B84963812"><span class="RefLink">2.4-7</span></a>) includes a search for suitable parameters that can take quite some time.</p>
+
+<p><a id="X7E1DEA937C9150F0" name="X7E1DEA937C9150F0"></a></p>
+
+<h5>2.4-1 InfoTreeBuild</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoTreeBuild</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
+<p>Info class for the building of a search tree.</p>
+
+<p><a id="X7812E18678076D7B" name="X7812E18678076D7B"></a></p>
+
+<h5>2.4-2 ClusterList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ClusterList</code>( <var class="Arg">tree</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of all clusters of groups in <var class="Arg">tree</var> (i.e. the leaves of <var class="Arg">tree</var>).</p>
+
+<p>Iterates through <var class="Arg">tree</var> and collects information about each leaf as a record. This includes the size of the leaf, the path through <var class="Arg">tree</var> leading to the leaf, the tests performed including descriptions of performed power map tests and the ids of the groups contained in the leaf.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tree := rec( fp := [ 63049, 75721, 4310 ],  next := [ [ 3, 8 ], [ 4 ],</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">           rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ],</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">               test := "MaxSubId" ) ], test := "ElmOrds" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ClusterList(tree);</span>
+[ rec( descl := [  ], ids := [ 3, 8 ], path := [ 63049 ], size := 2,
+       tests := [ "ElmOrds" ] ),
+  rec( descl := [  ], ids := [ 4 ], path := [ 75721 ], size := 1,
+       tests := [ "ElmOrds" ] ),
+  rec( descl := [  ], ids := [ 5 ], path := [ 4310, 11744 ], size := 1,
+       tests := [ "ElmOrds", "MaxSubId" ] ),
+  rec( descl := [  ], ids := [ 6, 7 ], path := [ 4310, 86646 ], size := 2,
+       tests := [ "ElmOrds", "MaxSubId" ] ) ]
+</pre></div>
+
+<p><a id="X7C14B8DF7A4C0115" name="X7C14B8DF7A4C0115"></a></p>
+
+<h5>2.4-3 TestOnGroup</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TestOnGroup</code>( <var class="Arg">G</var>, <var class="Arg">test</var>[, <var class="Arg">opt</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: The result of <var class="Arg">test</var> applied to <var class="Arg">G</var>, if desired encoded as an integer.</p>
+
+<p>Calculates an invariant of the group <var class="Arg">G</var>. The following choices for <var class="Arg">test</var> are implemented:</p>
+
+
+<ul>
+<li><p><var class="Arg">"ElmOrds"</var>: the collected orders of the elements of <var class="Arg">G</var>,</p>
+
+</li>
+<li><p><var class="Arg">"Center"</var>: the abelian invariants of the center of <var class="Arg">G</var>,</p>
+
+</li>
+<li><p><var class="Arg">"Rank"</var>: the rank of <var class="Arg">G</var>,</p>
+
+</li>
+<li><p><var class="Arg">"AbelInv"</var>: the order and abelian invariants of each term in the derived series of <var class="Arg">G</var>,</p>
+
+</li>
+<li><p><var class="Arg">"UCSId"</var>: the isomorphism types of the proper subgroups in the upper central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"LCSId"</var>: the isomorphism types of the proper subgroups in the lower central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"PCSId"</var>: the isomorphism types of the proper subgroups in the p-central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"SpSubId"</var>: the isomorphismtypes of the Frattini subgroup, the terms in the #! upper and lower central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"MaxSubId"</var>: the collected isomorphism types of all maximal subgroups of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"SubId"</var>: the sizes and collected isomorphism types of conjugacy classes of all proper subgroups via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"MaxFactId"</var>: the collected isomorphism types of all maximal factors of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"CentQuot"</var>: the collected isomorphism types of all quotients of <var class="Arg">G</var> with subgroups generated by non-trivial central elements of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"LCSFactId"</var>: the collected isomorphism types of all quotients of <var class="Arg">G</var> with cyclic subgroups generated by non-trivial elements of the last non-trivial term of the <span class="SimpleMath">\(p\)</span>-central series,</p>
+
+</li>
+<li><p><var class="Arg">"FactId"</var>: the collected isomorphism types of all proper factors of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+
+</li>
+<li><p><var class="Arg">"CocList"</var>: the collected numbers of conjugacy classes of <var class="Arg">G</var> of same length and same representative order (the order of a representative),</p>
+
+</li>
+<li><p><var class="Arg">"PMCycSt"</var>: the cycle-structure of the permutation induced by the power map <span class="SimpleMath">\(x\mapsto x^3\)</span> on the collected conjugacy classes,</p>
+
+</li>
+<li><p><var class="Arg">"fpfunc"</var>: Uses the function provided as <var class="Arg">opt.fpfunc</var>.</p>
+
+</li>
+</ul>
+<p>This function accepts a record <var class="Arg">opt</var> of options consisting of the boolean <var class="Arg">opt.pack</var>, that determines if the result of a test should be encoded as an integer, and <var class="Arg">opt.fpfunc</var> a costume function.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup(512, 1405);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TestOnGroup(G, "ElmOrds");</span>
+85416
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TestOnGroup(G, "ElmOrds", rec(pack := false));</span>
+[ [ 1, 1 ], [ 2, 7 ], [ 4, 24 ], [ 8, 288 ], [ 16, 64 ], [ 32, 128 ] ]
+</pre></div>
+
+<p><a id="X7BC4B6397C17B535" name="X7BC4B6397C17B535"></a></p>
+
+<h5>2.4-4 TestOnClusterList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; TestOnClusterList</code>( <var class="Arg">CL</var>, <var class="Arg">test</var>[, <var class="Arg">opt</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: Either a list of pairs each containing the path to the respective cluster (which is a leaf of a search tree) and the subbranch resulting from the results of <var class="Arg">test</var>, or just the list of subbranches if <var class="Arg">CL</var> contains only lists of integers. If <var class="Arg">CL</var> consists of a single list of integers, the single resulting subbranch is returned on its own.</p>
+
+<p>Performs the chosen test on the groups of each record in the <var class="Arg">CL</var>. The tests are performed by <code class="func">TestOnGroup</code> (<a href="chap2_mj.html#X7C14B8DF7A4C0115"><span class="RefLink">2.4-3</span></a>). <var class="Arg">CL</var> could either be a list of records produced by <code class="func">ClusterList</code> (<a href="chap2_mj.html#X7812E18678076D7B"><span class="RefLink">2.4-2</span></a>) or be a list of lists containing ids. In the former case, the output is a list of pairs containing the path of a cluster and the subbranch resulting from the test. In the latter case, only a list of subbranches is returned. If in the latter case, the returned list only contains one subbranch, the subbranch itself is returned. This is useful when building the first level of a search tree. This function accepts a record <var class="Arg">opt</var> of options with the following content:</p>
+
+
+<ul>
+<li><p><var class="Arg">pack</var>: A boolean that is handed to <code class="func">TestOnGroup</code> (<a href="chap2_mj.html#X7C14B8DF7A4C0115"><span class="RefLink">2.4-3</span></a>).</p>
+
+</li>
+<li><p><var class="Arg">ign1cl</var>: A boolean that determines if clusters of size 1 should be ignored.</p>
+
+</li>
+<li><p><var class="Arg">order</var>: An integer giving the order of the groups with ids in <var class="Arg">CL</var>.</p>
+
+</li>
+<li><p><var class="Arg">notetest</var>: A boolean that decides if the performed test should be noted in the returned subbranches. If so, subbranches that do not split a cluster are omitted.</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TestOnClusterList([[1..10]],"ElmOrds");</span>
+rec( fp := [ 88570, 4310, 63049, 75721 ],
+     next := [ [ 1 ], [ 2, 5, 6, 7, 9, 10 ], [ 3, 8 ], [ 4 ] ],
+     test := "ElmOrds")
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TestOnClusterList([[1,2,5],[7,8,9]],"ElmOrds");</span>
+[ rec( fp := [ 88570, 4310 ], next := [ [ 1 ], [ 2, 5 ] ],
+       test := "ElmOrds" ),
+  rec( fp := [ 4310, 63049 ], next := [ [ 7, 9 ], [ 8 ] ],
+       test := "ElmOrds") ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tree := TestOnClusterList([[3..8]],"ElmOrds");;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CL := ClusterList(tree);</span>
+[ rec( descl := [  ], ids := [ 3, 8 ], path := [ 63049 ], size := 2,
+       tests := [ "ElmOrds" ]),
+  rec( descl := [  ], ids := [ 4 ], path := [ 75721 ], size := 1,
+       tests := [ "ElmOrds" ]),
+  rec( descl := [  ], ids := [ 5, 6, 7 ], path := [ 4310 ], size := 3,
+       tests := [ "ElmOrds" ]) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TestOnClusterList(CL, "MaxSubId", rec(notetest := false));</span>
+[ [ [ 63049 ], rec( fp := [ 62603 ], next := [ [ 3, 8 ] ] ) ],
+  [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ] ) ] ]
+</pre></div>
+
+<p><a id="X85F0BFE88445D1B7" name="X85F0BFE88445D1B7"></a></p>
+
+<h5>2.4-5 AddClusterTestResults</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; AddClusterTestResults</code>( <var class="Arg">tree</var>, <var class="Arg">TR</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: The extended <var class="Arg">tree</var> with the subbranches in <var class="Arg">TR</var>.</p>
+
+<p>Extends <var class="Arg">tree</var> by the test results stored in <var class="Arg">TR</var>, a list of pairs, each containing the path in <var class="Arg">tree</var> and a branch (a tree of depth one), extending the corresponding cluster of the initial <var class="Arg">tree</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tree := TestOnClusterList([[3..8]],"ElmOrds");</span>
+rec( fp := [ 63049, 75721, 4310 ], next := [ [ 3, 8 ], [ 4 ], [ 5, 6, 7 ] ],
+     test := "ElmOrds")
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TR:=TestOnClusterList(ClusterList(tree),"MaxSubId");</span>
+[ [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ],
+                   test := "MaxSubId" ) ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AddClusterTestResults(tree,TR);</span>
+rec( fp := [ 63049, 75721, 4310 ],
+     next := [ rec( fp := [ 62603 ], next := [ [ 3, 8 ] ] ), [ 4 ],
+               rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ],
+     test := "MaxSubId") ], test := "ElmOrds" )
+</pre></div>
+
+<p><a id="X82CDC04E8588770B" name="X82CDC04E8588770B"></a></p>
+
+<h5>2.4-6 BuildSearchTree</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; BuildSearchTree</code>( <var class="Arg">N</var>, <var class="Arg">order</var>, <var class="Arg">tests</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A search tree (implemented as a record).</p>
+
+<p>Builds a search tree for the groups with ids in <var class="Arg">N</var> or, if <var class="Arg">N</var> is an integer, the first <var class="Arg">N</var> groups of size <var class="Arg">order</var>, using <code class="func">TestOnClusterList</code> (<a href="chap2_mj.html#X7BC4B6397C17B535"><span class="RefLink">2.4-4</span></a>) with the tests from the list <var class="Arg">tests</var>.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BuildSearchTree(5,512,["ElmOrds", "MaxSubId"]);</span>
+rec( fp := [ 88570, 4310, 63049, 75721 ], next := [ [ 1 ],
+     rec( fp := [ 76646, 11744 ], next := [ [ 2 ], [ 5 ] ],
+     test := "MaxSubId" ), [ 3 ], [ 4 ] ], test := "ElmOrds" )
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">BuildSearchTree([1,2,3,5,7], 512, ["ElmOrds", "CocList"]);</span>
+rec( fp := [ 88570, 4310, 63049 ], next := [ [ 1 ],
+     rec( fp := [ 96561, 32173 ], next := [ [ 2 ], [ 5, 7 ] ],
+     test := "CocList" ), [ 3 ] ], test := "ElmOrds" )
+</pre></div>
+
+<p><a id="X7EB7CB0B84963812" name="X7EB7CB0B84963812"></a></p>
+
+<h5>2.4-7 CocTestOnClusterList</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CocTestOnClusterList</code>( <var class="Arg">CL</var>[, <var class="Arg">opt</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list of pairs each containing the path of the respective cluster and the subbranch resulting from <code class="code">CocSplitRoutine</code>.</p>
+
+<p>Tries to split each cluster in <var class="Arg">CL</var> via tests on the lists of conjugacy classes. <var class="Arg">CL</var> must be a cluster list produced by <code class="func">ClusterList</code> (<a href="chap2_mj.html#X7812E18678076D7B"><span class="RefLink">2.4-2</span></a>). This function accepts a record <var class="Arg">opt</var> of options with the following content:</p>
+
+
+<ul>
+<li><p><var class="Arg">pack</var>: A boolean that determines if the result should be encoded as an integer.</p>
+
+</li>
+<li><p><var class="Arg">order</var>: An integer giving the order of the groups with ids in <var class="Arg">CL</var>.</p>
+
+</li>
+<li><p><var class="Arg">iterate</var>: An integer that determines the maximal number of iterations done while searching parameters.</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">tree := TestOnClusterList([[3,5,6,7,8]],"CocList");;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CL := ClusterList(tree);</span>
+[ rec( descl := [  ], ids := [ 3, 8 ], path := [ 337 ], size := 2,
+       tests := [ "CocList" ] ),
+  rec( descl := [  ], ids := [ 5, 6, 7 ], path := [ 32173 ], size := 3,
+       tests := [ "CocList" ] ) ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">TR := CocTestOnClusterList(CL);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AddClusterTestResults(tree, TR);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ClusterList(tree);</span>
+[ rec( descl := [ [ 302004 ] ], ids := [ 3 ], path := [ 337, 1363 ], size := 1,
+       tests := [ "CocList", "" ]),
+  rec( descl := [ [ 302004 ] ], ids := [ 8 ], path := [ 337, 46760 ], size := 1,
+       tests := [ "CocList", ""  ]),
+  rec( descl := [ [ 104003 ] ], ids := [ 5 ], path := [ 32173, 1214 ],
+       size := 1, tests := [ "CocList", ""  ] ),
+  rec( descl := [ [ 104003 ], [ 40204005 ] ], ids := [ 6 ],
+       path := [ 32173, 16, 20792 ], size := 1, tests := [ "CocList", ""  ] ),
+  rec( descl := [ [ 104003 ], [ 40204005 ] ], ids := [ 7 ],
+       path := [ 32173, 16, 46881 ], size := 1, tests := [ "CocList", ""  ] ) ]
+</pre></div>
+
+<p><a id="X7FBD2B9C83B1496A" name="X7FBD2B9C83B1496A"></a></p>
+
+<h5>2.4-8 ParametersRandPresentTest</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; ParametersRandPresentTest</code>( <var class="Arg">CL</var>, <var class="Arg">order</var>, <var class="Arg">maxl</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: A list consisting of pairs of a list of ids and a record containing the parameters for a random presentation test via <code class="code">ID_GROUP_FUNCS[18]</code> defined in the <strong class="pkg">SmallGrps</strong> package.</p>
+
+<p>Determines the needed parameters for the groups of size <var class="Arg">order</var> in the clusters <var class="Arg">cl</var> of <var class="Arg">CL</var>. Creates the clusters of conjugcy classes and alters them accordingly to the <var class="Arg">cl.descl</var>. Afterwards minimal generators for all groups are chosen and their position among the clusters of conjugacy classes are determined. If the positions do not coincide, the positions of the generators of the first group are selected and the generators of the other groups are selected from the same clusters. Otherwise the positions and generators are sorted by the positions. Sequently the function tries to refine the corresponding clusters to limit the choices to choose from and repeat the process until either the number of refinments is equal or larger than <var class="Arg">maxl</var> or no more refinments could be found.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ParametersRandPresentTest([rec(descl:=[], ids:=[1367, 1371])], 512, 0);</span>
+[ [ [ 1367, 1371 ], rec( descl := [  ],
+     fp := [ 39080, 80814 ], func := 18, pos := [ 8, 10 ] ) ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">ParametersRandPresentTest([rec(descl:=[], ids:=[1367, 1371])], 512, 1);</span>
+[ [ [ 1367, 1371 ], rec( descl := [ 106003 ],
+     fp := [ 39080, 80814 ], func := 18, pos := [ 9, 11 ] ) ] ]
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
