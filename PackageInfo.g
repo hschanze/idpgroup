@@ -30,7 +30,7 @@ Persons := [
 
 SourceRepository := rec( Type := "git", URL := "https://github.com/hschanze/idpgroup" ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome := "https://github.com/hschanze/idpgroup",
+PackageWWWHome := "https://github.com/hschanze/idpgroup/",
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL     := Concatenation( ~.PackageWWWHome,
