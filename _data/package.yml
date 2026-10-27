@@ -23,13 +23,13 @@ needed-pkgs:
       version: "3.3.1"
       url: "https://gap-packages.github.io/anupq/"
 
-www: https://github.com/hschanze/idpgroup
-readme: idpgroupREADME.md
-packageinfo: https://github.com/hschanze/idpgroupPackageInfo.g
+www: https://github.com/hschanze/idpgroup/
+readme: README.md
+packageinfo: https://github.com/hschanze/idpgroup/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/hschanze/idpgroup/IdPGroup-1.0.tar.gz
+      url: https://github.com/hschanze/idpgroup//IdPGroup-1.0.tar.gz
 
 abstract: |
 
@@ -42,7 +42,7 @@ citeas: |
              Version 1.0</i>
      (<span class='BibYear'>2026</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://github.com/hschanze/idpgroup">https://github.com/hschanze/idpgroup</a></span>.
+    <span class='BibHowpublished'><a href="https://github.com/hschanze/idpgroup/">https://github.com/hschanze/idpgroup/</a></span>.
     </p>
     
 
@@ -54,9 +54,9 @@ bibtex: |
       month =            {Aug},
       year =             {2026},
       note =             {GAP package},
-      howpublished =     {\href                               {https://github.com/hschanze/idpgroup}
+      howpublished =     {\href                              {https://github.com/hschanze/idpgroup/}
                           {\texttt{https://github.com/}\discretionary
-                          {}{}{}\texttt{hschanze/}\discretionary {}{}{}\texttt{idpgroup}}},
+                          {}{}{}\texttt{hschanze/}\discretionary {}{}{}\texttt{idpgroup/}}},
       printedkey =       {Sch26}
     }
 
