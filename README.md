@@ -1,6 +1,6 @@
 # The GAP package IdPGroup
 
-This package implements an identification routine for the groups of order 512 (=2^9). The identified groups are characterised by the id of the isomorphic group of the SmallGroups Libray. Furthermore this package includes data and code to calculate so called twins complementing the paper [].
+This package implements an identification routine for the groups of order 512 (=2^9). The identified groups are characterised by the id of the isomorphic group of the SmallGroups Libray. Furthermore this package includes data and code to calculate so called (strong) siblings complementing the paper ["The group identification problem for p-groups of small order"](https://gcc.episciences.org/18584/pdf).
 
 ## Installation
 Unpack `IdPGroup.tar.gz` in the `pkg`subdirectory of the GAP root directory.<br/>
