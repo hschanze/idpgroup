@@ -185,6 +185,9 @@ InstallGlobalFunction(TestOnClusterList, function(CL, test, opt...)
         if opt.notetest then
            if Size(branch.fp) = 1 then continue; fi;
            branch.test := test;
+           if test = "PMCycSt" and IsBound(opt.power) then
+                branch.opt := rec(power := opt.power);
+           fi;
         fi;
 
         #If the current cluster is not part of a search tree (has no path in it),

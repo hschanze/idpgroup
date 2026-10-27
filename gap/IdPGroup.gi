@@ -170,7 +170,8 @@ InstallGlobalFunction(TestOnGroup, function(G, test, opt...)
     elif test = "PMCycSt" then
         #Examine the cyclestructure of a powermap on clusters in coc
         if not IsBound(coc) then coc := ClusterConjClasses(G); fi;
-        fp := Flat(PowerMapCocCycSt(coc, 3));
+        if not IsBound(opt.power) then opt.power := 3; fi;
+        fp := Flat(PowerMapCocCycSt(coc, opt.power));
 
     elif test = "SpSubId" then
         #Identifies the Frattini and proper subgoups of lower and upper central series
@@ -420,7 +421,11 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
         #Either perform a test on group or do coc-test
 
         if IsBound(branch.test) then
-            fp := TestOnGroup(G, branch.test);
+            if IsBound(branch.opt) then
+                fp := TestOnGroup(G, branch.test, branch.opt);
+            else
+                fp := TestOnGroup(G, branch.test);
+            fi;
             Info(InfoId512, 1, "Perform test: ", branch.test, " and find fp: ", fp);
         else
             if not IsBound(coc) then coc := ClusterConjClasses(G); fi;

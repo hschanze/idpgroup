@@ -494,7 +494,8 @@ DeclareGlobalFunction("ClusterList");
 #!                   series of <A>G</A> via `IdGroup`,
 #! * <A>"PCSId"</A>: the isomorphism types of the proper subgroups in the p-central
 #!                   series of <A>G</A> via `IdGroup`,
-#! * <A>"SpSubId"</A>: the isomorphismtypes of the Frattini subgroup, the terms in the #!                     upper and lower central series of <A>G</A> via `IdGroup`,
+#! * <A>"SpSubId"</A>: the isomorphismtypes of the Frattini subgroup, the terms in the
+#!                     upper and lower central series of <A>G</A> via `IdGroup`,
 #! * <A>"MaxSubId"</A>: the collected isomorphism types of all
 #!                      maximal subgroups of <A>G</A> via `IdGroup`,
 #! * <A>"SubId"</A>: the sizes and collected isomorphism types of conjugacy
@@ -513,8 +514,9 @@ DeclareGlobalFunction("ClusterList");
 #! * <A>"CocList"</A>: the collected numbers of conjugacy classes of <A>G</A>
 #!                     of same length and same representative order
 #!                     (the order of a representative),
-#! * <A>"PMCycSt"</A>: the cycle-structure of the permutation induced by the power
-#!                     map $x\mapsto x^3$ on the collected conjugacy classes,
+#! * <A>"PMCycSt"</A>: the cycle-structure of the permutation induced by a power
+#!                     map specified by <A>opt.power</A> $x\mapsto x^n$ on the
+#!                     collected conjugacy classes (default $n=3$),
 ##! * <A>"OutId"</A>: Tries to identify the groups of outer automorphisms of
 ##!                   <A>G</A>, either via `IdGroup` (if available) or via its
 ##!                   size and `TestOnGroup` with <A>"ElmOrds"</A> and
@@ -528,7 +530,8 @@ DeclareGlobalFunction("ClusterList");
 #! * <A>"fpfunc"</A>: Uses the function provided as <A>opt.fpfunc</A>.
 #! This function accepts a record <A>opt</A> of options consisting of the boolean
 #! <A>opt.pack</A>, that determines if the result of a test should be
-#! encoded as an integer, and <A>opt.fpfunc</A> a costume function.
+#! encoded as an integer, <A>opt.fpfunc</A> a costume function and <A>opt.power</A>
+#! the power used in the test "PMCycSt".
 ##! The default value of <A>opt</A> is
 ##! <M>rec(pack:=</M><K>true</K><M>)</M>.
 #! @BeginExampleSession
