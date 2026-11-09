@@ -32,18 +32,18 @@ gap> L[138];
 [ 6249609, 6249610, 6249611 ]
 
 # doc/_Chapter_Functionality.xml:239-246
-gap> SiblingsIds(101);
+gap> Siblings(101);
 [  ]
-gap> SiblingsIds(128);
+gap> Siblings(128, true);
 [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-gap> SiblingsIds(256, [1..3]);
+gap> Siblings(256, true, [1..3]);
 [ [ 227, 228 ], [ 258, 260, 261 ], [ 845, 846 ] ]
 
 # doc/_Chapter_Functionality.xml:291-297
-gap> StrongSiblingsIds(256);
+gap> StrongSiblings(256, true);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], 
   [ 3678, 3679 ], [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
-gap> StrongSiblingsIds(256, [1..3]);
+gap> StrongSiblings(256, true, [1..3]);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
 
 # doc/_Chapter_Functionality.xml:328-331
@@ -52,26 +52,7 @@ gap> SplitBinsViaTest([[1..10]], 512, "MaxSubId");
 
 # doc/_Chapter_Functionality.xml:349-359
 gap> CalculateSiblings(128);
-Test 'MaxSubId' found following bins of size greater one:
-[ [ 2, 23 ], [ 3, 2 ] ]
-Test 'SpSubId' found following bins of size greater one:[ [ 2, 22 ] ]
-Test 'SubId' found following bins of size greater one:[ [ 2, 16 ] ]
-Test 'MaxFactId' found following bins of size greater one:[ [ 2, 3 ] ]
-Test 'FactId' found following bins of size greater one:[ [ 2, 3 ] ]
 [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-gap> CalculateSiblings(128, false);
-[ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
-
-# doc/_Chapter_Functionality.xml:442-452
-gap> Bins := StrongSiblingsIds(512, [1, 5, 14]);
-[ [ 1364, 1368 ], [ 1680, 1681 ], [ 15826, 15827 ] ]
-gap> TableOfGroupInvariants(Bins, 512);
-[ rec( OutEqv := "yes", SizeAut := 8192, ids := [ 1364, 1368 ], 
-      isoclinic := "", mip := "", pclass := 5, rank := 2 ), 
-  rec( OutEqv := "yes", SizeAut := 16384, ids := [ 1680, 1681 ], 
-      isoclinic := "", mip := "", pclass := 5, rank := 2 ), 
-  rec( OutEqv := "no", SizeAut := 65536, ids := [ 15826, 15827 ], 
-      isoclinic := "", mip := "", pclass := 3, rank := 3 ) ]
 
 # doc/_Chapter_Functionality.xml:549-556
 gap> IdPGroup_Pack([1,2,3]);
@@ -102,54 +83,54 @@ gap> TestOnGroup(G, "ElmOrds", rec(pack := false));
 
 # doc/_Chapter_Functionality.xml:768-789
 gap> TestOnClusterList([[1..10]],"ElmOrds", rec(verbose:=false));
-rec( fp := [ 88570, 4310, 63049, 75721 ], 
-  next := [ [ 1 ], [ 2, 5, 6, 7, 9, 10 ], [ 3, 8 ], [ 4 ] ], 
+rec( fp := [ 4310, 63049, 75721, 88570 ], 
+  next := [ [ 2, 5, 6, 7, 9, 10 ], [ 3, 8 ], [ 4 ], [ 1 ] ], 
   test := "ElmOrds" )
 gap> TestOnClusterList([[1,2,5],[7,8,9]],"ElmOrds", rec(verbose:=false));
-[ rec( fp := [ 88570, 4310 ], next := [ [ 1 ], [ 2, 5 ] ], test := "ElmOrds" )
+[ rec( fp := [ 4310, 88570 ], next := [ [ 2, 5 ], [ 1 ] ], test := "ElmOrds" )
     , 
   rec( fp := [ 4310, 63049 ], next := [ [ 7, 9 ], [ 8 ] ], test := "ElmOrds" 
      ) ]
 gap> tree := TestOnClusterList([[3..8]],"ElmOrds", rec(verbose:=false));;
 gap> CL := ClusterList(tree);
-[ rec( descl := [  ], ids := [ 3, 8 ], path := [ 63049 ], size := 2, 
+[ rec( descl := [  ], ids := [ 5, 6, 7 ], path := [ 4310 ], size := 3, 
+      tests := [ "ElmOrds" ] ), 
+  rec( descl := [  ], ids := [ 3, 8 ], path := [ 63049 ], size := 2, 
       tests := [ "ElmOrds" ] ), 
   rec( descl := [  ], ids := [ 4 ], path := [ 75721 ], size := 1, 
-      tests := [ "ElmOrds" ] ), 
-  rec( descl := [  ], ids := [ 5, 6, 7 ], path := [ 4310 ], size := 3, 
       tests := [ "ElmOrds" ] ) ]
 gap> TestOnClusterList(CL, "MaxSubId", rec(verbose:=false, notetest := false));
-[ [ [ 63049 ], rec( fp := [ 62603 ], next := [ [ 3, 8 ] ] ) ], 
-  [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ] ) ] ]
+[ [ [ 4310 ], rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ] ) ], 
+  [ [ 63049 ], rec( fp := [ 62603 ], next := [ [ 3, 8 ] ] ) ] ]
 
 # doc/_Chapter_Functionality.xml:802-814
 gap> tree := TestOnClusterList([[3..8]],"ElmOrds", rec(verbose:=false));
-rec( fp := [ 63049, 75721, 4310 ], next := [ [ 3, 8 ], [ 4 ], [ 5, 6, 7 ] ], 
+rec( fp := [ 4310, 63049, 75721 ], next := [ [ 5, 6, 7 ], [ 3, 8 ], [ 4 ] ], 
   test := "ElmOrds" )
 gap> TR:=TestOnClusterList(ClusterList(tree),"MaxSubId",rec(verbose:=false));
 [ [ [ 4310 ], 
       rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ], 
           test := "MaxSubId" ) ] ]
 gap> AddClusterTestResults(tree,TR);
-rec( fp := [ 63049, 75721, 4310 ], 
+rec( fp := [ 4310, 63049, 75721 ], 
   next := 
-    [ [ 3, 8 ], [ 4 ], 
+    [ 
       rec( fp := [ 11744, 86646 ], next := [ [ 5 ], [ 6, 7 ] ], 
-          test := "MaxSubId" ) ], test := "ElmOrds" )
+          test := "MaxSubId" ), [ 3, 8 ], [ 4 ] ], test := "ElmOrds" )
 
 # doc/_Chapter_Functionality.xml:828-837
 gap> BuildSearchTree(5,512,["ElmOrds", "MaxSubId"]);
-rec( fp := [ 88570, 4310, 63049, 75721 ], 
+rec( fp := [ 4310, 63049, 75721, 88570 ], 
   next := 
-    [ [ 1 ], 
-      rec( fp := [ 76646, 11744 ], next := [ [ 2 ], [ 5 ] ], 
-          test := "MaxSubId" ), [ 3 ], [ 4 ] ], test := "ElmOrds" )
+    [ 
+      rec( fp := [ 11744, 76646 ], next := [ [ 5 ], [ 2 ] ], 
+          test := "MaxSubId" ), [ 3 ], [ 4 ], [ 1 ] ], test := "ElmOrds" )
 gap> BuildSearchTree([1,2,3,5,7], 512, ["ElmOrds", "CocList"]);
-rec( fp := [ 88570, 4310, 63049 ], 
+rec( fp := [ 4310, 63049, 88570 ], 
   next := 
-    [ [ 1 ], 
-      rec( fp := [ 96561, 32173 ], next := [ [ 2 ], [ 5, 7 ] ], 
-          test := "CocList" ), [ 3 ] ], test := "ElmOrds" )
+    [ 
+      rec( fp := [ 32173, 96561 ], next := [ [ 5, 7 ], [ 2 ] ], 
+          test := "CocList" ), [ 3 ], [ 1 ] ], test := "ElmOrds" )
 
 # doc/_Chapter_Functionality.xml:894-907
 gap> Coc:=List([3, 8],id->ClusterConjClasses(SmallGroup(512, id)));;
