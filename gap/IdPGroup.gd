@@ -102,6 +102,23 @@
 DeclareInfoClass("InfoId512");
 SetInfoLevel(InfoId512, 0);
 
+#! The package installs a method for the attribute
+#! <Ref Attr="IdSmallGroup" BookName="smallgrp"/> (a synonym of
+#! <Ref Attr="IdGroup" BookName="smallgrp"/>) of the SmallGroups library.
+#! For a group <M>G</M> of order 512  this method returns the pair 
+#! <C>[p^n,i]</C> such that <M>G</M> is isomorphic to <C>SmallGroup(p^n,i)</C>.
+#! For all other groups, the methods of the SmallGroups library are used.
+#! @BeginExampleSession
+#! gap> G := SmallGroup(512, 606);;
+#! gap> H := Subgroup(G, SmallGeneratingSet(G));;
+#! gap> IdGroup(H);
+#! [512, 606]
+#! gap> G := SmallGroup(512, 1405);;
+#! gap> H := Subgroup(G, SmallGeneratingSet(G));;
+#! gap> IdSmallGroup(H);
+#! [512, 1405]
+#! @EndExampleSession
+
 #! @Arguments G [,opt]
 #! @Returns Integer id such that `SmallGroup(512, id)` is isomorphic to <A>G</A>.
 #! @Description
@@ -130,7 +147,6 @@ SetInfoLevel(InfoId512, 0);
 #! 449
 #! @EndExampleSession
 DeclareGlobalFunction("IdGroup512");
-
 
 #! @Description
 #! The search tree of groups of order 512 that can determine the vast majority
