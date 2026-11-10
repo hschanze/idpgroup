@@ -1,9 +1,3 @@
-####################
-## Info Levels:
-##
-DeclareInfoClass("InfoSiblings");
-SetInfoLevel(InfoSiblings, 0);
-
 
 #####################################################################################
 ##
@@ -11,7 +5,7 @@ SetInfoLevel(InfoSiblings, 0);
 ## TestOnGroup on them. Depending on the outcome a bin is split into smaller
 ##  bins according to the test.
 ##
-SplitBinsViaTest := function(Bins, order, test)
+idpgrp_SplitBinsViaTest := function(Bins, order, test)
     local NewBins, IdList, prog, bin, fps, newsubbins, id, G, M, i, fp, pos;
 
     NewBins := [];
@@ -62,7 +56,7 @@ InstallGlobalFunction(CalculateSiblings, function(order)
     tests := ["MaxSubId", "SpSubId", "MaxFactId", "FactId", "SubId"];
 
     for test in tests do
-        NewBins := SplitBinsViaTest(Bins, order, test);
+        NewBins := idpgrp_SplitBinsViaTest(Bins, order, test);
         Bins := Filtered(NewBins, bin -> Size(bin) > 1);
 
         Info(InfoSiblings, 1, "Test '", test, "' created bins of following size greater one: ", Collected(List(Bins,Size)));
@@ -228,7 +222,7 @@ end);
 ##
 ##  Splits list of ids of groups of size order in Bin, if their outer automorphism groups
 ##  are isomorphic, via IsPqIsomorphicPGroup from the anupq package
-SplitExactOutEqv := function(Bin, order)
+idpgrp_SplitExactOutEqv := function(Bin, order)
     local OutEq, G, Aut, Out, OE, i, j, oe;
 
     OutEq := [];
@@ -268,9 +262,10 @@ end;
 ##
 ## Takes a list of bins with ids of groups of size order and evaluates which are outer-
 ## automorphism equivalent. If exact = true, sets of groups which could not be ruled out to
-## be equivalent are testet via SplitExactOutEqv. Otherwise, these are simply included.
+## be equivalent are testet via idpgrp_SplitExactOutEqv. Otherwise, these are simply
+## included.
 ##
-BinsOfOutEqGroups := function(Bins, order, exact)
+idpgrp_BinsOfOutEqGroups := function(Bins, order, exact)
     local NewBins, bin, fps, newsubbins, potential, id, G, M, i, fp, pos;
 
     NewBins := [];
@@ -304,7 +299,7 @@ BinsOfOutEqGroups := function(Bins, order, exact)
             for i in [1..Size(newsubbins)] do
                 if Size(newsubbins[i]) = 1 then continue; fi;
                 if i in potential then
-                    Append(NewBins, SplitExactOutEqv(newsubbins[i], order));
+                    Append(NewBins, idpgrp_SplitExactOutEqv(newsubbins[i], order));
                 else
                     Add(NewBins, newsubbins[i]);
                 fi;
@@ -326,7 +321,7 @@ end;
 ##
 ##  Creates a list of records that can be exported into latex code
 ##
-TableOfGroupInvariants := function(Bins, order)
+idpgrp_TableOfGroupInvariants := function(Bins, order)
     local rows, ids, newrow, G, A, O, OutEqv;
 
     rows := [];
@@ -387,7 +382,7 @@ TableOfGroupInvariants := function(Bins, order)
 end;
 
 
-MergeTablesOfInvariants := function(tab1, tab2)
+idpgrp_MergeTablesOfInvariants := function(tab1, tab2)
     local tab, row, pos, new, name;
 
     tab := [];
@@ -423,7 +418,7 @@ MergeTablesOfInvariants := function(tab1, tab2)
 end;
 
 
-PrintTableToFile := function(rows, filename)
+idpgrp_PrintTableToFile := function(rows, filename)
     local head, row, i;
     filename := Concatenation(filename, "_table.txt");
     head := "Pair & Rank & $p$-class& Isoclinic & Size of Aut & Out-equiv & MIP \\\\ \n";

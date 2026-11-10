@@ -1,9 +1,3 @@
-####################
-## Info Levels:
-##
-DeclareInfoClass("InfoTreeBuild");
-SetInfoLevel(InfoTreeBuild, 0);
-
 #####################################################################################
 ##
 ##  Returns a list of all clusters of groups in a given tree. When initializing the
@@ -268,7 +262,7 @@ end);
 ##  of Coc results into at least 2 different values. Therefore using desc as an
 ##  invaraint in a search tree shrinks down the size of a leaf made of Coc.
 ##
-FindParametersForCocTest := function(Coc, paralist, it, maxit, opt...)
+idpgrp_FindParametersForCocTest := function(Coc, paralist, it, maxit, opt...)
     local Para, N, level, target, ord, len, ind, paral, para, lfp, NCoc, res;
 
     N := Size(Coc[1]);
@@ -319,9 +313,9 @@ FindParametersForCocTest := function(Coc, paralist, it, maxit, opt...)
         #Test if subset of possible parameters has a 'good' element
         for para in Para do
             lfp := List(Coc, coc -> EvalFpCoc(coc, para));
-            if it > 0 and Size(DuplicateFreeList(List(lfp,fp -> IdPGroup_Pack(Collected(fp))))) > 1 then
+            if it > 0 and Size(DuplicateFreeList(List(lfp,fp -> idpgrp_Pack(Collected(fp))))) > 1 then
                 Add(paralist, para);
-                return [List(lfp,fp -> IdPGroup_Pack(Collected(fp))), paralist];
+                return [List(lfp,fp -> idpgrp_Pack(Collected(fp))), paralist];
             fi;
 
             if Size(DuplicateFreeList(lfp[1])) > 1 then
@@ -337,8 +331,8 @@ FindParametersForCocTest := function(Coc, paralist, it, maxit, opt...)
         #Iterate through parameters that split a cluster
         for para in paral do
             lfp := List(Coc, coc -> EvalFpCoc(coc, para));
-            NCoc:= List([1..Size(Coc)], i -> AlterCocAccordingToFp(Coc[i], para, lfp[i]));
-            res := FindParametersForCocTest(NCoc, Concatenation(paralist, [para]),
+            NCoc:= List([1..Size(Coc)], i -> idpgrp_AlterCocAccordingToFp(Coc[i], para, lfp[i]));
+            res := idpgrp_FindParametersForCocTest(NCoc, Concatenation(paralist, [para]),
                                         it+1, maxit, opt);
             if res <> fail then
                 return res;
@@ -359,22 +353,22 @@ end;
 ##  which altered the clusters of conjugacyclasses can be recreated via the
 ##  list desc. The function returns a record made of fp, next and desc.
 ##
-CocSplitRoutine := function(Ids, order, desclist, iterate)
+idpgrp_CocSplitRoutine := function(Ids, order, desclist, iterate)
     local Coc, i, descl, res, Lfp, tree, pos, desc;
 
     if Size(Ids) = 1 then return Ids; fi;
 
     #Build list of cocs according to previous tests documented in desclist
-    Coc := List(Ids, id -> ClusterConjClasses(SmallGroup(order, id)));
+    Coc := List(Ids, id -> idpgrp_ClusterConjClasses(SmallGroup(order, id)));
     for i in [1..Size(Coc)] do
         for desc in desclist do
-            desc := DeEncodeDesc(desc);
-            Coc[i] := AlterCocAccordingToFp(Coc[i], desc, EvalFpCoc(Coc[i], desc));
+            desc := idpgrp_DeEncodeDesc(desc);
+            Coc[i] := idpgrp_AlterCocAccordingToFp(Coc[i], desc, EvalFpCoc(Coc[i], desc));
         od;
     od;
 
     #Find 'good' parameters and calculate EvalFpCoc together
-    res := FindParametersForCocTest(Coc, [], 1, iterate);
+    res := idpgrp_FindParametersForCocTest(Coc, [], 1, iterate);
 
     #If parametersearch fails return list of ids
     if res = fail then return Ids; fi;
@@ -396,11 +390,11 @@ CocSplitRoutine := function(Ids, order, desclist, iterate)
 
     #Encode description of test
     for desc in descl do
-        Add(tree.desc, DeEncodeDesc(desc));
+        Add(tree.desc, idpgrp_DeEncodeDesc(desc));
     od;
 
     for i in [1..Size(tree.next)] do
-        tree.next[i] := CocSplitRoutine(tree.next[i], order,
+        tree.next[i] := idpgrp_CocSplitRoutine(tree.next[i], order,
                         Concatenation(desclist, tree.desc), iterate);
     od;
     return tree;
@@ -409,7 +403,7 @@ end;
 
 #####################################################################################
 ##
-##  Tries to split the clusters of clusters in the list CL via CocSplitRoutine.
+##  Tries to split the clusters of clusters in the list CL via idpgrp_CocSplitRoutine.
 ##  CL needs to be a cluster list produced by ClusterList. The output is a list of
 ##  pairs containg the path of a cluster and the subbrunch resulting from the test.
 ##  This function accepts a record opt of options with the following content
@@ -451,7 +445,7 @@ InstallGlobalFunction(CocTestOnClusterList, function(CL, opt...)
         if cl.size = 1 then continue; fi;
 
         #Split a cluster and save resulting tree
-        tree := CocSplitRoutine(cl.ids, opt.order, Flat(cl.descl), opt.iterate);
+        tree := idpgrp_CocSplitRoutine(cl.ids, opt.order, Flat(cl.descl), opt.iterate);
 
         #If result is a list (of ids), the cluster couldn't be
         #splited and result is omitted
@@ -485,12 +479,12 @@ InstallGlobalFunction(ParametersRandPresentTest, function(CL, order, maxl)
         gens := List(G, MinimalGeneratingSet);
 
         #Alternate Coc according to performed tests
-        Coc := List(G,ClusterConjClasses);
+        Coc := List(G, idpgrp_ClusterConjClasses);
         for desc in Flat(cl.descl) do
-            desc := DeEncodeDesc(desc);
+            desc := idpgrp_DeEncodeDesc(desc);
             fp := EvalFpCoc(Coc[1], desc);
             for i in [1..Size(Coc)] do
-                Coc[i] := AlterCocAccordingToFp(Coc[i], desc, fp);
+                Coc[i] := idpgrp_AlterCocAccordingToFp(Coc[i], desc, fp);
             od;
         od;
 
@@ -532,14 +526,14 @@ InstallGlobalFunction(ParametersRandPresentTest, function(CL, order, maxl)
                 if Length(descl) >= maxl then break; fi;
 
                 #Look for parameters that split Coc[p]
-                para := FindParametersForCocTest(Coc, [], 0, 0, rec(targer:=[]));
+                para := idpgrp_FindParametersForCocTest(Coc, [], 0, 0, rec(targer:=[]));
 
                 if Size(para) > 0 then
                     stop := false;
                     Add(descl, para[1]);
                     fp := EvalFpCoc(Coc[1], para[1]);
                     for i in [1..Size(Coc)] do
-                        Coc[i] := AlterCocAccordingToFp(Coc[i], para[1], fp);
+                        Coc[i] := idpgrp_AlterCocAccordingToFp(Coc[i], para[1], fp);
                     od;
                 fi;
             od;
@@ -549,7 +543,7 @@ InstallGlobalFunction(ParametersRandPresentTest, function(CL, order, maxl)
         #Determine fingerprints of presentation that results from pcgs out of gens
         fp:=List([1..Size(G)],i -> CodeGenerators(gens[i], SpecialPcgs(G[i])).code mod 99661);
 
-        Add(TR, [cl.ids, rec(fp:=fp, pos:=pos, func := 18, descl := List(descl, DeEncodeDesc))]);
+        Add(TR, [cl.ids, rec(fp:=fp, pos:=pos, func := 18, descl := List(descl, idpgrp_DeEncodeDesc))]);
     od;
 
     return TR;

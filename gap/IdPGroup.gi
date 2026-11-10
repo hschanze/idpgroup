@@ -3,18 +3,13 @@
 ##
 ## Implementations
 ##
-####################
-## Info Levels:
-##
-DeclareInfoClass("InfoId512");
-SetInfoLevel(InfoId512, 0);
 
 
 #####################################################################################
 ##
 ## returns an integer that encodes the content of the provided list
 ##
-IdPGroup_Pack := function(list)
+idpgrp_Pack := function(list)
     local r, i;
 
     if Length(list) = 0 then
@@ -35,7 +30,7 @@ end;
 ##  the same order of its elements are then saved in a list. All these list are then
 ##  stored in an additional list and returned.
 ##
-ClusterConjClasses := function(G)
+idpgrp_ClusterConjClasses := function(G)
     local asList, classes, classtyps, sclasstyps, coc, i, j;
 
     asList := AttributeValueNotSet(AsSSortedList, G);
@@ -63,7 +58,7 @@ end;
 ## the powermap x->x^n. First we determine the permutation within a cluster. Classes
 ## of a cluster that are fixed are examined afterwards on their own.
 ##
-PowerMapCocCycSt := function(coc, n)
+idpgrp_PowerMapCocCycSt := function(coc, n)
     local L, l, im, pi, r, i, CSP;
 
     L:=[];
@@ -99,7 +94,7 @@ end;
 ##
 ##  Performs a test on the group G of size order.
 ##  This function accepts a record opt of options with the following content
-##  - pack: A boolean that determines if IdPGroup_Pack() should be applied to the result
+##  - pack: A boolean that determines if idpgrp_Pack() should be applied to the result
 ##  The default value is opt.pack := true.
 ##
 InstallGlobalFunction(TestOnGroup, function(G, test, opt...)
@@ -164,14 +159,14 @@ InstallGlobalFunction(TestOnGroup, function(G, test, opt...)
 
     elif test = "CocList" then
         #Collect all length of conjugacy classes and order of their elements
-        coc := ClusterConjClasses(G);
+        coc := idpgrp_ClusterConjClasses(G);
         fp := List(coc{[2..Length(coc) ]}, x->[Length(x[1]), Length(x)]);
 
     elif test = "PMCycSt" then
         #Examine the cyclestructure of a powermap on clusters in coc
-        if not IsBound(coc) then coc := ClusterConjClasses(G); fi;
+        if not IsBound(coc) then coc := idpgrp_ClusterConjClasses(G); fi;
         if not IsBound(opt.power) then opt.power := 3; fi;
-        fp := Flat(PowerMapCocCycSt(coc, opt.power));
+        fp := Flat(idpgrp_PowerMapCocCycSt(coc, opt.power));
 
     elif test = "SpSubId" then
         #Identifies the Frattini and proper subgoups of lower and upper central series
@@ -290,7 +285,7 @@ InstallGlobalFunction(TestOnGroup, function(G, test, opt...)
         Error("Please enter a valid test! ", test, " is not recognized.");
     fi;
 
-    if opt.pack and not IsInt(fp) then fp := IdPGroup_Pack(fp); fi;
+    if opt.pack and not IsInt(fp) then fp := idpgrp_Pack(fp); fi;
 
     return fp;
 end);
@@ -301,7 +296,7 @@ end);
 ##  De- or encodes the description desc for EvalFPCoc, depending if youe provide
 ##  an integer (decodes to list) or a list of integers (encodes to int)
 ##
-DeEncodeDesc := function(desc)
+idpgrp_DeEncodeDesc := function(desc)
     local ldesc;
 
     if IsList(desc) then
@@ -326,7 +321,7 @@ end;
 ##
 ##  Alters coc according the result fp from EvalFPCoc evaluated with desc.
 ##
-AlterCocAccordingToFp := function(coc, desc, fp)
+idpgrp_AlterCocAccordingToFp := function(coc, desc, fp)
     local sfp, newcls, l, j;
 
     #Alter coc according to fp
@@ -428,13 +423,13 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
             fi;
             Info(InfoId512, 1, "Perform test: ", branch.test, " and find fp: ", fp);
         else
-            if not IsBound(coc) then coc := ClusterConjClasses(G); fi;
+            if not IsBound(coc) then coc := idpgrp_ClusterConjClasses(G); fi;
             for desc in branch.desc do
-                fp := EvalFpCoc(coc, DeEncodeDesc(desc));
-                Info(InfoId512, 1, "Perform coc-test: ", DeEncodeDesc(desc), " and find fp: ", fp);
-                coc := AlterCocAccordingToFp(coc, DeEncodeDesc(desc), fp);
+                fp := EvalFpCoc(coc, idpgrp_DeEncodeDesc(desc));
+                Info(InfoId512, 1, "Perform coc-test: ", idpgrp_DeEncodeDesc(desc), " and find fp: ", fp);
+                coc := idpgrp_AlterCocAccordingToFp(coc, idpgrp_DeEncodeDesc(desc), fp);
             od;
-            fp := IdPGroup_Pack(Collected(fp));
+            fp := idpgrp_Pack(Collected(fp));
         fi;
 
         #Determine next branch to follow
@@ -478,14 +473,14 @@ InstallGlobalFunction(IdGroup512, function(G, opt...)
         if pos <> fail then
             branch := ID512_INFORECF18[pos];
 
-            if not IsBound(coc) then coc := ClusterConjClasses(G); fi;
+            if not IsBound(coc) then coc := idpgrp_ClusterConjClasses(G); fi;
 
             if not IsBound(branch[2].descl) then branch[2].descl := []; fi;
 
             for desc in Flat(branch[2].descl) do
-                desc := DeEncodeDesc(desc);
+                desc := idpgrp_DeEncodeDesc(desc);
                 fp := EvalFpCoc(coc, desc);
-                coc := AlterCocAccordingToFp(coc, desc, EvalFpCoc(coc, desc));
+                coc := idpgrp_AlterCocAccordingToFp(coc, desc, EvalFpCoc(coc, desc));
             od;
 
             Info(InfoId512, 2, "Perform ID_GROUP_FUNCS[18] on ", branch[2]);
@@ -551,7 +546,7 @@ InstallMethod( IdSmallGroup,
 );
 
 
-IdGroup512Exceptions := function()
+idpgrp_IdGroup512Exceptions := function()
     Read(Filename(DirectoriesPackageLibrary("idpgroup",""),"data/Id512Exceptions.g"));
     return BINS_OF_IDS;
 end;

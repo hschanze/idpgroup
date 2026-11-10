@@ -25,7 +25,7 @@ gap> IdGroup512(H, rec(anupq := true));
 449
 
 # doc/_Chapter_Functionality.xml:171-177
-gap> L := IdGroup512Exceptions();;
+gap> L := idpgrp_IdGroup512Exceptions();;
 gap> Collected(List(L, Size));
 [ [ 2, 139 ], [ 3, 1 ] ]
 gap> L[138];
@@ -47,7 +47,7 @@ gap> StrongSiblings(256, true, [1..3]);
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ] ]
 
 # doc/_Chapter_Functionality.xml:328-331
-gap> SplitBinsViaTest([[1..10]], 512, "MaxSubId");
+gap> idpgrp_SplitBinsViaTest([[1..10]], 512, "MaxSubId");
 [ [ 1 ], [ 2 ], [ 3, 8 ], [ 4 ], [ 5 ], [ 6, 7 ], [ 9 ], [ 10 ] ]
 
 # doc/_Chapter_Functionality.xml:349-359
@@ -55,11 +55,11 @@ gap> CalculateSiblings(128);
 [ [ 1317, 1322 ], [ 1327, 1329 ], [ 1597, 1598 ] ]
 
 # doc/_Chapter_Functionality.xml:549-556
-gap> IdPGroup_Pack([1,2,3]);
+gap> idpgrp_Pack([1,2,3]);
 123
-gap> IdPGroup_Pack([606, 109, 1405]);
+gap> idpgrp_Pack([606, 109, 1405]);
 63095
-gap> IdPGroup_Pack([[1,2,3], [606, 1405]]);
+gap> idpgrp_Pack([[1,2,3], [606, 1405]]);
 19765
 
 # doc/_Chapter_Functionality.xml:597-610
@@ -133,43 +133,43 @@ rec( fp := [ 4310, 63049, 88570 ],
           test := "CocList" ), [ 3 ], [ 1 ] ], test := "ElmOrds" )
 
 # doc/_Chapter_Functionality.xml:894-907
-gap> Coc:=List([3, 8],id->ClusterConjClasses(SmallGroup(512, id)));;
-gap> FindParametersForCocTest(Coc, [], 1, 1);
+gap> Coc:=List([3, 8],id->idpgrp_ClusterConjClasses(SmallGroup(512, id)));;
+gap> idpgrp_FindParametersForCocTest(Coc, [], 1, 1);
 [ [ 1363, 46760 ], [ [ 3, 2, 4 ] ] ]
-gap> FindParametersForCocTest(Coc, [], 1, 1, rec(target:=[4]));
+gap> idpgrp_FindParametersForCocTest(Coc, [], 1, 1, rec(target:=[4]));
 [ [ 63010, 76026 ], [ [ 4, 4, 6, 5 ] ] ]
-gap> FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4]));
+gap> idpgrp_FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4]));
 [ [ 3, 4, 6 ], [ 4, 4, 6, 3 ], [ 4, 4, 6, 4 ], [ 4, 4, 6, 5 ] ]
-gap> FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4], maxlevel := 3));
+gap> idpgrp_FindParametersForCocTest(Coc, [], 0, 1, rec(target:=[4], maxlevel := 3));
 [ [ 3, 4, 6 ] ]
-gap> Coc:=List([1883, 1885],id->ClusterConjClasses(SmallGroup(512, id)));;
-gap> FindParametersForCocTest(Coc, [], 1, 2);
+gap> Coc:=List([1883, 1885],id->idpgrp_ClusterConjClasses(SmallGroup(512, id)));;
+gap> idpgrp_FindParametersForCocTest(Coc, [], 1, 2);
 [ [ 8, 18 ], [ [ 1, 9, 3 ], [ 2, 14, 9 ] ] ]
 
 # doc/_Chapter_Functionality.xml:920-925
-gap> DeEncodeDesc([3,2,4]);
+gap> idpgrp_DeEncodeDesc([3,2,4]);
 302004
-gap> DeEncodeDesc(302004);
+gap> idpgrp_DeEncodeDesc(302004);
 [ 3, 2, 4 ]
 
 # doc/_Chapter_Functionality.xml:938-947
-gap> coc := ClusterConjClasses(SmallGroup(512, 3));;
+gap> coc := idpgrp_ClusterConjClasses(SmallGroup(512, 3));;
 gap> List(coc, Size);
 [ 1, 15, 4, 24, 12, 48 ]
 gap> fp := EvalFpCoc(coc, [3,2,4]);
 [ 0, 0, 16, 16, 0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0 ]
-gap> cocnew := AlterCocAccordingToFp(coc,[3,2,4],fp);;
+gap> cocnew := idpgrp_AlterCocAccordingToFp(coc,[3,2,4],fp);;
 gap> List(cocnew, Size);
 [ 1, 12, 3, 4, 24, 12, 48 ]
 
 # doc/_Chapter_Functionality.xml:964-973
-gap> CocSplitRoutine([5,6,7], 512, [], 1);
+gap> idpgrp_CocSplitRoutine([5,6,7], 512, [], 1);
 rec( desc := [ 104003 ], fp := [ 1214, 16 ], 
   next := 
     [ [ 5 ], 
       rec( desc := [ 40204005 ], fp := [ 20792, 46881 ], 
           next := [ [ 6 ], [ 7 ] ] ) ] )
-gap> CocSplitRoutine([1529,1530,1531], 512, [], 2);
+gap> idpgrp_CocSplitRoutine([1529,1530,1531], 512, [], 2);
 rec( desc := [ 209003 ], fp := [ 4, 14 ], 
   next := 
     [ 

@@ -1,4 +1,4 @@
-InstallGlobalFunction(DetermineMIPInTable, function(rows, prime, power)
+DetermineMIPInTable := function(rows, prime, power)
     local row, tt;
     for row in rows do
         if Size(row.ids) = 1 then continue; fi;
@@ -12,10 +12,10 @@ InstallGlobalFunction(DetermineMIPInTable, function(rows, prime, power)
     od;
     PrintTo("MIP_rows.txt", rows);
     return rows;
-end);
+end;
 
 
-InstallGlobalFunction(DetermineIsoclinicInTable, function(rows, order, exclude)
+DetermineIsoclinicInTable := function(rows, order, exclude)
     local row, pos, G, isocl;
 
     for row in rows do
@@ -43,4 +43,4 @@ InstallGlobalFunction(DetermineIsoclinicInTable, function(rows, order, exclude)
     PrintTo("Ip_rows.txt", rows, ";");
 
     return rows;
-end);
+end;
