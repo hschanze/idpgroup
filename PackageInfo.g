@@ -33,7 +33,7 @@ SourceRepository := rec(
     URL := "https://github.com/hschanze/idpgroup"
 ),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome := "https://github.com/hschanze/idpgroup/",
+PackageWWWHome := "https://hschanze.github.io/idpgroup/",
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
 ArchiveURL      := Concatenation( ~.SourceRepository.URL,
