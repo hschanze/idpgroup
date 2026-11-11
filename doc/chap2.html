@@ -135,6 +135,20 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; InfoId512</code></td><td class="tdright">(&nbsp;info class&nbsp;)</td></tr></table></div>
 <p>Info class for the identification routine of groups of order 512.</p>
 
+<p>The package installs a method for the attribute <code class="func">IdSmallGroup</code> (<a href="/home/henschan/gap-4.16.0/pkg/smallgrp/doc/chap1.html#X83044B9D7E3BDF35"><span class="RefLink">smallgrp: IdSmallGroup</span></a>) (a synonym of <code class="func">IdGroup</code> (<a href="/home/henschan/gap-4.16.0/pkg/smallgrp/doc/chap1.html#X83044B9D7E3BDF35"><span class="RefLink">smallgrp: IdGroup</span></a>)) of the SmallGroups library. For a group <span class="SimpleMath">G</span> of order 512 this method returns the pair <code class="code">[p^n,i]</code> such that <span class="SimpleMath">G</span> is isomorphic to <code class="code">SmallGroup(p^n,i)</code>. For all other groups, the methods of the SmallGroups library are used.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup(512, 606);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := Subgroup(G, SmallGeneratingSet(G));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IdGroup(H);</span>
+[512, 606]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">G := SmallGroup(512, 1405);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H := Subgroup(G, SmallGeneratingSet(G));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">IdSmallGroup(H);</span>
+[512, 1405]
+</pre></div>
+
 <p><a id="X81731B9A798C5985" name="X81731B9A798C5985"></a></p>
 
 <h5>2.1-2 IdGroup512</h5>
@@ -331,16 +345,18 @@
 
 <h5>2.3-3 CalculateStrongSiblings</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateStrongSiblings</code>( <var class="Arg">order</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CalculateStrongSiblings</code>( <var class="Arg">order</var>[, <var class="Arg">list</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: A list of lists of ids of groups of size <var class="Arg">order</var> that are strong siblings.</p>
 
-<p>First calculates all siblings of size <var class="Arg">order</var> via <code class="func">CalculateSiblings</code> (<a href="chap2.html#X7A81D24885DD46A1"><span class="RefLink">2.3-2</span></a>), and then determines all strong siblings among them.</p>
+<p>If no lists of siblings is given via <var class="Arg">list</var>, first calculate all siblings of size <var class="Arg">order</var> via <code class="func">CalculateSiblings</code> (<a href="chap2.html#X7A81D24885DD46A1"><span class="RefLink">2.3-2</span></a>), and then determines all strong siblings among them.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateStrongSiblings(256);</span>
 [ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],
   [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ]
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CalculateStrongSiblings(256, [[227, 228], [1734, 1735]]);</span>
+[ [1734, 1735 ] ]
 </pre></div>
 
 <p><a id="X7E8276BF79FDD898" name="X7E8276BF79FDD898"></a></p>
@@ -429,7 +445,7 @@
 <li><p><var class="Arg">"PCSId"</var>: the isomorphism types of the proper subgroups in the p-central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
 
 </li>
-<li><p><var class="Arg">"SpSubId"</var>: the isomorphismtypes of the Frattini subgroup, the terms in the #! upper and lower central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
+<li><p><var class="Arg">"SpSubId"</var>: the isomorphismtypes of the Frattini subgroup, the terms in the upper and lower central series of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
 
 </li>
 <li><p><var class="Arg">"MaxSubId"</var>: the collected isomorphism types of all maximal subgroups of <var class="Arg">G</var> via <code class="code">IdGroup</code>,</p>
@@ -453,14 +469,14 @@
 <li><p><var class="Arg">"CocList"</var>: the collected numbers of conjugacy classes of <var class="Arg">G</var> of same length and same representative order (the order of a representative),</p>
 
 </li>
-<li><p><var class="Arg">"PMCycSt"</var>: the cycle-structure of the permutation induced by the power map <span class="Math">x\mapsto x^3</span> on the collected conjugacy classes,</p>
+<li><p><var class="Arg">"PMCycSt"</var>: the cycle-structure of the permutation induced by a power map specified by <var class="Arg">opt.power</var> <span class="Math">x\mapsto x^n</span> on the collected conjugacy classes (default <span class="Math">n=3</span>),</p>
 
 </li>
 <li><p><var class="Arg">"fpfunc"</var>: Uses the function provided as <var class="Arg">opt.fpfunc</var>.</p>
 
 </li>
 </ul>
-<p>This function accepts a record <var class="Arg">opt</var> of options consisting of the boolean <var class="Arg">opt.pack</var>, that determines if the result of a test should be encoded as an integer, and <var class="Arg">opt.fpfunc</var> a costume function.</p>
+<p>This function accepts a record <var class="Arg">opt</var> of options consisting of the boolean <var class="Arg">opt.pack</var>, that determines if the result of a test should be encoded as an integer, <var class="Arg">opt.fpfunc</var> a costume function and <var class="Arg">opt.power</var> the power used in the test "PMCycSt".</p>
 
 
 <div class="example"><pre>
@@ -569,7 +585,7 @@ rec( fp := [ 88570, 4310, 63049 ], next := [ [ 1 ],
 <h5>2.4-7 CocTestOnClusterList</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CocTestOnClusterList</code>( <var class="Arg">CL</var>[, <var class="Arg">opt</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: A list of pairs each containing the path of the respective cluster and the subbranch resulting from <code class="code">CocSplitRoutine</code>.</p>
+<p>Returns: A list of pairs each containing the path of the respective cluster and the subbranch resulting from <code class="code">idpgrp_CocSplitRoutine</code>.</p>
 
 <p>Tries to split each cluster in <var class="Arg">CL</var> via tests on the lists of conjugacy classes. <var class="Arg">CL</var> must be a cluster list produced by <code class="func">ClusterList</code> (<a href="chap2.html#X7812E18678076D7B"><span class="RefLink">2.4-2</span></a>). This function accepts a record <var class="Arg">opt</var> of options with the following content:</p>
 

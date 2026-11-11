@@ -86,6 +86,23 @@
   
   [33X[0;0YInfo class for the identification routine of groups of order 512.[133X
   
+  [33X[0;0YThe  package  installs  a  method  for the attribute [2XIdSmallGroup[102X ([14Xsmallgrp:
+  IdSmallGroup[114X)  (a synonym of [2XIdGroup[102X ([14Xsmallgrp: IdGroup[114X)) of the SmallGroups
+  library.  For  a  group  [22XG[122X of order 512 this method returns the pair [10X[p^n,i][110X
+  such  that  [22XG[122X  is isomorphic to [10XSmallGroup(p^n,i)[110X. For all other groups, the
+  methods of the SmallGroups library are used.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XG := SmallGroup(512, 606);;[127X[104X
+    [4X[25Xgap>[125X [27XH := Subgroup(G, SmallGeneratingSet(G));;[127X[104X
+    [4X[25Xgap>[125X [27XIdGroup(H);[127X[104X
+    [4X[28X[512, 606][128X[104X
+    [4X[25Xgap>[125X [27XG := SmallGroup(512, 1405);;[127X[104X
+    [4X[25Xgap>[125X [27XH := Subgroup(G, SmallGeneratingSet(G));;[127X[104X
+    [4X[25Xgap>[125X [27XIdSmallGroup(H);[127X[104X
+    [4X[28X[512, 1405][128X[104X
+  [4X[32X[104X
+  
   [1X2.1-2 IdGroup512[101X
   
   [33X[1;0Y[29X[2XIdGroup512[102X( [3XG[103X[, [3Xopt[103X] ) [32X function[133X
@@ -262,17 +279,20 @@
   
   [1X2.3-3 CalculateStrongSiblings[101X
   
-  [33X[1;0Y[29X[2XCalculateStrongSiblings[102X( [3Xorder[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XCalculateStrongSiblings[102X( [3Xorder[103X[, [3Xlist[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA  list  of  lists  of ids of groups of size [3Xorder[103X that are strong
             siblings.[133X
   
-  [33X[0;0YFirst  calculates  all siblings of size [3Xorder[103X via [2XCalculateSiblings[102X ([14X2.3-2[114X),
-  and then determines all strong siblings among them.[133X
+  [33X[0;0YIf  no  lists of siblings is given via [3Xlist[103X, first calculate all siblings of
+  size  [3Xorder[103X  via  [2XCalculateSiblings[102X  ([14X2.3-2[114X), and then determines all strong
+  siblings among them.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XCalculateStrongSiblings(256);[127X[104X
     [4X[28X[ [ 1734, 1735 ], [ 1736, 1737 ], [ 1739, 1740 ], [ 1741, 1742 ], [ 3678, 3679 ],[128X[104X
     [4X[28X  [ 4154, 4157 ], [ 4155, 4158 ], [ 4156, 4159 ] ][128X[104X
+    [4X[25Xgap>[125X [27XCalculateStrongSiblings(256, [[227, 228], [1734, 1735]]);[127X[104X
+    [4X[28X[ [1734, 1735 ] ][128X[104X
   [4X[32X[104X
   
   
@@ -360,7 +380,7 @@
         p-central series of [3XG[103X via [10XIdGroup[110X,[133X
   
   [30X    [33X[0;6Y[3X"SpSubId"[103X: the isomorphismtypes of the Frattini subgroup, the terms in
-        the #! upper and lower central series of [3XG[103X via [10XIdGroup[110X,[133X
+        the upper and lower central series of [3XG[103X via [10XIdGroup[110X,[133X
   
   [30X    [33X[0;6Y[3X"MaxSubId"[103X:  the  collected isomorphism types of all maximal subgroups
         of [3XG[103X via [10XIdGroup[110X,[133X
@@ -384,14 +404,16 @@
   [30X    [33X[0;6Y[3X"CocList"[103X:  the  collected  numbers  of conjugacy classes of [3XG[103X of same
         length and same representative order (the order of a representative),[133X
   
-  [30X    [33X[0;6Y[3X"PMCycSt"[103X: the cycle-structure of the permutation induced by the power
-        map [23Xx\mapsto x^3[123X on the collected conjugacy classes,[133X
+  [30X    [33X[0;6Y[3X"PMCycSt"[103X:  the  cycle-structure of the permutation induced by a power
+        map  specified  by  [3Xopt.power[103X  [23Xx\mapsto x^n[123X on the collected conjugacy
+        classes (default [23Xn=3[123X),[133X
   
   [30X    [33X[0;6Y[3X"fpfunc"[103X: Uses the function provided as [3Xopt.fpfunc[103X.[133X
   
   [33X[0;0YThis  function  accepts  a  record  [3Xopt[103X of options consisting of the boolean
   [3Xopt.pack[103X,  that  determines  if the result of a test should be encoded as an
-  integer, and [3Xopt.fpfunc[103X a costume function.[133X
+  integer,  [3Xopt.fpfunc[103X  a costume function and [3Xopt.power[103X the power used in the
+  test "PMCycSt".[133X
   
   [4X[32X  Example  [32X[104X
     [4X[25Xgap>[125X [27XG := SmallGroup(512, 1405);;[127X[104X
@@ -502,7 +524,7 @@
   
   [33X[1;0Y[29X[2XCocTestOnClusterList[102X( [3XCL[103X[, [3Xopt[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10YA list of pairs each containing the path of the respective cluster
-            and the subbranch resulting from [10XCocSplitRoutine[110X.[133X
+            and the subbranch resulting from [10Xidpgrp_CocSplitRoutine[110X.[133X
   
   [33X[0;0YTries  to  split  each  cluster  in  [3XCL[103X  via tests on the lists of conjugacy
   classes.  [3XCL[103X  must  be  a cluster list produced by [2XClusterList[102X ([14X2.4-2[114X). This

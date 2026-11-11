@@ -23,18 +23,21 @@ needed-pkgs:
       version: "3.3.1"
       url: "https://gap-packages.github.io/anupq/"
 
-www: https://github.com/hschanze/idpgroup/
+www: https://hschanze.github.io/idpgroup/
 readme: README.md
-packageinfo: https://github.com/hschanze/idpgroup/PackageInfo.g
+packageinfo: https://hschanze.github.io/idpgroup/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/hschanze/idpgroup//IdPGroup-1.0.tar.gz
+      url: https://github.com/hschanze/idpgroup/releases/.tar.gz
 
 abstract: |
+    The <span class="pkgname">IdPGroup</span> package identifies the groups of order dividing 512  in the SmallGroups.
 
 doc-html: doc/chap0_mj.html
 doc-pdf: doc/manual.pdf
+keywords: |
+    group identification, IdGroup, IdSmallGroup, p-groups, groups of order 512, small groups library.
 citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>Sch26</span>]   <b class='BibAuthor'>Schanze, H.</b>,
@@ -42,7 +45,7 @@ citeas: |
              Version 1.0</i>
      (<span class='BibYear'>2026</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://github.com/hschanze/idpgroup/">https://github.com/hschanze/idpgroup/</a></span>.
+    <span class='BibHowpublished'><a href="https://hschanze.github.io/idpgroup/">https://hschanze.github.io/idpgroup/</a></span>.
     </p>
     
 
@@ -54,9 +57,11 @@ bibtex: |
       month =            {Aug},
       year =             {2026},
       note =             {GAP package},
-      howpublished =     {\href                              {https://github.com/hschanze/idpgroup/}
-                          {\texttt{https://github.com/}\discretionary
-                          {}{}{}\texttt{hschanze/}\discretionary {}{}{}\texttt{idpgroup/}}},
+      howpublished =     {\href                               {https://hschanze.github.io/idpgroup/}
+                          {\texttt{https://hschanze.github.io/}\discretionary
+                          {}{}{}\texttt{idpgroup/}}},
+      keywords =         {group  identification; IdGroup; IdSmallGroup; p\texttt{\symbol{45}}groups;
+                          groups of order 512; small groups library},
       printedkey =       {Sch26}
     }
 

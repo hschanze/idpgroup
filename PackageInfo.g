@@ -28,17 +28,21 @@ Persons := [
   ),
 ],
 
-SourceRepository := rec( Type := "git", URL := "https://github.com/hschanze/idpgroup" ),
+SourceRepository := rec( 
+    Type := "git", 
+    URL := "https://github.com/hschanze/idpgroup"
+),
 IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-PackageWWWHome := "https://github.com/hschanze/idpgroup/",
+PackageWWWHome := "https://hschanze.github.io/idpgroup/",
 PackageInfoURL := Concatenation( ~.PackageWWWHome, "PackageInfo.g" ),
 README_URL     := Concatenation( ~.PackageWWWHome, "README.md" ),
-ArchiveURL     := Concatenation( ~.PackageWWWHome,
-                                 "/", ~.PackageName, "-", ~.Version ),
+ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                 "/releases/"),#download/v", ~.Version, "/idpgroup-", ~.Version ),
 
 ArchiveFormats := ".tar.gz",
 
-AbstractHTML   :=  "",
+AbstractHTML   :=  "The <span class=\"pkgname\">IdPGroup</span> package identifies the \
+groups of order dividing 512  in the \SmallGroups.",
 
 PackageDoc := rec(
   BookName  := "IdPGroup",
@@ -67,7 +71,8 @@ AvailabilityTest := ReturnTrue,
 
 TestFile := "tst/testall.g",
 
-#Keywords := [ "TODO" ],
+Keywords := [ "group identification", "IdGroup", "IdSmallGroup",
+              "p-groups", "groups of order 512", "small groups library" ],
 
 ));
 
