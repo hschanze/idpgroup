@@ -8,7 +8,7 @@ Unpack `IdPGroup.tar.gz` in the `pkg`subdirectory of the GAP root directory.
 From with in GAP load the package with
 
 ```gap
-gap>LoadPackage("idpgroup")`.
+gap>LoadPackage("idpgroup").
 ```
 
 **Some functions of this package rely on the SmallGroups Library and the Anupq-Package. Thus having these installed is mandatory.**
@@ -45,8 +45,8 @@ Universitaetsplatz 2<br/>
 38106 Braunschweig<br/>
 Germany<br/>
 
-e-mail: henrik.schanze@tu-bs.de<br/>
-https://www.iaa.tu-bs.de/henschan
+E-mail: henrik.schanze@tu-bs.de<br/>
+Homepage: https://www.iaa.tu-bs.de/henschan
 
 ## License
 
