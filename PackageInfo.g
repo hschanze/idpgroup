@@ -43,7 +43,7 @@ ArchiveURL      := Concatenation( ~.SourceRepository.URL,
 ArchiveFormats := ".tar.gz",
 
 AbstractHTML   :=  "The <span class=\"pkgname\">IdPGroup</span> package identifies the \
-groups of order dividing 512  in the \SmallGroups.",
+groups of order dividing 512  in the SmallGroups.",
 
 PackageDoc := rec(
   BookName  := "IdPGroup",
