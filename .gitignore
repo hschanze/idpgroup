@@ -1,8 +1,4 @@
-/doc/chap*.html
-/doc/chap*.txt
-/doc/*.css
-/doc/*.js
-/doc/chooser.html
+# intermediate files of the manual (gap makedoc.g removes them)
 /doc/*.aux
 /doc/*.bbl
 /doc/*.blg
@@ -10,11 +6,21 @@
 /doc/*.idx
 /doc/*.ilg
 /doc/*.ind
-/doc/*.lab
 /doc/*.log
 /doc/*.out
 /doc/*.pnr
-/doc/*.six
 /doc/*.tex
 /doc/*.toc
-/doc/_*.xml
+/doc/*.xml
+/doc/*_mj.html
+# coverage data of the CI
+/coverage*
+/gaplint*
+# the manual itself (built by gap makedoc.g)
+/doc/chap*.html
+/doc/chap*.txt
+/doc/*.css
+/doc/*.js
+/doc/manual.lab
+/doc/manual.pdf
+/doc/manual.six
