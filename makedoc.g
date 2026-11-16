@@ -9,9 +9,10 @@ fi;
 
 
 AutoDoc(rec(
+        autodoc := true,
         scaffold := rec(
+            MainPage := true,
             bib := "bib.xml",
-            includes := [ "_AutoDocMainFile.xml"],
             entities := rec(SmallGrps := "<Package>SmallGrp</Package>",
                             Anupq := "<Package>Anupq</Package>",
                             ModIsom := "<Package>ModIsom</Package>",
