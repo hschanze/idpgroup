@@ -8,22 +8,14 @@ if fail = LoadPackage("AutoDoc", "2018.02.14") then
 fi;
 
 
-AutoDoc( rec( scaffold := rec(bib := "bib.xml"), autodoc := true ) );
-
-
-AutoDoc( rec(
-    gapdoc := rec(
-        LaTeXOptions := rec( EarlyExtraPreamble := """
-            \usepackage{a4wide}
-            \newcommand{\bbZ}{\mathbb{Z}}
-        """ )
-    ),
-    scaffold := rec(
-        bib := "bib.xml",
-        includes := [ "_AutoDocMainFile.xml"],
-        entities := rec(SmallGrps := "<Package>SmallGrps</Package>",
-                        Anupq := "<Package>Anupq</Package>",
-                        ModIsom := "<Package>ModIsom</Package>",
-                        XMod := "<Package>XMod</Package>")
+AutoDoc(rec(
+        scaffold := rec(
+            bib := "bib.xml",
+            includes := [ "_AutoDocMainFile.xml"],
+            entities := rec(SmallGrps := "<Package>SmallGrp</Package>",
+                            Anupq := "<Package>Anupq</Package>",
+                            ModIsom := "<Package>ModIsom</Package>",
+                            XMod := "<Package>XMod</Package>")
+        )
     )
-));
+);
